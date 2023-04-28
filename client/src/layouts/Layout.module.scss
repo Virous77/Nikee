@@ -1,0 +1,46 @@
+@import "../common/variables.scss";
+
+nav {
+  @include displayFlex;
+  padding: 0 2.8rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  img {
+    width: 70px;
+  }
+}
+
+.link-list {
+  @include displayCenter;
+  gap: 20px;
+
+  li {
+    cursor: pointer;
+    font-weight: 600;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.nav-action {
+  @include displayCenter;
+  gap: 18px;
+
+  button {
+    width: 32px;
+    height: 32px;
+    @include displayAllCenter;
+    border-radius: 100%;
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+}

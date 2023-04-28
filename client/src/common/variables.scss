@@ -1,0 +1,39 @@
+@mixin displayCenter {
+  display: flex;
+  align-items: center;
+}
+
+@mixin displayCol {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin displayFlex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin displayAllCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin padding-one {
+  padding: 1rem;
+}
+
+@mixin padding-two {
+  padding: 2rem;
+}
+
+@mixin padding-oneSideHalf {
+  padding: 2rem 1rem;
+}
+
+@mixin buttonMain {
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-size: var(--fourth-font-size);
+}
