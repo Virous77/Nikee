@@ -1,0 +1,49 @@
+.modal-main {
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  position: fixed;
+  z-index: 121;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  width: 700px;
+  min-height: fit-content;
+  padding: 2rem;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 97%;
+    padding: 2rem 1rem;
+  }
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.search-model {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 120;
+  height: 60vh;
+  background-color: var(--background-color);
+}
+
+@media (max-width: 992px) {
+  .search-model {
+    height: 100vh;
+  }
+}

@@ -30,7 +30,8 @@ nav {
 
 .nav-action {
   @include displayCenter;
-  gap: 18px;
+  gap: 15px;
+  justify-content: flex-end;
 
   button {
     width: 32px;
@@ -41,6 +42,60 @@ nav {
 
     &:hover {
       background-color: var(--card-color);
+    }
+  }
+
+  .m-search {
+    display: none;
+  }
+}
+
+.m-menu {
+  display: none;
+}
+
+.menu {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .link-list {
+    display: none;
+  }
+
+  .menu {
+    display: flex;
+  }
+
+  .m-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-action-main {
+    display: none;
+  }
+
+  .nav-action {
+    .fav {
+      display: none;
+    }
+
+    .m-search {
+      display: flex;
+    }
+  }
+
+  nav {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .logo {
+    img {
+      margin-left: -10px;
     }
   }
 }
