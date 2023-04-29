@@ -13,7 +13,7 @@ const Navbar = () => {
   const { state, setState } = useGlobalContext();
 
   return (
-    <header>
+    <header className={styles["header"]}>
       <Header />
       <nav>
         <div className={styles["logo"]}>
