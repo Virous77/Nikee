@@ -3,9 +3,10 @@ import { createError } from "../utils/utility.js";
 import bcrypt from "bcrypt";
 
 export const createUser = async (req, res, next) => {
-  const { name, email, image, about, password } = req.body;
+  const { name, email, image, about, password, birth, gender, country } =
+    req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !birth || !gender || !country) {
     return next(createError({ status: 400, message: "Fields can't be empty" }));
   }
 
@@ -18,6 +19,9 @@ export const createUser = async (req, res, next) => {
     image,
     about,
     password: hash,
+    birth,
+    gender,
+    country,
   };
 
   const newUser = new User(userData);
