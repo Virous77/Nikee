@@ -4,6 +4,8 @@ import { useMutation } from "react-query";
 import { createData, loginUser } from "../api/api";
 import { stateType } from "../types/type";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "./GlobalContext";
+import { AppError } from "../interfaces/interface";
 
 const stateInitialValue = {
   name: "",
@@ -34,6 +36,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [registerData, setRegisterData] = useState(stateInitialValue);
   const [validate, setValidate] = useState(false);
   const navigate = useNavigate();
+  const { handleSetNotification } = useGlobalContext();
 
   ////Mutation
   const { mutate, isLoading } = useMutation({
@@ -41,6 +44,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       return createData({ userData: data, endpoints: "/user" });
     },
     onSuccess: () => navigate("/login"),
+    onError: ({ data }: AppError) => {
+      if (!data) return;
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
   });
 
   const { mutate: loginMutate, isLoading: loginLoading } = useMutation({
@@ -50,6 +57,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     onSuccess: (data) => {
       navigate("/");
       localStorage.setItem("nike", JSON.stringify(data._id));
+    },
+    onError: ({ data }: AppError) => {
+      if (!data) return;
+      handleSetNotification({ message: data?.message, status: "error" });
     },
   });
 
@@ -62,7 +73,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   //submission
   const handleRegisterUser = () => {
     const { name, email, about, password, birth, gender } = registerData;
-    if (!name || !email || !about || !password || !birth || gender) {
+    if (!name || !email || !about || !password || !birth || !gender) {
       return setValidate(true);
     }
     setValidate(false);

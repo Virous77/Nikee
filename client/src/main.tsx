@@ -7,6 +7,7 @@ import { SearchContextProvider } from "./store/searchContext.tsx";
 import { AuthContextProvider } from "./store/authContext.tsx";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { GlobalContextProvider } from "./store/GlobalContext.tsx";
 
 const client = new QueryClient();
 
@@ -14,12 +15,14 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={client}>
-        <SearchContextProvider>
-          <AuthContextProvider>
-            <App />
-            <ReactQueryDevtools />
-          </AuthContextProvider>
-        </SearchContextProvider>
+        <GlobalContextProvider>
+          <SearchContextProvider>
+            <AuthContextProvider>
+              <App />
+              <ReactQueryDevtools />
+            </AuthContextProvider>
+          </SearchContextProvider>
+        </GlobalContextProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>

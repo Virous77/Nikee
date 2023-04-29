@@ -46,4 +46,26 @@
   .search-model {
     height: 100vh;
   }
+
+  .mobile {
+    width: 60%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 120;
+    height: 100vh;
+    overflow: scroll;
+    background-color: var(--background-color);
+  }
+
+  .mobile::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .mobile {
+    width: 80%;
+  }
 }

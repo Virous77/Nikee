@@ -1,0 +1,61 @@
+@import "../common/variables.scss";
+
+.mobiles {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .mobiles {
+    display: block;
+    padding: 1.5rem;
+    width: 100%;
+    position: relative;
+    height: 100vh;
+
+    ul {
+      @include displayCol;
+      gap: 15px;
+    }
+
+    li {
+      font-size: var(--third-font-size);
+      font-weight: 500;
+      width: fit-content;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .close {
+    text-align: end;
+    margin-bottom: 10px;
+    margin-right: -4px;
+  }
+
+  .mobile-auth {
+    position: absolute;
+    bottom: 5% !important;
+    width: 100%;
+    left: 50%;
+    @include displayCenter;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    gap: 2rem;
+
+    button {
+      padding: 10px 30px;
+      border-radius: 30px;
+      font-size: var(--fourth-font-size);
+      font-weight: 500;
+      background-color: transparent;
+      border: 1.5px solid var(--main-font-color);
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}

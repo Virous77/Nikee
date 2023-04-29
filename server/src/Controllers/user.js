@@ -24,6 +24,12 @@ export const createUser = async (req, res, next) => {
     country,
   };
 
+  const user = await User.findOne({ email });
+
+  if (user) {
+    return next(createError({ status: 400, message: "User already exists" }));
+  }
+
   const newUser = new User(userData);
   await newUser.save();
 

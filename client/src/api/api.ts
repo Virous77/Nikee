@@ -18,7 +18,6 @@ export const createData = async ({ userData, endpoints }: createDataType) => {
 };
 
 export const loginUser = async ({ userData, endpoints }: createDataType) => {
-  console.log(userData, endpoints);
   try {
     const { data } = await axios.post(`${url}${endpoints}`, userData);
     return data;
