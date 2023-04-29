@@ -4,10 +4,12 @@ import NavLink from "./NavLink";
 import NavAction from "./NavAction";
 import { Link } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
+import Header from "./Header";
 
 const Navbar = () => {
   return (
     <header>
+      <Header />
       <nav>
         <div className={styles["logo"]}>
           <Link to={"/"}>

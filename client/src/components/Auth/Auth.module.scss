@@ -1,0 +1,139 @@
+@import "../../common/variables.scss";
+
+.register {
+  @include displayAllCenter;
+}
+
+.register-wrap {
+  width: 350px;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.auth-header {
+  @include displayAllCenter;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  img {
+    width: 80px;
+    height: 40px;
+    object-fit: cover;
+  }
+
+  h1 {
+    font-size: var(--primary-font-size);
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+    opacity: 0.7;
+    font-size: var(--small-font-size);
+  }
+}
+
+.register-form-main {
+  margin-top: 1.5rem;
+
+  form {
+    @include displayCol;
+    gap: 12px;
+    width: 100%;
+  }
+
+  p {
+    font-size: 12px;
+    color: red;
+    opacity: 0.8;
+    margin-top: 2px;
+  }
+
+  fieldset {
+    width: 100%;
+    border: none;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    font-size: var(--small-font-size);
+    opacity: 0.8;
+    border: 1px solid var(--card-color);
+    border-radius: 3px;
+
+    &:focus {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+
+  select {
+    width: 100%;
+    padding: 8px 2px;
+    opacity: 0.8;
+    border: 1px solid var(--card-color);
+    outline: none;
+  }
+
+  .gender {
+    width: 100%;
+    @include displayCenter;
+    justify-content: space-between;
+    gap: 10px;
+
+    .button {
+      padding: 10px 0;
+      width: 100%;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      @include displayAllCenter;
+      gap: 2px;
+    }
+
+    .active-button {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+
+  .submit-form {
+    margin-top: 1.5rem;
+    padding: 10px;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .date-main {
+    position: relative;
+  }
+
+  .date {
+    position: absolute;
+    right: 3%;
+    top: 28%;
+  }
+
+  .member {
+    text-align: center;
+    font-size: var(--small-font-size);
+    opacity: 0.8;
+
+    a {
+      font-weight: 600;
+      color: var(--main-font-color);
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  .register-wrap {
+    width: 100%;
+    padding: 0 1rem;
+    padding-bottom: 2rem;
+  }
+}

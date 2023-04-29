@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.post("/user", createUser);
-router.get("/user", loginUser);
+router.post("/user/login", loginUser);
 router.put("/user/:id", updateUser);
 router.put("/user/change-pass/:id", changePassword);
 

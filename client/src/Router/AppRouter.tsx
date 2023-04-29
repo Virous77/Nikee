@@ -9,6 +9,9 @@ import {
   FeaturePage,
   FavPage,
   CartPage,
+  LoginPage,
+  RegisterPage,
+  ErrorPage,
 } from "../pages/index";
 
 const AppRouter = () => {
@@ -19,11 +22,14 @@ const AppRouter = () => {
         <Route path="/men" element={<MenPage />} />
         <Route path="/women" element={<WomenPage />} />
         <Route path="/kids" element={<KidsPage />} />
-        <Route path="/sales" element={<SalePage />} />
-        <Route path="/feature" element={<FeaturePage />} />
+        <Route path="/sale" element={<SalePage />} />
+        <Route path="/featured" element={<FeaturePage />} />
         <Route path="/sneakers" element={<SneakersPage />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/av" element={<FavPage />} />
+        <Route path="/fav" element={<FavPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );

@@ -7,3 +7,6 @@ export { default as SneakersPage } from "./SneakersPage";
 export { default as SalePage } from "./SalePage";
 export { default as FavPage } from "./FavPage";
 export { default as CartPage } from "./CartPage";
+export { default as LoginPage } from "./LoginPage";
+export { default as RegisterPage } from "./RegisterPage";
+export { default as ErrorPage } from "./ErrorPage";
