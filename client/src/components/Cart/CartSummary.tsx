@@ -4,9 +4,11 @@ import {
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CartSummary = () => {
   const [showPromo, setShowPromo] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section className={styles["order-summary"]}>
@@ -58,7 +60,12 @@ const CartSummary = () => {
         <hr />
 
         <div className={styles["cart-checkout"]}>
-          <button className={styles["checkout-button"]}>Checkout</button>
+          <button
+            className={styles["checkout-button"]}
+            onClick={() => navigate("/checkout")}
+          >
+            Checkout
+          </button>
         </div>
       </div>
     </section>

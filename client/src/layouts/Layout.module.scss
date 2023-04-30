@@ -123,3 +123,30 @@ nav {
     }
   }
 }
+
+footer {
+  padding: 1rem 3rem;
+  @include displayFlex;
+  background-color: var(--main-font-color);
+  margin-top: 1rem;
+  color: var(--background-color);
+}
+
+.social {
+  @include displayCenter;
+  gap: 1.5rem;
+}
+
+.social a {
+  color: var(--background-color);
+
+  &::hover {
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 968px) {
+  footer {
+    padding: 1rem;
+  }
+}

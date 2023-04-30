@@ -1,0 +1,81 @@
+@import "../../../common/variables.scss";
+
+.checkout-header {
+  @include displayFlex;
+  padding: 0 2rem;
+
+  img {
+    width: 70px;
+    height: 60px;
+    object-fit: cover;
+  }
+}
+
+.checkout-content {
+  max-width: 1120px;
+  padding: 0 2rem;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.checkout-address {
+  h2 {
+    font-weight: 600;
+  }
+}
+
+.address-card {
+  margin-top: 1.5rem;
+}
+
+.address-type {
+  width: fit-content;
+  padding: 8px 15px;
+  background-color: var(--card-color);
+  @include displayCenter;
+  gap: 18px;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-form {
+  @include displayCol;
+  gap: 18px;
+
+  fieldset {
+    border: none;
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid var(--card-color);
+    font-size: var(--fourth-font-size);
+
+    &:focus {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+}
+
+.flat-form {
+  @include displayFlex;
+  gap: 14px;
+}
+
+.address-button {
+  text-align: end;
+
+  button {
+    @include buttonMain;
+    border-radius: 30px;
+    margin-top: 1rem;
+    background-color: var(--main-font-color);
+    color: var(--card-color);
+  }
+}
