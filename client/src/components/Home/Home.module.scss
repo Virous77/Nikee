@@ -244,3 +244,88 @@
     }
   }
 }
+
+@media (max-width: 992px) {
+  .home-wrap {
+    padding: 0 1rem;
+  }
+
+  .hero-about {
+    width: 460px;
+    h1 {
+      font-size: 40px;
+    }
+  }
+
+  .popular-head {
+    padding: 0 1rem;
+  }
+
+  .home-iconic {
+    h2 {
+      padding-left: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .home-type-wrap {
+    flex-direction: column;
+  }
+
+  .hero-about {
+    width: 300px;
+    h1 {
+      font-size: 30px;
+    }
+
+    p {
+      font-size: var(--small-font-size);
+    }
+  }
+
+  .hero-shoes-about {
+    h1 {
+      font-size: 35px;
+    }
+
+    p {
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  .hero-about {
+    position: unset;
+    width: 80%;
+    color: black;
+    margin-top: 1rem;
+  }
+
+  .shop-home-button {
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+  }
+
+  .iconic-wrap {
+    img {
+      width: 300px;
+      height: 250px;
+    }
+  }
+
+  .popular-wrap {
+    .popular-sub {
+      width: 320px;
+      height: 270px;
+    }
+  }
+
+  .hero-shoes-about {
+    p {
+      font-size: var(--small-font-size);
+      width: 80%;
+      margin: auto;
+    }
+  }
+}

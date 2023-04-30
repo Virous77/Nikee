@@ -133,3 +133,26 @@ export const popularShoes = [
     Image: popular9,
   },
 ];
+
+export const cartItem = [
+  {
+    id: 1,
+    name: "Air Jordan 1 Mid SE",
+    color: "white/black",
+    Size: "M 13",
+    Quantity: 1,
+    price: 135,
+    image: popular1,
+    category: "men's shoes",
+  },
+  {
+    id: 2,
+    name: "Air Jordan 1 Mid SE",
+    color: "white/black",
+    Size: "M 13",
+    Quantity: 1,
+    price: 135,
+    image: popular1,
+    category: "women's shoes",
+  },
+];
