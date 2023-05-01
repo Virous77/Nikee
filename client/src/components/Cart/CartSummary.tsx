@@ -5,6 +5,7 @@ import {
 } from "react-icons/md";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PriceSummaryCard from "./PriceSummaryCard";
 
 const CartSummary = () => {
   const [showPromo, setShowPromo] = useState(false);
@@ -40,25 +41,7 @@ const CartSummary = () => {
             <button>Apply</button>
           </div>
         </div>
-
-        <div className={styles["summary-price"]}>
-          <div className={styles["flat-details"]}>
-            <p>Subtotal</p>
-            <span>$1,315.00</span>
-          </div>
-          <div className={styles["flat-details"]}>
-            <p>Shipping and Handling</p>
-            <span>$7.00</span>
-          </div>
-        </div>
-
-        <hr />
-        <div className={styles["cart-total"]}>
-          <p>Total</p>
-          <b>$1,322.00</b>
-        </div>
-        <hr />
-
+        <PriceSummaryCard show="active" />
         <div className={styles["cart-checkout"]}>
           <button
             className={styles["checkout-button"]}

@@ -79,3 +79,46 @@
     color: var(--card-color);
   }
 }
+
+.checkout-summary-head {
+  @include displayFlex;
+  margin-bottom: 1.2rem;
+
+  h2 {
+    font-weight: 600;
+  }
+}
+
+.checkout-product {
+  margin-top: 2rem;
+
+  h3 {
+    font-weight: 600;
+  }
+}
+
+.product-list {
+  margin-top: 1rem;
+  @include displayCol;
+  gap: 20px;
+}
+
+.list-sub {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  img {
+    width: 70px;
+    height: 50px;
+  }
+
+  p {
+    font-weight: 500;
+  }
+
+  span {
+    font-size: 15px;
+    opacity: 0.8;
+  }
+}
