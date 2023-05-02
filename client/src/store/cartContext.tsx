@@ -1,20 +1,25 @@
 import React, { createContext, useContext, useState } from "react";
 import { CartState, AddressType, CartStateType } from "../types/type";
+import { createData } from "../api/api";
+import { useMutation } from "react-query";
+import { getLocalData } from "../utils/data";
+import { AppError } from "../interfaces/interface";
+import { useGlobalContext } from "./GlobalContext";
 
 const initialState: CartStateType = {
   cart: [],
   setCartContext: () => {},
-  address: {} as AddressType,
-  setAddress: () => {},
+  addressData: {} as AddressType,
+  setAddressData: () => {},
   handleChange: () => {},
   handleAddressSubmit: () => {},
+  isLoading: false,
 };
 
 const addressInitialState = {
   addressType: "",
-  firstName: "",
-  lastName: "",
-  fullAddress: "",
+  address: "",
+  landmark: "",
   city: "",
   state: "",
   postalCode: "",
@@ -28,15 +33,35 @@ export const CartContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [cart, setCart] = useState<CartState[]>([]);
-  const [address, setAddress] = useState<AddressType>(addressInitialState);
+  const [addressData, setAddressData] =
+    useState<AddressType>(addressInitialState);
+  const { handleSetNotification } = useGlobalContext();
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (data: AddressType) => {
+      return createData({ userData: data, endpoints: "/address" });
+    },
+    onError: ({ data }: AppError) => {
+      if (!data) return;
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
+    onSuccess: () => {
+      setAddressData(addressInitialState);
+    },
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAddress({ ...address, [name]: value });
+    setAddressData({ ...addressData, [name]: value });
   };
 
   const handleAddressSubmit = () => {
-    console.log(address);
+    const id = getLocalData("nike");
+    const data = {
+      ...addressData,
+      userId: id,
+    };
+    mutate(data);
   };
 
   return (
@@ -44,10 +69,11 @@ export const CartContextProvider = ({
       value={{
         cart,
         setCartContext: setCart,
-        setAddress,
-        address,
+        setAddressData,
+        addressData,
         handleChange,
         handleAddressSubmit,
+        isLoading,
       }}
     >
       {children}

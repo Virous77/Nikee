@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import UserRouter from "./src/Routes/user.js";
 import PaymentRouter from "./src/Routes/Payment.js";
+import AddressRouter from "./src/Routes/Address.js";
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,7 @@ app.use(cookieParser());
 
 app.use("/api/v1", UserRouter);
 app.use("/api/v1", PaymentRouter);
+app.use("/api/v1", AddressRouter);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

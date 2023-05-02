@@ -3,7 +3,7 @@ import CheckoutForm from "./CheckoutForm";
 import { useCart } from "../../../store/cartContext";
 
 const CheckoutAddress = () => {
-  const { address, setAddress } = useCart();
+  const { addressData, setAddressData } = useCart();
 
   return (
     <section className={styles["checkout-address"]}>
@@ -11,11 +11,17 @@ const CheckoutAddress = () => {
 
       <div className={styles["address-card"]}>
         <div className={styles["address-type"]}>
-          <span onClick={() => setAddress({ ...address, addressType: "home" })}>
+          <span
+            onClick={() =>
+              setAddressData({ ...addressData, addressType: "home" })
+            }
+          >
             Home
           </span>
           <span
-            onClick={() => setAddress({ ...address, addressType: "office" })}
+            onClick={() =>
+              setAddressData({ ...addressData, addressType: "office" })
+            }
           >
             Office
           </span>

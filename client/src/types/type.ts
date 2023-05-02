@@ -37,19 +37,19 @@ export type CartState = {
 
 export type AddressType = {
   addressType: string;
-  firstName: string;
-  lastName: string;
-  fullAddress: string;
+  address: string;
   city: string;
   state: string;
   postalCode: string;
+  landmark: string;
 };
 
 export type CartStateType = {
   cart: CartState[];
   setCartContext: React.Dispatch<React.SetStateAction<CartState[]>>;
-  address: AddressType;
-  setAddress: React.Dispatch<React.SetStateAction<AddressType>>;
+  addressData: AddressType;
+  setAddressData: React.Dispatch<React.SetStateAction<AddressType>>;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleAddressSubmit: () => void;
+  isLoading: boolean;
 };

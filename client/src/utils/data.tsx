@@ -156,3 +156,8 @@ export const cartItem = [
     category: "women's shoes",
   },
 ];
+
+export const getLocalData = (name: string) => {
+  const localData = localStorage.getItem(name);
+  return localData ? JSON.parse(localData) : null;
+};
