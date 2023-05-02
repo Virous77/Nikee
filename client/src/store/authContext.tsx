@@ -43,7 +43,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     mutationFn: (data: stateType) => {
       return createData({ userData: data, endpoints: "/user" });
     },
-    onSuccess: () => navigate("/login"),
+    onSuccess: () => {
+      navigate("/login");
+      setRegisterData(stateInitialValue);
+    },
     onError: ({ data }: AppError) => {
       if (!data) return;
       handleSetNotification({ message: data?.message, status: "error" });
@@ -57,6 +60,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     onSuccess: (data) => {
       navigate("/");
       localStorage.setItem("nike", JSON.stringify(data._id));
+      setRegisterData(stateInitialValue);
     },
     onError: ({ data }: AppError) => {
       if (!data) return;

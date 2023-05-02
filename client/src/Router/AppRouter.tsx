@@ -13,6 +13,7 @@ import {
   RegisterPage,
   ErrorPage,
   CheckoutPage,
+  ProfilePage,
 } from "../pages/index";
 
 const AppRouter = () => {
@@ -30,6 +31,7 @@ const AppRouter = () => {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/fav" element={<FavPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile/:name" element={<ProfilePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

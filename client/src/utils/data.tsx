@@ -44,6 +44,20 @@ export const navLinks = [
   { id: 6, name: "SNKRS", link: "/sneakers" },
 ];
 
+const mobileNavlinks = [
+  ...navLinks,
+  {
+    id: 18,
+    name: "Kids",
+    link: "/kids",
+  },
+  {
+    id: 20,
+    name: "Sale",
+    link: "/sale",
+  },
+];
+
 export const iconicShoes = [
   {
     id: 1,
