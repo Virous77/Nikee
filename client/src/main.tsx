@@ -8,6 +8,7 @@ import { AuthContextProvider } from "./store/authContext.tsx";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { GlobalContextProvider } from "./store/GlobalContext.tsx";
+import { CartContextProvider } from "./store/cartContext.tsx";
 
 const client = new QueryClient();
 
@@ -18,7 +19,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <GlobalContextProvider>
           <SearchContextProvider>
             <AuthContextProvider>
-              <App />
+              <CartContextProvider>
+                <App />
+              </CartContextProvider>
               <ReactQueryDevtools />
             </AuthContextProvider>
           </SearchContextProvider>

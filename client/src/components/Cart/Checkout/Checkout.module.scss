@@ -87,6 +87,11 @@
   h2 {
     font-weight: 600;
   }
+
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 .checkout-product {
@@ -120,5 +125,20 @@
   span {
     font-size: 15px;
     opacity: 0.8;
+  }
+}
+
+@media (max-width: 992px) {
+  .checkout-content {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .showItem {
+    display: block;
+  }
+
+  .hideItem {
+    display: none;
   }
 }

@@ -25,3 +25,31 @@ export type loginType = {
   email: string;
   password: string;
 };
+
+export type CartState = {
+  _id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  category: string;
+  size: string;
+};
+
+export type AddressType = {
+  addressType: string;
+  firstName: string;
+  lastName: string;
+  fullAddress: string;
+  city: string;
+  state: string;
+  postalCode: string;
+};
+
+export type CartStateType = {
+  cart: CartState[];
+  setCartContext: React.Dispatch<React.SetStateAction<CartState[]>>;
+  address: AddressType;
+  setAddress: React.Dispatch<React.SetStateAction<AddressType>>;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleAddressSubmit: () => void;
+};
