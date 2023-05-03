@@ -116,3 +116,15 @@ export const changePassword = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUser = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const user = await User.findById(id).select("-password");
+    if (!user)
+      return next(createError({ status: 400, message: "User no exists" }));
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};

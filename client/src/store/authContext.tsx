@@ -6,6 +6,10 @@ import { stateType } from "../types/type";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "./GlobalContext";
 import { AppError } from "../interfaces/interface";
+import { useQuery } from "react-query";
+import { getData } from "../api/api";
+import { getLocalData } from "../utils/data";
+import { User } from "../interfaces/interface";
 
 const stateInitialValue = {
   name: "",
@@ -61,10 +65,22 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       navigate("/");
       localStorage.setItem("nike", JSON.stringify(data._id));
       setRegisterData(stateInitialValue);
+      refetch();
     },
     onError: ({ data }: AppError) => {
       if (!data) return;
       handleSetNotification({ message: data?.message, status: "error" });
+    },
+  });
+
+  //query
+  const { data: UserData, refetch } = useQuery<User>(["user"], {
+    queryFn: async (): Promise<User> => {
+      const id = getLocalData("nike");
+      if (id) {
+        return await getData(`/user/${id}`);
+      }
+      throw new Error("User ID not found");
     },
   });
 
@@ -112,6 +128,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         stateInitialValue,
         loginLoading,
         handleLogin,
+        UserData,
       }}
     >
       {children}

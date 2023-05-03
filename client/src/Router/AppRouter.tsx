@@ -16,6 +16,7 @@ import {
   ProfilePage,
 } from "../pages/index";
 import PrivateRoutes from "../components/PrivateRoutes/PrivateRoutes";
+import PreventOnLogin from "../components/PrivateRoutes/PrventonLogin";
 
 const AppRouter = () => {
   return (
@@ -45,16 +46,30 @@ const AppRouter = () => {
             </PrivateRoutes>
           }
         />
-        <Route path="/login" element={<LoginPage />} />
         <Route
-          path="/profile/:name"
+          path="/login"
+          element={
+            <PreventOnLogin>
+              <LoginPage />
+            </PreventOnLogin>
+          }
+        />
+        <Route
+          path="/profile/*"
           element={
             <PrivateRoutes>
               <ProfilePage />
             </PrivateRoutes>
           }
         />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/register"
+          element={
+            <PreventOnLogin>
+              <RegisterPage />
+            </PreventOnLogin>
+          }
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

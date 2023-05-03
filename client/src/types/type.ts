@@ -1,3 +1,4 @@
+import { User } from "../interfaces/interface";
 export type stateType = {
   name: string;
   email: string;
@@ -19,6 +20,7 @@ export type AuthContextType = {
   stateInitialValue: stateType;
   loginLoading: boolean;
   handleLogin: () => void;
+  UserData?: User;
 };
 
 export type loginType = {

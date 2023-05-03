@@ -8,3 +8,15 @@ export interface apiError {
 export interface AppError {
   data: apiError;
 }
+
+export interface User {
+  _id: string;
+  name: string;
+  about: string;
+  birth: string;
+  country: string;
+  email: string;
+  gender: string;
+  image: string;
+  createdAt: string;
+}

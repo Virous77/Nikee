@@ -1,10 +1,13 @@
 import styles from "./Layout.module.scss";
 import { useNavigate } from "react-router-dom";
 import { getLocalData } from "../utils/data";
+import { useAuthContext } from "../store/authContext";
 
 const Header = () => {
   const navigate = useNavigate();
   const id = getLocalData("nike");
+  const { UserData } = useAuthContext();
+  const makeUserName = UserData?.name.split(" ").join("-");
 
   const handleLogout = () => {
     localStorage.removeItem("nike");
@@ -15,7 +18,9 @@ const Header = () => {
     <header className={styles["auth-header"]}>
       {id ? (
         <div className={styles["header-auth"]}>
-          <span onClick={() => navigate("/profile")}>Profile</span>
+          <span onClick={() => navigate(`/profile/${makeUserName}`)}>
+            Your Account
+          </span>
           <span>|</span>
           <span onClick={handleLogout}>Logout</span>
         </div>

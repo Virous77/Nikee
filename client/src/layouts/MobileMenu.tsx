@@ -4,6 +4,7 @@ import styles from "./Mobilemenu.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../store/GlobalContext";
 import { getLocalData } from "../utils/data";
+import { useAuthContext } from "../store/authContext";
 
 type MobileNavlinksType = {
   id: number;
@@ -15,6 +16,8 @@ const MobileMenu = () => {
   const navigate = useNavigate();
   const { state, setState } = useGlobalContext();
   const user = getLocalData("nike");
+  const { UserData } = useAuthContext();
+  const makeUserName = UserData?.name.split(" ").join("-");
 
   const handleNavigation = (nav: MobileNavlinksType) => {
     navigate(nav.link);
@@ -43,12 +46,12 @@ const MobileMenu = () => {
         <div className={styles["mobile-auth"]}>
           <button
             onClick={() => {
-              navigate(`/profile/${user}`);
+              navigate(`/profile/${makeUserName}`);
               setState({ ...state, show: false });
             }}
             style={{ background: "black", color: "white" }}
           >
-            Profile
+            Your Account
           </button>
           <button
             onClick={() => {

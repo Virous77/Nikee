@@ -25,3 +25,12 @@ export const loginUser = async ({ userData, endpoints }: createDataType) => {
     throw error.response || error.response.message;
   }
 };
+
+export const getData = async (endpoints: string) => {
+  try {
+    const { data } = await axios.get(`${url}${endpoints}`);
+    return data;
+  } catch (error: any) {
+    throw error.response || error.response.message;
+  }
+};
