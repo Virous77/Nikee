@@ -15,6 +15,13 @@ import popular7 from "../assets/asset18.jpeg";
 import popular8 from "../assets/asset19.jpeg";
 import popular9 from "../assets/asset20.jpeg";
 
+export const getLocalData = (name: string) => {
+  const localData = localStorage.getItem(name);
+  return localData ? JSON.parse(localData) : null;
+};
+
+const user = getLocalData("nike");
+
 export const navLinks = [
   {
     id: 1,
@@ -42,20 +49,6 @@ export const navLinks = [
     link: "/sale",
   },
   { id: 6, name: "SNKRS", link: "/sneakers" },
-];
-
-const mobileNavlinks = [
-  ...navLinks,
-  {
-    id: 18,
-    name: "Kids",
-    link: "/kids",
-  },
-  {
-    id: 20,
-    name: "Sale",
-    link: "/sale",
-  },
 ];
 
 export const iconicShoes = [
@@ -170,8 +163,3 @@ export const cartItem = [
     category: "women's shoes",
   },
 ];
-
-export const getLocalData = (name: string) => {
-  const localData = localStorage.getItem(name);
-  return localData ? JSON.parse(localData) : null;
-};
