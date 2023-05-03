@@ -1,7 +1,5 @@
 import Address from "../Models/Address.js";
 import { createError } from "../utils/utility.js";
-import User from "../Models/User.js";
-
 export const createAddress = async (req, res, next) => {
   const { address, landmark, addressType, state, city, postalCode, userId } =
     req.body;
@@ -34,6 +32,18 @@ export const createAddress = async (req, res, next) => {
     const newAddress = new Address(req.body);
     await newAddress.save();
     res.status(201).json(newAddress);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAddress = async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    const user = await Address.findOne({ userId: id });
+    if (!user) next(createError({ status: 400, message: "User not exists" }));
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }

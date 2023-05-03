@@ -163,3 +163,18 @@ export const cartItem = [
     category: "women's shoes",
   },
 ];
+
+export const month = [
+  "Jan",
+  "Feb",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
