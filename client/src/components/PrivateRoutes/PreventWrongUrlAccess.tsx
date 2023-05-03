@@ -7,6 +7,8 @@ const PreventWrongUrlAccess = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
   const makeUserName = UserData?.name.split(" ").join("-");
 
+  if (!makeUserName) return <p></p>;
+
   if (
     pathname === `/profile/${makeUserName}` ||
     pathname === `/profile/${makeUserName}/address`
