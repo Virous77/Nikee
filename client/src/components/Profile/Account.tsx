@@ -6,9 +6,14 @@ import { FaBirthdayCake } from "react-icons/fa";
 import { SiKnowledgebase } from "react-icons/si";
 import { BiWorld } from "react-icons/bi";
 import { month } from "../../utils/data";
+import EditProfile from "./EditProfile";
+import { useState } from "react";
+import { User } from "../../interfaces/interface";
+import { Modal } from "../Modal/Modal";
 
 const Account = () => {
   const { UserData } = useAuthContext();
+  const [userEditData, setUserEditData] = useState<User | undefined>(undefined);
 
   const formatDate = (date: string | undefined) => {
     const splitDate = date?.split("-");
@@ -23,6 +28,7 @@ const Account = () => {
       <div className={styles["account-wrap"]}>
         <div className={styles["account-user"]}>
           <img src={UserData?.image || logo} alt={UserData?.name} />
+          <p onClick={() => setUserEditData(UserData)}>Edit Profile</p>
         </div>
 
         <div className={styles["account-details"]}>
@@ -41,6 +47,12 @@ const Account = () => {
           </span>
         </div>
       </div>
+
+      {userEditData && (
+        <Modal isOpen="isOpen" onClose={() => setUserEditData(undefined)}>
+          <EditProfile onClose={() => setUserEditData(undefined)} />
+        </Modal>
+      )}
     </section>
   );
 };

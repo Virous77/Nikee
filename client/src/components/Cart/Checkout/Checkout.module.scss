@@ -33,12 +33,10 @@
 
 .address-type {
   width: fit-content;
-  padding: 8px 15px;
   background-color: var(--card-color);
   @include displayCenter;
-  gap: 18px;
-  border-radius: 20px;
   margin-bottom: 1.5rem;
+  border-radius: 20px;
 }
 
 .checkout-form {
@@ -189,4 +187,21 @@
   .checkout-product {
     margin-top: 1.2rem;
   }
+}
+
+.active-tab {
+  cursor: pointer;
+  padding: 8px 10px;
+  background-color: var(--card-color);
+  border-radius: 20px;
+  background-color: var(--main-font-color);
+  color: var(--background-color);
+  transition: all 300ms ease-in-out;
+}
+
+.unactive-tab {
+  cursor: pointer;
+  padding: 2px;
+  padding: 8px 10px;
+  border-radius: 20px;
 }

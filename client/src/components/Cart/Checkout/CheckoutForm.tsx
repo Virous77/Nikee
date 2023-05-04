@@ -6,7 +6,7 @@ type CheckoutFormType = {
   handleAddressSubmit: () => void;
 };
 const CheckoutForm: React.FC<CheckoutFormType> = ({ handleAddressSubmit }) => {
-  const { addressData, handleChange, isLoading } = useCart();
+  const { addressData, handleChange, isLoading, updateLoading } = useCart();
 
   const { address, city, state, postalCode, landmark } = addressData;
 
@@ -70,7 +70,7 @@ const CheckoutForm: React.FC<CheckoutFormType> = ({ handleAddressSubmit }) => {
 
       <div className={styles["address-button"]}>
         <button onClick={handleAddressSubmit}>
-          {isLoading ? "Processing..." : "Save & Continue"}
+          {isLoading || updateLoading ? "Processing..." : "Save & Continue"}
         </button>
       </div>
     </form>

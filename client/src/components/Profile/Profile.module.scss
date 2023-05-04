@@ -57,9 +57,18 @@
 .account-user {
   border: 2px solid var(--card-color);
   @include displayAllCenter;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   height: 400px;
   border-radius: 10px;
+
+  p {
+    margin-top: 1rem;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+  }
 }
 
 .account-details {
@@ -141,6 +150,79 @@
     padding: 8px 20px;
     border-radius: 4px;
     font-size: var(--small-font-size);
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+}
+
+.profile-img {
+  margin-top: 2rem;
+  position: relative;
+  width: fit-content;
+
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    border: 2px solid var(--card-color);
+  }
+
+  label {
+    position: absolute;
+    bottom: -5%;
+    left: 50%;
+    font-size: 1.5rem;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+    cursor: pointer;
+    @include displayAllCenter;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.edit-profile-form {
+  fieldset {
+    border: none;
+    width: 100%;
+  }
+  form {
+    margin-top: 2rem;
+    width: 100%;
+    @include displayCol;
+    gap: 1rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--card-color);
+
+    &:focus {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+}
+
+.flat-profile-form {
+  @include displayCenter;
+  gap: 2rem;
+}
+
+.profile-button {
+  @include displayCenter;
+  justify-content: flex-end;
+
+  button {
+    @include buttonMain;
+    width: fit-content;
 
     &:hover {
       background-color: var(--card-color);

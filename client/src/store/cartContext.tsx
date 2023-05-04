@@ -8,7 +8,7 @@ import { useGlobalContext } from "./GlobalContext";
 import { UserAddress } from "../interfaces/interface";
 
 const addressInitialState = {
-  addressType: "",
+  addressType: "home",
   address: "",
   landmark: "",
   city: "",

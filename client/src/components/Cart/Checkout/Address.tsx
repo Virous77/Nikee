@@ -21,12 +21,23 @@ const Address: React.FC<AddressPropsType> = ({
           onClick={() =>
             setAddressData({ ...addressData, addressType: "home" })
           }
+          className={
+            addressData.addressType === "home"
+              ? styles["active-tab"]
+              : styles["unactive-tab"]
+          }
         >
           Home
         </span>
+
         <span
           onClick={() =>
             setAddressData({ ...addressData, addressType: "office" })
+          }
+          className={
+            addressData.addressType === "office"
+              ? styles["active-tab"]
+              : styles["unactive-tab"]
           }
         >
           Office
