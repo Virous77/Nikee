@@ -20,3 +20,15 @@ export interface User {
   image: string;
   createdAt: string;
 }
+
+export interface UserAddress {
+  _id: string;
+  address: string;
+  addressType: string;
+  city: string;
+  landmark: string;
+  postalCode: string;
+  state: string;
+  userId: string;
+  createdAt: string;
+}

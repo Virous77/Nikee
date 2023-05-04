@@ -41,7 +41,7 @@ export const getAddress = async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    const user = await Address.findOne({ userId: id });
+    const user = await Address.find({ userId: id });
     if (!user) next(createError({ status: 400, message: "User not exists" }));
     res.status(200).json(user);
   } catch (error) {

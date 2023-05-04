@@ -82,3 +82,42 @@
     margin-top: 4px;
   }
 }
+
+.address-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.address-card {
+  box-shadow: var(--shadow-one);
+  padding: 1rem;
+  border-radius: 10px;
+
+  h4 {
+    @include displayCenter;
+    gap: 10px;
+    font-size: var(--secondary-font-size);
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: var(--fourth-font-size);
+  }
+
+  span {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: var(--fourth-font-size);
+  }
+}
+
+.address-action-box {
+  @include displayFlex;
+}
+
+.address-action {
+  @include displayCenter;
+  gap: 10px;
+  font-size: 1.2rem;
+}
