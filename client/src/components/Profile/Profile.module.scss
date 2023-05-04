@@ -121,3 +121,29 @@
   gap: 10px;
   font-size: 1.2rem;
 }
+
+.delete-modal {
+  text-align: center;
+  h2 {
+    font-weight: 500;
+    font-size: var(--secondary-font-size);
+    margin-top: 2rem;
+  }
+}
+
+.delete-action {
+  @include displayCenter;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 10px;
+
+  button {
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: var(--small-font-size);
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+}

@@ -34,3 +34,12 @@ export const getData = async (endpoints: string) => {
     throw error.response || error.response.message;
   }
 };
+
+export const deleteData = async (endpoints: string) => {
+  try {
+    const { data } = await axios.delete(`${url}${endpoints}`);
+    return data;
+  } catch (error: any) {
+    throw error.response || error.response.message;
+  }
+};

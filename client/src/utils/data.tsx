@@ -20,8 +20,6 @@ export const getLocalData = (name: string) => {
   return localData ? JSON.parse(localData) : null;
 };
 
-const user = getLocalData("nike");
-
 export const navLinks = [
   {
     id: 1,

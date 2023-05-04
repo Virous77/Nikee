@@ -1,5 +1,5 @@
 import { getData } from "../../api/api";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { useAuthContext } from "../../store/authContext";
 import { UserAddress } from "../../interfaces/interface";
 import { AiOutlineHome } from "react-icons/ai";
@@ -7,13 +7,39 @@ import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import styles from "./Profile.module.scss";
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { Modal } from "../Modal/Modal";
+import EditAddress from "./EditAddress";
+import { useState } from "react";
+import { deleteData } from "../../api/api";
+import DeleteAddress from "./DeleteAddress";
+import { useGlobalContext } from "../../store/GlobalContext";
 
 const Address = () => {
+  const [address, setAddress] = useState<UserAddress | null>(null);
+  const [deleteAddress, setDeleteAddress] = useState("");
   const { UserData } = useAuthContext();
+  const { handleSetNotification } = useGlobalContext();
 
-  const { data: addressData } = useQuery(
+  const { data: addressData, refetch } = useQuery(
     ["address"],
     (): Promise<UserAddress[]> => getData(`/address/${UserData?._id}`)
+  );
+
+  const { mutate } = useMutation(
+    (id: string) => {
+      return deleteData(`/address/${id}`);
+    },
+    {
+      onSuccess: ({ message }: { message: string }) => {
+        refetch();
+        setDeleteAddress("");
+        handleSetNotification({ message, status: "success" });
+      },
+
+      onError: (data) => {
+        console.log(data);
+      },
+    }
   );
 
   return (
@@ -40,13 +66,30 @@ const Address = () => {
               </span>
 
               <div className={styles["address-action"]}>
-                <CiEdit cursor="pointer" />
-                <MdOutlineDeleteOutline cursor="pointer" />
+                <CiEdit cursor="pointer" onClick={() => setAddress(address)} />
+                <MdOutlineDeleteOutline
+                  cursor="pointer"
+                  onClick={() => setDeleteAddress(address._id)}
+                />
               </div>
             </div>
           </div>
         ))}
       </div>
+      {address && (
+        <Modal isOpen="isOpen" onClose={() => setAddress(null)}>
+          <EditAddress />
+        </Modal>
+      )}
+
+      {deleteAddress && (
+        <Modal isOpen="isOpen" onClose={() => setDeleteAddress("")}>
+          <DeleteAddress
+            mutate={() => mutate(deleteAddress)}
+            onClose={() => setDeleteAddress("")}
+          />
+        </Modal>
+      )}
     </section>
   );
 };
