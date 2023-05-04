@@ -1,10 +1,20 @@
 import React, { createContext, useContext, useState } from "react";
 import { CartState, AddressType, CartStateType } from "../types/type";
-import { createData } from "../api/api";
-import { useMutation } from "react-query";
+import { createData, updateData, getData } from "../api/api";
+import { useMutation, useQuery } from "react-query";
 import { getLocalData } from "../utils/data";
 import { AppError } from "../interfaces/interface";
 import { useGlobalContext } from "./GlobalContext";
+import { UserAddress } from "../interfaces/interface";
+
+const addressInitialState = {
+  addressType: "",
+  address: "",
+  landmark: "",
+  city: "",
+  state: "",
+  postalCode: "",
+};
 
 const initialState: CartStateType = {
   cart: [],
@@ -14,15 +24,13 @@ const initialState: CartStateType = {
   handleChange: () => {},
   handleAddressSubmit: () => {},
   isLoading: false,
-};
-
-const addressInitialState = {
-  addressType: "",
-  address: "",
-  landmark: "",
-  city: "",
-  state: "",
-  postalCode: "",
+  addressInitialState,
+  handleUpdateAddress: () => {},
+  updateLoading: false,
+  setEditAddress: () => {},
+  editAddress: false,
+  allAddressData: {} as UserAddress[],
+  refetch: () => {},
 };
 
 const CartContext = createContext<CartStateType>(initialState);
@@ -35,7 +43,20 @@ export const CartContextProvider = ({
   const [cart, setCart] = useState<CartState[]>([]);
   const [addressData, setAddressData] =
     useState<AddressType>(addressInitialState);
+  const [editAddress, setEditAddress] = useState(false);
+
   const { handleSetNotification } = useGlobalContext();
+  const user = getLocalData("nike");
+
+  const { data: allAddressData, refetch } = useQuery(
+    ["address"],
+    (): Promise<UserAddress[]> => {
+      if (user) {
+        return getData(`/address/${user}`);
+      }
+      throw new Error("User not found");
+    }
+  );
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (data: AddressType) => {
@@ -47,6 +68,27 @@ export const CartContextProvider = ({
     },
     onSuccess: () => {
       setAddressData(addressInitialState);
+    },
+  });
+
+  const { mutate: updateMutate, isLoading: updateLoading } = useMutation({
+    mutationFn: (data: AddressType) => {
+      const id: string = getLocalData("address");
+      return updateData({
+        userData: data,
+        endpoints: `/address/${id}`,
+      });
+    },
+    onError: ({ data }: AppError) => {
+      if (!data) return;
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
+    onSuccess: ({ message }: { message: string }) => {
+      setAddressData(addressInitialState);
+      refetch();
+      localStorage.removeItem("address");
+      handleSetNotification({ message: message, status: "success" });
+      setEditAddress(false);
     },
   });
 
@@ -64,6 +106,15 @@ export const CartContextProvider = ({
     mutate(data);
   };
 
+  const handleUpdateAddress = () => {
+    const id: string = getLocalData("nike");
+    const data = {
+      ...addressData,
+      userId: id,
+    };
+    updateMutate(data);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -74,6 +125,13 @@ export const CartContextProvider = ({
         handleChange,
         handleAddressSubmit,
         isLoading,
+        addressInitialState,
+        handleUpdateAddress,
+        updateLoading,
+        editAddress,
+        setEditAddress,
+        refetch,
+        allAddressData,
       }}
     >
       {children}

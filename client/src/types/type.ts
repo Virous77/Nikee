@@ -1,4 +1,4 @@
-import { User } from "../interfaces/interface";
+import { User, UserAddress } from "../interfaces/interface";
 export type stateType = {
   name: string;
   email: string;
@@ -54,4 +54,11 @@ export type CartStateType = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleAddressSubmit: () => void;
   isLoading: boolean;
+  addressInitialState: AddressType;
+  handleUpdateAddress: () => void;
+  updateLoading: boolean;
+  editAddress: boolean;
+  setEditAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  allAddressData: UserAddress[] | undefined;
+  refetch: () => void;
 };

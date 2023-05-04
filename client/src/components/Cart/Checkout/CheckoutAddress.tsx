@@ -1,33 +1,18 @@
 import styles from "./Checkout.module.scss";
-import CheckoutForm from "./CheckoutForm";
 import { useCart } from "../../../store/cartContext";
+import Address from "./Address";
 
 const CheckoutAddress = () => {
-  const { addressData, setAddressData } = useCart();
+  const { addressData, setAddressData, handleAddressSubmit } = useCart();
 
   return (
     <section className={styles["checkout-address"]}>
       <h2>Delivery Address</h2>
-
-      <div className={styles["address-card"]}>
-        <div className={styles["address-type"]}>
-          <span
-            onClick={() =>
-              setAddressData({ ...addressData, addressType: "home" })
-            }
-          >
-            Home
-          </span>
-          <span
-            onClick={() =>
-              setAddressData({ ...addressData, addressType: "office" })
-            }
-          >
-            Office
-          </span>
-        </div>
-        <CheckoutForm />
-      </div>
+      <Address
+        setAddressData={setAddressData}
+        addressData={addressData}
+        handleAddressSubmit={handleAddressSubmit}
+      />
     </section>
   );
 };

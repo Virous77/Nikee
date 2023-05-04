@@ -43,3 +43,12 @@ export const deleteData = async (endpoints: string) => {
     throw error.response || error.response.message;
   }
 };
+
+export const updateData = async ({ userData, endpoints }: createDataType) => {
+  try {
+    const { data } = await axios.put(`${url}${endpoints}`, userData);
+    return data;
+  } catch (error: any) {
+    throw error.response || error.response.message;
+  }
+};

@@ -1,6 +1,4 @@
-import { getData } from "../../api/api";
-import { useQuery, useMutation } from "react-query";
-import { useAuthContext } from "../../store/authContext";
+import { useMutation } from "react-query";
 import { UserAddress } from "../../interfaces/interface";
 import { AiOutlineHome } from "react-icons/ai";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
@@ -13,20 +11,27 @@ import { useState } from "react";
 import { deleteData } from "../../api/api";
 import DeleteAddress from "./DeleteAddress";
 import { useGlobalContext } from "../../store/GlobalContext";
+import { useCart } from "../../store/cartContext";
+import { AppError } from "../../interfaces/interface";
 
 const Address = () => {
-  const [address, setAddress] = useState<UserAddress | null>(null);
   const [deleteAddress, setDeleteAddress] = useState("");
-  const { UserData } = useAuthContext();
-  const { handleSetNotification } = useGlobalContext();
 
-  const { data: addressData, refetch } = useQuery(
-    ["address"],
-    (): Promise<UserAddress[]> => getData(`/address/${UserData?._id}`)
-  );
+  const { handleSetNotification } = useGlobalContext();
+  const {
+    setAddressData,
+    addressData: editAddressData,
+    addressInitialState,
+    handleUpdateAddress,
+    editAddress,
+    setEditAddress,
+    refetch,
+    allAddressData,
+  } = useCart();
 
   const { mutate } = useMutation(
     (id: string) => {
+      console.log(id);
       return deleteData(`/address/${id}`);
     },
     {
@@ -36,16 +41,30 @@ const Address = () => {
         handleSetNotification({ message, status: "success" });
       },
 
-      onError: (data) => {
-        console.log(data);
+      onError: ({ data }: AppError) => {
+        handleSetNotification({ message: data.message, status: "error" });
       },
     }
   );
 
+  const handleEditAddress = (address: UserAddress) => {
+    localStorage.setItem("address", JSON.stringify(address._id));
+    setEditAddress(true);
+    setAddressData((old) => ({
+      ...old,
+      address: address.address,
+      addressType: address.addressType,
+      city: address.city,
+      landmark: address.landmark,
+      postalCode: address.postalCode,
+      state: address.state,
+    }));
+  };
+
   return (
     <section className={styles.address}>
       <div className={styles["address-list"]}>
-        {addressData?.map((address) => (
+        {allAddressData?.map((address) => (
           <div key={address._id} className={styles["address-card"]}>
             {address.addressType === "home" ? (
               <h4>
@@ -66,7 +85,10 @@ const Address = () => {
               </span>
 
               <div className={styles["address-action"]}>
-                <CiEdit cursor="pointer" onClick={() => setAddress(address)} />
+                <CiEdit
+                  cursor="pointer"
+                  onClick={() => handleEditAddress(address)}
+                />
                 <MdOutlineDeleteOutline
                   cursor="pointer"
                   onClick={() => setDeleteAddress(address._id)}
@@ -76,9 +98,21 @@ const Address = () => {
           </div>
         ))}
       </div>
-      {address && (
-        <Modal isOpen="isOpen" onClose={() => setAddress(null)}>
-          <EditAddress />
+      {editAddressData && editAddress && (
+        <Modal
+          isOpen="isOpen"
+          onClose={() => {
+            setEditAddress(false);
+            setAddressData(addressInitialState);
+          }}
+        >
+          <EditAddress
+            onClose={() => {
+              setEditAddress(false);
+              setAddressData(addressInitialState);
+            }}
+            handleAddressSubmit={handleUpdateAddress}
+          />
         </Modal>
       )}
 

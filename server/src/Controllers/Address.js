@@ -61,3 +61,38 @@ export const deleteAddress = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updateAddress = async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    const { address, addressType, city, landmark, postalCode, state, userId } =
+      req.body;
+    if (
+      !address ||
+      !addressType ||
+      !city ||
+      !landmark ||
+      !postalCode ||
+      !state
+    ) {
+      return next(
+        createError({ status: 400, message: "All fields must be filled" })
+      );
+    }
+
+    const updatedAddress = await Address.findByIdAndUpdate(
+      id,
+      { address, addressType, city, landmark, postalCode, state, userId },
+      { new: true }
+    );
+
+    if (!updatedAddress) {
+      return next(createError({ status: 400, message: "Address not found" }));
+    }
+
+    res.status(200).json({ message: "Address Updated Successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

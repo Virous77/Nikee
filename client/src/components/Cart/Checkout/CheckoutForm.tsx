@@ -1,9 +1,12 @@
+import React from "react";
 import { useCart } from "../../../store/cartContext";
 import styles from "./Checkout.module.scss";
 
-const CheckoutForm = () => {
-  const { addressData, handleChange, handleAddressSubmit, isLoading } =
-    useCart();
+type CheckoutFormType = {
+  handleAddressSubmit: () => void;
+};
+const CheckoutForm: React.FC<CheckoutFormType> = ({ handleAddressSubmit }) => {
+  const { addressData, handleChange, isLoading } = useCart();
 
   const { address, city, state, postalCode, landmark } = addressData;
 
