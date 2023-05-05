@@ -1,7 +1,7 @@
 import { createContext, useState, useContext, ReactNode } from "react";
 import { AuthContextType, loginType } from "../types/type";
 import { useMutation } from "react-query";
-import { createData, loginUser } from "../api/api";
+import { createData, loginUser, updateData } from "../api/api";
 import { stateType } from "../types/type";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "./GlobalContext";
@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import { getData } from "../api/api";
 import { getLocalData } from "../utils/data";
 import { User } from "../interfaces/interface";
+import { uploadImage } from "../utils/imageupload";
 
 const stateInitialValue = {
   name: "",
@@ -19,6 +20,7 @@ const stateInitialValue = {
   birth: "",
   gender: "",
   country: "india",
+  image: "",
 };
 
 const initialValue: AuthContextType = {
@@ -32,6 +34,11 @@ const initialValue: AuthContextType = {
   stateInitialValue: stateInitialValue,
   loginLoading: false,
   handleLogin: () => {},
+  userEditData: {} as User,
+  setUserEditData: () => {},
+  handleImageUpload: () => {},
+  updateLoading: false,
+  handleUserProfileUpdate: () => {},
 };
 
 const AuthContext = createContext(initialValue);
@@ -39,8 +46,11 @@ const AuthContext = createContext(initialValue);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [registerData, setRegisterData] = useState(stateInitialValue);
   const [validate, setValidate] = useState(false);
+  const [userEditData, setUserEditData] = useState<User | undefined>(undefined);
+
   const navigate = useNavigate();
   const { handleSetNotification } = useGlobalContext();
+  const id = getLocalData("nike");
 
   ////Mutation
   const { mutate, isLoading } = useMutation({
@@ -73,6 +83,21 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     },
   });
 
+  const { mutate: updateMutate, isLoading: updateLoading } = useMutation({
+    mutationFn: (data: User) => {
+      return updateData({ userData: data, endpoints: `/user/${id}` });
+    },
+    onSuccess: ({ message }: { message: string }) => {
+      handleSetNotification({ message, status: "success" });
+      setUserEditData(undefined);
+      refetch();
+    },
+    onError: ({ data }: AppError) => {
+      if (!data) return;
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
+  });
+
   //query
   const { data: UserData, refetch } = useQuery<User>(["user"], {
     queryFn: async (): Promise<User> => {
@@ -88,6 +113,21 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setRegisterData({ ...registerData, [name]: value });
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const previewImage = URL.createObjectURL(e.target.files[0]);
+    if (!userEditData) return;
+    setUserEditData({ ...userEditData, image: previewImage });
+
+    const uploadedImage = await uploadImage(e.target.files[0]);
+    setUserEditData({ ...userEditData, image: uploadedImage });
+  };
+
+  const handleUserProfileUpdate = () => {
+    if (!userEditData) return;
+    updateMutate(userEditData);
   };
 
   //submission
@@ -129,6 +169,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         loginLoading,
         handleLogin,
         UserData,
+        userEditData,
+        setUserEditData,
+        handleImageUpload,
+        handleUserProfileUpdate,
+        updateLoading,
       }}
     >
       {children}

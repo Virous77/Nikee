@@ -7,13 +7,10 @@ import { SiKnowledgebase } from "react-icons/si";
 import { BiWorld } from "react-icons/bi";
 import { month } from "../../utils/data";
 import EditProfile from "./EditProfile";
-import { useState } from "react";
-import { User } from "../../interfaces/interface";
 import { Modal } from "../Modal/Modal";
 
 const Account = () => {
-  const { UserData } = useAuthContext();
-  const [userEditData, setUserEditData] = useState<User | undefined>(undefined);
+  const { UserData, userEditData, setUserEditData } = useAuthContext();
 
   const formatDate = (date: string | undefined) => {
     const splitDate = date?.split("-");

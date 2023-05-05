@@ -66,21 +66,26 @@ export const loginUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   const id = req.params.id;
-  const { name, image, about } = req.body;
+  const { name, image, about, email } = req.body;
 
-  const user = await User.findById(id);
-  if (!user) {
-    return next(createError({ status: 400, message: "User not exists" }));
+  if (!name || !email) {
+    return next(
+      createError({
+        status: 400,
+        message: "Name and email fields can't be empty",
+      })
+    );
   }
 
-  const { name: userName, image: userImage, about: userAbout } = user;
-  user.name = name || userName;
-  user.image = image || userImage;
-  user.about = about || userAbout;
-
   try {
-    const updatedUser = await user.save();
-    res.status(200).json(updatedUser);
+    const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    if (!updatedUser) {
+      return next(createError({ status: 400, message: "User not found" }));
+    }
+    res.status(200).json({ message: "Profile Updated Successfully" });
   } catch (error) {
     next(error);
   }
@@ -122,7 +127,7 @@ export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(id).select("-password");
     if (!user)
-      return next(createError({ status: 400, message: "User no exists" }));
+      return next(createError({ status: 400, message: "User not exists" }));
     res.status(200).json(user);
   } catch (error) {
     next(error);

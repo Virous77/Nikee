@@ -7,6 +7,7 @@ export type stateType = {
   birth: string;
   gender: string;
   country: string;
+  image: string;
 };
 
 export type AuthContextType = {
@@ -21,6 +22,11 @@ export type AuthContextType = {
   loginLoading: boolean;
   handleLogin: () => void;
   UserData?: User;
+  userEditData: User | undefined;
+  setUserEditData: React.Dispatch<React.SetStateAction<User | undefined>>;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  updateLoading: boolean;
+  handleUserProfileUpdate: () => void;
 };
 
 export type loginType = {
