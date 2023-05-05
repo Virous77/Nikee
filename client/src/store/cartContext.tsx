@@ -28,7 +28,7 @@ const initialState: CartStateType = {
   handleUpdateAddress: () => {},
   updateLoading: false,
   setEditAddress: () => {},
-  editAddress: false,
+  editAddress: "",
   allAddressData: {} as UserAddress[],
   refetch: () => {},
 };
@@ -43,7 +43,7 @@ export const CartContextProvider = ({
   const [cart, setCart] = useState<CartState[]>([]);
   const [addressData, setAddressData] =
     useState<AddressType>(addressInitialState);
-  const [editAddress, setEditAddress] = useState(false);
+  const [editAddress, setEditAddress] = useState("");
 
   const { handleSetNotification } = useGlobalContext();
   const user = getLocalData("nike");
@@ -68,6 +68,10 @@ export const CartContextProvider = ({
     },
     onSuccess: () => {
       setAddressData(addressInitialState);
+      if (editAddress) {
+        setEditAddress("");
+        refetch();
+      }
     },
   });
 
@@ -88,7 +92,7 @@ export const CartContextProvider = ({
       refetch();
       localStorage.removeItem("address");
       handleSetNotification({ message: message, status: "success" });
-      setEditAddress(false);
+      setEditAddress("");
     },
   });
 

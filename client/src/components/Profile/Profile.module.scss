@@ -92,6 +92,28 @@
   }
 }
 
+.no-address {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.new-address {
+  background-color: var(--card-color);
+  @include displayAllCenter;
+  border-radius: 10px;
+
+  button {
+    @include buttonMain;
+
+    &:hover {
+      color: rgb(51, 184, 51);
+    }
+  }
+}
+
 .address-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -112,12 +134,14 @@
 
   p {
     font-size: var(--fourth-font-size);
+    text-transform: capitalize;
   }
 
   span {
     display: inline-block;
     margin-top: 10px;
     font-size: var(--fourth-font-size);
+    text-transform: capitalize;
   }
 }
 

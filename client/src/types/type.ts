@@ -63,8 +63,8 @@ export type CartStateType = {
   addressInitialState: AddressType;
   handleUpdateAddress: () => void;
   updateLoading: boolean;
-  editAddress: boolean;
-  setEditAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  editAddress: string;
+  setEditAddress: React.Dispatch<React.SetStateAction<string>>;
   allAddressData: UserAddress[] | undefined;
   refetch: () => void;
 };

@@ -130,6 +130,10 @@ footer {
   background-color: var(--main-font-color);
   margin-top: 1rem;
   color: var(--background-color);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
 }
 
 .social {

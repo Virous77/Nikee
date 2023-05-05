@@ -205,3 +205,9 @@
   padding: 8px 10px;
   border-radius: 20px;
 }
+
+.checkout-address-list {
+  margin-top: 1rem;
+  @include displayCol;
+  gap: 1rem;
+}
