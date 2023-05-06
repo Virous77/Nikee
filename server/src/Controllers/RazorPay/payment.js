@@ -122,3 +122,19 @@ export const getOrderData = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getOrders = async (req, res, next) => {
+  const userId = req.params.id;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId))
+      return next(
+        createError({ status: 400, message: "User id is not valid" })
+      );
+
+    const ordersData = await Order.find({ userId });
+    res.status(200).json(ordersData);
+  } catch (error) {
+    next(error);
+  }
+};

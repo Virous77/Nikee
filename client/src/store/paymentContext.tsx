@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { getLocalData } from "../utils/data";
 import { useAuthContext } from "./authContext";
 import { nikeLogo } from "../utils/data";
@@ -82,7 +82,11 @@ export const PaymentContextProvider = ({
     razor.open();
   };
 
-  const { data: orderData, isLoading } = useQuery(
+  const {
+    data: orderData,
+    isLoading,
+    refetch,
+  } = useQuery(
     ["orderDone"],
     async () => {
       if (location.pathname.includes("payment-complete")) {
@@ -100,6 +104,12 @@ export const PaymentContextProvider = ({
       retry: false,
     }
   );
+
+  useEffect(() => {
+    if (location.pathname.includes("orders")) {
+      refetch();
+    }
+  }, [location.pathname, refetch]);
 
   return (
     <PaymentContext.Provider value={{ handlePayment, isLoading, orderData }}>

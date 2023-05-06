@@ -11,7 +11,8 @@ const PreventWrongUrlAccess = ({ children }: { children: React.ReactNode }) => {
 
   if (
     pathname === `/profile/${makeUserName}` ||
-    pathname === `/profile/${makeUserName}/address`
+    pathname === `/profile/address/${makeUserName}` ||
+    pathname === `/profile/orders/${makeUserName}`
   ) {
     return <>{children}</>;
   } else {

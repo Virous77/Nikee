@@ -12,7 +12,7 @@ const App = () => {
       <ShowSearch />
       {pathname !== "/checkout" && <Navbar />}
       <AppRouter />
-      <Footer />
+      {/* <Footer /> */}
       <Notification />
     </main>
   );

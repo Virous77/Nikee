@@ -1,0 +1,49 @@
+@import "../../common/variables.scss";
+
+.orders-list {
+  @include displayCenter;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.order-card {
+  box-shadow: var(--shadow-one);
+  padding: 1rem;
+  border-radius: 10px;
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    scale: 1.02;
+  }
+
+  img {
+    width: 130;
+    height: 100px;
+    object-fit: cover;
+  }
+}
+
+.orders-details {
+  margin-top: 10px;
+
+  p {
+    font-size: var(--small-font-size);
+    margin-bottom: 2px;
+  }
+
+  button {
+    margin-top: 1rem;
+    @include buttonMain;
+    padding: 5px 10px;
+    width: 100%;
+    font-size: var(--small-font-size);
+  }
+}
+
+.delivered {
+  color: rgb(194, 3, 3);
+}
+
+.one-the-way {
+  color: rgb(5, 184, 5);
+}

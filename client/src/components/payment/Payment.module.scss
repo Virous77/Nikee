@@ -1,0 +1,59 @@
+@import "../../common//variables.scss";
+
+.payment {
+  width: 1000px;
+  height: 80vh;
+  @include displayAllCenter;
+  margin: auto;
+}
+
+.payment-done {
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid var(--card-color);
+  text-align: center;
+
+  h1 {
+    font-size: var(--primary-font-size);
+  }
+
+  h2 {
+    font-size: var(--primary-font-size);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  img {
+    width: 10rem;
+    margin: auto;
+    margin-top: 2rem;
+  }
+
+  button {
+    @include buttonMain;
+    margin-top: 2rem;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+  }
+}
+
+.payment-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  place-items: center;
+
+  p {
+    @include displayCenter;
+    gap: 5px;
+    text-transform: capitalize;
+    font-size: var(--fourth-font-size);
+    font-weight: 600;
+    word-wrap: wrap;
+
+    span {
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+}
