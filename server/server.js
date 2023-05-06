@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/api/v1", UserRouter);
-app.use("/api/v1", PaymentRouter);
 app.use("/api/v1", AddressRouter);
+app.use("/api/v1", PaymentRouter);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

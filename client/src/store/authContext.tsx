@@ -99,15 +99,24 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   });
 
   //query
-  const { data: UserData, refetch } = useQuery<User>(["user"], {
-    queryFn: async (): Promise<User> => {
-      const id = getLocalData("nike");
+  const { data: UserData, refetch } = useQuery(
+    ["user"],
+    async () => {
       if (id) {
-        return await getData(`/user/${id}`);
+        const data = await getData(`/user/${id}`);
+        return data;
       }
-      throw new Error("User ID not found");
     },
-  });
+    {
+      onError: (response: AppError) => {
+        handleSetNotification({
+          message: response.data.message,
+          status: "error",
+        });
+      },
+      retry: false,
+    }
+  );
 
   //input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

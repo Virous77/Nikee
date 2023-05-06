@@ -1,6 +1,7 @@
 import Address from "../Models/Address.js";
 import { createError } from "../utils/utility.js";
 import User from "../Models/User.js";
+import mongoose from "mongoose";
 
 export const createAddress = async (req, res, next) => {
   const { address, landmark, addressType, state, city, postalCode, userId } =
@@ -43,6 +44,9 @@ export const getAddress = async (req, res, next) => {
   const id = req.params.id;
 
   try {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return next(createError({ status: 400, message: "Id is not valid" }));
+
     const user = await Address.find({ userId: id });
     if (!user) next(createError({ status: 400, message: "User not exists" }));
     res.status(200).json(user);

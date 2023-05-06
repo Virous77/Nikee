@@ -31,7 +31,7 @@ export const getData = async (endpoints: string) => {
     const { data } = await axios.get(`${url}${endpoints}`);
     return data;
   } catch (error: any) {
-    throw error.response || error.response.message;
+    throw error.response || error.response.data.message;
   }
 };
 

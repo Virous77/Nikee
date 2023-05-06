@@ -14,6 +14,7 @@ import {
   ErrorPage,
   CheckoutPage,
   ProfilePage,
+  PaymentPage,
 } from "../pages/index";
 import PrivateRoutes from "../components/PrivateRoutes/PrivateRoutes";
 import PreventOnLogin from "../components/PrivateRoutes/PrventonLogin";
@@ -68,6 +69,14 @@ const AppRouter = () => {
             <PreventOnLogin>
               <RegisterPage />
             </PreventOnLogin>
+          }
+        />
+        <Route
+          path="/payment-complete"
+          element={
+            <PrivateRoutes>
+              <PaymentPage />
+            </PrivateRoutes>
           }
         />
         <Route path="*" element={<ErrorPage />} />

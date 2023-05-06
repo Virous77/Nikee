@@ -32,3 +32,25 @@ export interface UserAddress {
   userId: string;
   createdAt: string;
 }
+
+export interface Order {
+  _id: string;
+  amount: number;
+  userId: string;
+  address: {
+    address: string;
+    landmark: string;
+    postalCode: string;
+    state: string;
+    city: string;
+    addressType: string;
+  };
+  order: string[];
+  payment: {
+    paymentId: string;
+    orderId: string;
+    signature: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}

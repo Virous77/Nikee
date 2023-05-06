@@ -11,6 +11,8 @@ type AddressListType = {
   setDeleteAddress?: React.Dispatch<React.SetStateAction<string>>;
   handleEditAddress?: (address: UserAddress) => void;
   title?: string;
+  classStyle?: string;
+  onClick?: (address: UserAddress) => void;
 };
 
 const AddressList: React.FC<AddressListType> = ({
@@ -18,9 +20,19 @@ const AddressList: React.FC<AddressListType> = ({
   title,
   setDeleteAddress,
   handleEditAddress,
+  classStyle,
+  onClick,
 }) => {
   return (
-    <div key={address._id} className={styles["address-card"]}>
+    <div
+      key={address._id}
+      className={
+        classStyle
+          ? `${styles[classStyle]} ${styles["address-card"]}`
+          : styles["address-card"]
+      }
+      onClick={() => onClick(address)}
+    >
       {address.addressType === "home" ? (
         <h4>
           <AiOutlineHome /> Home

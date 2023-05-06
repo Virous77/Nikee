@@ -50,11 +50,18 @@ export const CartContextProvider = ({
 
   const { data: allAddressData, refetch } = useQuery(
     ["address"],
-    (): Promise<UserAddress[]> => {
-      if (user) {
-        return getData(`/address/${user}`);
-      }
-      throw new Error("User not found");
+    async () => {
+      const data = await getData(`/address/${user}`);
+      return data;
+    },
+    {
+      onError: (response: AppError) => {
+        handleSetNotification({
+          message: response.data.message,
+          status: "error",
+        });
+      },
+      retry: false,
     }
   );
 

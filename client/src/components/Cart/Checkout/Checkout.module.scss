@@ -210,4 +210,24 @@
   margin-top: 1rem;
   @include displayCol;
   gap: 1rem;
+  height: 400px;
+  overflow: scroll;
+  padding: 0.1rem;
+}
+
+.checkout-list-m {
+  position: relative;
+
+  button {
+    position: absolute;
+    bottom: -9.5%;
+    right: 0.2%;
+    @include buttonMain;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
 }

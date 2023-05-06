@@ -1,59 +1,35 @@
-import { createData } from "../../api/api";
-import { getLocalData } from "../../utils/data";
-import { useAuthContext } from "../../store/authContext";
-import { nikeLogo } from "../../utils/data";
+import styles from "./Payment.module.scss";
+import box from "../../assets/done.svg";
+import { usePayment } from "../../store/paymentContext";
 
 const Payment = () => {
-  const id = getLocalData("nike");
-  const { UserData } = useAuthContext();
+  const { orderData } = usePayment();
 
-  const makePayment = async () => {
-    const checkoutData = {
-      amount: 400,
-      userId: id,
-      address: {
-        address: "Patna bihar",
-        landmark: "balesara",
-        postalCode: "841205",
-        state: "bihar",
-        city: "saran",
-        addressType: "home",
-      },
-      order: [
-        "644cdcdad754b8cbc94391f6",
-        "644cdcdad754b8cbc94391f6",
-        "644cdcdad754b8cbc94391f6",
-      ],
-    };
-    const data = await createData({
-      endpoints: "/checkout",
-      userData: checkoutData,
-    });
+  return (
+    <main className={styles["payment"]}>
+      <div className={styles["payment-done"]}>
+        <h1>Thank you to shopping with Nike.</h1>
+        <div>
+          <img src={box} alt="shopping-box" />
+        </div>
 
-    const options = {
-      key: import.meta.env.VITE_KEY_ID,
-      amount: data.amount,
-      currency: "INR",
-      name: "Nike",
-      description: "Transaction for shopping with Nike.",
-      image: nikeLogo,
-      order_id: data.id,
-      callback_url: `${import.meta.env.VITE_URL}/paymentverification`,
-      prefill: {
-        name: UserData?.name,
-        email: UserData?.email,
-      },
-      theme: {
-        color: "black",
-      },
-    };
+        <div className={styles["payment-details"]}>
+          <div className={styles["payment-id"]}>
+            <p>
+              Order Id : <span>{orderData?._id}</span>
+            </p>
+            <p>
+              Amount : <span>${orderData?.amount}</span>{" "}
+            </p>
 
-    // @ts-ignore
-    const razor = new window.Razorpay(options);
-    razor.open();
-  };
-
-  return <div onClick={makePayment}>Payment</div>;
+            <p>Arriving at home by </p>
+          </div>
+          <div className={styles["payment-address"]}></div>
+        </div>
+        <button>Go to Orders</button>
+      </div>
+    </main>
+  );
 };
 
 export default Payment;

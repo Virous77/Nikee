@@ -74,8 +74,11 @@ const Address = () => {
           <AddNewAddress />
         </div>
       ) : (
-        <div className={styles["no-address"]}>
-          You haven't yet added Address with us!
+        <div className={styles["no-any-address"]}>
+          <AddNewAddress />
+          <p className={styles["no-address"]}>
+            You haven't yet added Address with us!
+          </p>
         </div>
       )}
       {editAddressData && editAddress === "edit" && (

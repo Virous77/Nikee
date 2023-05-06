@@ -7,6 +7,7 @@ import fs from "fs";
 import { promises as fsPromises } from "fs";
 import path from "path";
 import { createError } from "../../utils/utility.js";
+import mongoose from "mongoose";
 
 const filePath = path.resolve(".", "id.json");
 
@@ -93,7 +94,30 @@ export const verifyAndCompletePayment = async (req, res, next) => {
     const updatedOrder = await Order.findOneAndUpdate(filter, update, options);
     await fsPromises.writeFile(filePath, JSON.stringify(filterAddress));
 
-    res.status(200).json(updatedOrder);
+    const { _id } = updatedOrder._doc;
+
+    res.redirect(`${process.env.PAYMENT_DONE_URL}?orderId=${_id.toString()}`);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getOrderData = async (req, res, next) => {
+  const orderId = req.params.id;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(orderId))
+      return next(
+        createError({ status: 400, message: "Order Id is not valid" })
+      );
+
+    const orderData = await Order.findById(orderId);
+    if (!orderData)
+      return next(
+        createError({ status: 400, message: "Order id doesn't not exists" })
+      );
+
+    res.status(200).json(orderData);
   } catch (error) {
     next(error);
   }

@@ -104,6 +104,8 @@
   background-color: var(--card-color);
   @include displayAllCenter;
   border-radius: 10px;
+  height: 100%;
+  padding: 10px;
 
   button {
     @include buttonMain;
@@ -252,4 +254,17 @@
       background-color: var(--card-color);
     }
   }
+}
+
+.no-any-address {
+  @include displayCol;
+  gap: 1rem;
+}
+
+.address-card-list {
+  border: 2px solid silver;
+}
+
+.address-card-list-n {
+  border: 2px solid transparent;
 }
