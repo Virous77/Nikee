@@ -1,21 +1,19 @@
-// import Navbar from "./layouts/Navbar";
-// import AppRouter from "./Router/AppRouter";
-// import ShowSearch from "./components/search/ShowSearch";
-// import Notification from "./components/UI/Notification";
-// import Footer from "./layouts/Footer";
-// import { useLocation } from "react-router-dom";
-import Payment from "./components/payment/Payment";
+import Navbar from "./layouts/Navbar";
+import AppRouter from "./Router/AppRouter";
+import ShowSearch from "./components/search/ShowSearch";
+import Notification from "./components/UI/Notification";
+import Footer from "./layouts/Footer";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
-  // const { pathname } = useLocation();
+  const { pathname } = useLocation();
   return (
     <main>
-      {/* <ShowSearch />
+      <ShowSearch />
       {pathname !== "/checkout" && <Navbar />}
       <AppRouter />
       <Footer />
-      <Notification /> */}
-      <Payment />
+      <Notification />
     </main>
   );
 };
