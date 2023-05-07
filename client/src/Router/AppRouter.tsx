@@ -7,7 +7,6 @@ import {
   SalePage,
   SneakersPage,
   FeaturePage,
-  FavPage,
   CartPage,
   LoginPage,
   RegisterPage,
@@ -36,14 +35,6 @@ const AppRouter = () => {
           element={
             <PrivateRoutes>
               <CheckoutPage />
-            </PrivateRoutes>
-          }
-        />
-        <Route
-          path="/fav"
-          element={
-            <PrivateRoutes>
-              <FavPage />
             </PrivateRoutes>
           }
         />

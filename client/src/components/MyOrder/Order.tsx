@@ -45,7 +45,10 @@ const OrderPage = () => {
 
       {orderDetails && (
         <Modal isOpen="isOpen" onClose={() => setOrderDetails(null)}>
-          <OrderModal orderDetails={orderDetails} />
+          <OrderModal
+            orderDetails={orderDetails}
+            setOrderDetails={setOrderDetails}
+          />
         </Modal>
       )}
     </main>

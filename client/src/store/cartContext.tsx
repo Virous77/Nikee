@@ -51,8 +51,10 @@ export const CartContextProvider = ({
   const { data: allAddressData, refetch } = useQuery(
     ["address"],
     async () => {
-      const data = await getData(`/address/${user}`);
-      return data;
+      if (user) {
+        const data = await getData(`/address/${user}`);
+        return data;
+      }
     },
     {
       onError: (response: AppError) => {

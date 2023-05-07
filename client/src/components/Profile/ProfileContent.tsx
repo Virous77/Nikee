@@ -3,6 +3,7 @@ import Account from "./Account";
 import { Routes, Route } from "react-router-dom";
 import PreventWrongUrlAccess from "../PrivateRoutes/PreventWrongUrlAccess";
 import OrderPage from "../MyOrder/Order";
+import Fav from "../FavProducts/Fav";
 
 const ProfileContent = () => {
   return (
@@ -31,6 +32,15 @@ const ProfileContent = () => {
           element={
             <PreventWrongUrlAccess>
               <OrderPage />
+            </PreventWrongUrlAccess>
+          }
+        />
+
+        <Route
+          path="/fav/:name"
+          element={
+            <PreventWrongUrlAccess>
+              <Fav />
             </PreventWrongUrlAccess>
           }
         />

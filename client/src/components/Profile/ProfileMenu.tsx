@@ -5,11 +5,19 @@ import { useAuthContext } from "../../store/authContext";
 import { FiShoppingBag } from "react-icons/fi";
 import styles from "./Profile.module.scss";
 import { useLocation } from "react-router-dom";
+import { MdOutlineFavorite } from "react-icons/md";
 
 const ProfileMenu = () => {
   const { UserData } = useAuthContext();
   const makeUserName = UserData?.name.split(" ").join("-");
   const { pathname } = useLocation();
+
+  const homeTab =
+    !pathname.includes("address") &&
+    !pathname.includes("orders") &&
+    !pathname.includes("fav")
+      ? styles["active-menu"]
+      : "";
 
   const navigate = useNavigate();
   return (
@@ -17,11 +25,7 @@ const ProfileMenu = () => {
       <ul>
         <li
           onClick={() => navigate(`/profile/${makeUserName}`)}
-          className={
-            !pathname.includes("address") && !pathname.includes("orders")
-              ? styles["active-menu"]
-              : ""
-          }
+          className={homeTab}
         >
           <VscAccount /> Account
         </li>
@@ -38,6 +42,13 @@ const ProfileMenu = () => {
           className={pathname.includes("orders") ? styles["active-menu"] : ""}
         >
           <FiShoppingBag /> Orders
+        </li>
+
+        <li
+          onClick={() => navigate(`/profile/fav/${makeUserName}`)}
+          className={pathname.includes("fav") ? styles["active-menu"] : ""}
+        >
+          <MdOutlineFavorite /> Favorite
         </li>
       </ul>
     </aside>

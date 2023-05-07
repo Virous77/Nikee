@@ -5,7 +5,6 @@ export { default as MenPage } from "./MenPage";
 export { default as WomenPage } from "./WomenPage";
 export { default as SneakersPage } from "./SneakersPage";
 export { default as SalePage } from "./SalePage";
-export { default as FavPage } from "./FavPage";
 export { default as CartPage } from "./CartPage";
 export { default as LoginPage } from "./LoginPage";
 export { default as RegisterPage } from "./RegisterPage";

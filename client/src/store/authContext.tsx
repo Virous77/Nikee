@@ -1,4 +1,10 @@
-import { createContext, useState, useContext, ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import { AuthContextType, loginType } from "../types/type";
 import { useMutation } from "react-query";
 import { createData, loginUser, updateData } from "../api/api";
@@ -52,6 +58,26 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const { handleSetNotification } = useGlobalContext();
   const id = getLocalData("nike");
 
+  //query
+  const { data: UserData, refetch } = useQuery(
+    ["user"],
+    async () => {
+      if (id) {
+        const data = await getData(`/user/${id}`);
+        return data;
+      }
+    },
+    {
+      onError: (response: AppError) => {
+        handleSetNotification({
+          message: response.data.message,
+          status: "error",
+        });
+      },
+      retry: false,
+    }
+  );
+
   ////Mutation
   const { mutate, isLoading } = useMutation({
     mutationFn: (data: stateType) => {
@@ -98,26 +124,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     },
   });
 
-  //query
-  const { data: UserData, refetch } = useQuery(
-    ["user"],
-    async () => {
-      if (id) {
-        const data = await getData(`/user/${id}`);
-        return data;
-      }
-    },
-    {
-      onError: (response: AppError) => {
-        handleSetNotification({
-          message: response.data.message,
-          status: "error",
-        });
-      },
-      retry: false,
-    }
-  );
-
   //input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -163,6 +169,12 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     setValidate(false);
     loginMutate(userData);
   };
+
+  useEffect(() => {
+    if (id) {
+      refetch();
+    }
+  }, [id, refetch]);
 
   return (
     <AuthContext.Provider

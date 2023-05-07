@@ -47,3 +47,46 @@
 .one-the-way {
   color: rgb(5, 184, 5);
 }
+
+.order-item {
+  @include displayCol;
+  gap: 10px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
+  img {
+    width: 70px;
+    height: 50px;
+  }
+}
+
+.order-item-details {
+  @include displayCenter;
+  align-items: flex-start;
+  gap: 10px;
+
+  span {
+    font-size: var(--small-font-size);
+  }
+}
+
+.order-amount {
+  padding: 10px 0;
+
+  p {
+    margin-bottom: 10px;
+    @include displayFlex;
+  }
+
+  b {
+    @include displayFlex;
+  }
+}
+
+.com-details {
+  margin-top: 1rem;
+
+  span {
+    text-transform: capitalize;
+  }
+}
