@@ -1,0 +1,26 @@
+@import "../common/variables.scss";
+
+.admin {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  padding: 2rem 3rem;
+  gap: 2rem;
+}
+
+.admin-aside {
+  ul {
+    @include displayCol;
+  }
+
+  li {
+    padding: 10px 5px;
+    @include displayCenter;
+    gap: 10px;
+    cursor: pointer;
+    font-size: var(--secondary-font-size);
+  }
+}
+
+.active-menu {
+  background-color: var(--card-color);
+}
