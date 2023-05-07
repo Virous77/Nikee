@@ -18,6 +18,7 @@ export interface User {
   email: string;
   gender: string;
   image: string;
+  isAdmin: boolean;
   createdAt: string;
 }
 

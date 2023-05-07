@@ -6,20 +6,24 @@ import mongoose from "mongoose";
 import UserRouter from "./src/Routes/user.js";
 import PaymentRouter from "./src/Routes/Payment.js";
 import AddressRouter from "./src/Routes/Address.js";
+import ProductsRouter from "./src/Routes/Products.js";
 
 dotenv.config();
 const app = express();
 
+//App middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(cookieParser());
 
+// App api middleware
 app.use("/api/v1", UserRouter);
 app.use("/api/v1", AddressRouter);
 app.use("/api/v1", PaymentRouter);
+app.use("/api/v1", ProductsRouter);
 
+//Handle app Error
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong, Try again!";
@@ -34,6 +38,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.APP_PORT || 3000;
 
+//connect to DB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {

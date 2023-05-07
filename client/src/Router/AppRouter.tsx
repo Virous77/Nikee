@@ -14,6 +14,7 @@ import {
   CheckoutPage,
   ProfilePage,
   PaymentPage,
+  AdminPage,
 } from "../pages/index";
 import PrivateRoutes from "../components/PrivateRoutes/PrivateRoutes";
 import PreventOnLogin from "../components/PrivateRoutes/PrventonLogin";
@@ -51,6 +52,15 @@ const AppRouter = () => {
           element={
             <PrivateRoutes>
               <ProfilePage />
+            </PrivateRoutes>
+          }
+        />
+
+        <Route
+          path="/admin/*"
+          element={
+            <PrivateRoutes>
+              <AdminPage />
             </PrivateRoutes>
           }
         />

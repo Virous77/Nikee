@@ -18,6 +18,11 @@ const Header = () => {
     <header className={styles["auth-header"]}>
       {id ? (
         <div className={styles["header-auth"]}>
+          {UserData?.isAdmin && (
+            <span onClick={() => navigate("/admin/dashboard")}>Admin</span>
+          )}
+          <span>|</span>
+
           <span onClick={() => navigate(`/profile/${makeUserName}`)}>
             Your Account
           </span>
