@@ -4,13 +4,17 @@ import {
   productMensCategory,
   productWomenCategory,
   productType,
-  shocksSize,
-  shoesSizeMens,
-  shoesSizeWomen,
-  clothSizeMen,
-  clothSizeWomen,
+  size,
 } from "../utils/NikeData";
 import Select from "./Select";
+import SizeSelect from "./SizeSelect";
+import MultipleImage from "./MultipleImage";
+import styles from "./Admin.module.scss";
+
+export type Image = {
+  image: string;
+  images: string[];
+};
 
 type AddProductFormType = {
   value: string;
@@ -19,6 +23,10 @@ type AddProductFormType = {
   setProductType: React.Dispatch<React.SetStateAction<string>>;
   setProductCategory: React.Dispatch<React.SetStateAction<string>>;
   productCategory: string;
+  setProductSize: React.Dispatch<React.SetStateAction<string[]>>;
+  productSize: string[];
+  image: Image;
+  setImage: React.Dispatch<React.SetStateAction<Image>>;
 };
 
 const AddProductForm: React.FC<AddProductFormType> = ({
@@ -28,47 +36,23 @@ const AddProductForm: React.FC<AddProductFormType> = ({
   setProductType,
   setProductCategory,
   productCategory,
+  productSize,
+  setProductSize,
+  image,
+  setImage,
 }) => {
   const category =
     productsType === "Mens" || productsType === "Kids"
       ? productMensCategory
       : productWomenCategory;
 
-  type sizeType = {
-    products: string;
-    Category: string;
-    name: string;
-  };
-  const size = ({ Category, products, name }: sizeType) => {
-    const returnValueShoes =
-      products === "Mens" ? shoesSizeMens : shoesSizeWomen;
-    const returnValueClothes =
-      products === "Mens" ? clothSizeMen : clothSizeWomen;
-
-    if (products === name && Category === "Shoes") return returnValueShoes;
-    if (products === name && Category === "Socks") return shocksSize;
-    if (products === name) {
-      if (Category !== "Shoes" && Category !== "Socks")
-        return returnValueClothes;
-    }
-  };
-
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <p
-        onClick={() =>
-          console.log(
-            size({ products: "Mens", Category: "Shoes", name: "Mens" })
-          )
-        }
-      >
-        cool
-      </p>
       <fieldset>
         <input type="text" placeholder="Product Name" />
       </fieldset>
 
-      <div>
+      <div className={styles["flat-add"]}>
         <fieldset>
           <input type="number" placeholder="Price" />
         </fieldset>
@@ -78,7 +62,7 @@ const AddProductForm: React.FC<AddProductFormType> = ({
         </fieldset>
       </div>
 
-      <div>
+      <div className={styles["flat-add"]}>
         <Select
           data={productType}
           value={productsType}
@@ -91,7 +75,18 @@ const AddProductForm: React.FC<AddProductFormType> = ({
         />
       </div>
 
-      <fieldset>{/* <Select /> */}</fieldset>
+      <fieldset>
+        <SizeSelect
+          data={size({
+            name: productsType,
+            Category: productCategory,
+            products: productsType,
+          })}
+          value={productSize}
+          setValue={setProductSize}
+        />
+      </fieldset>
+      <MultipleImage image={image} setImage={setImage} />
 
       <ReactQuillText setValue={setValue} value={value} />
     </form>

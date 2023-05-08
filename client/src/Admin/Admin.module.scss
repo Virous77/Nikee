@@ -24,3 +24,132 @@
 .active-menu {
   background-color: var(--card-color);
 }
+
+.add-product {
+  height: fit-content;
+
+  form {
+    border: 2px solid var(--card-color);
+    padding: 1rem;
+    border-radius: 10px;
+    @include displayCol;
+    gap: 1.5rem;
+    width: 100%;
+    height: fit-content;
+  }
+
+  fieldset {
+    width: 100%;
+    border: none;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--card-color);
+
+    &:focus {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+
+  .flat-add {
+    @include displayCenter;
+    gap: 2rem;
+  }
+
+  select {
+    width: 100%;
+    outline: none;
+    padding: 6px;
+    border: 1px solid var(--card-color);
+    border-radius: 5px;
+    font-weight: 600;
+
+    &:focus {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+
+  .size-select {
+    @include displayCenter;
+    gap: 10px;
+
+    li {
+      border: 1px solid var(--main-font-color);
+      border-radius: 3px;
+      width: 60px;
+      @include displayCenter;
+      justify-content: center;
+      padding: 5px 3px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        background-color: var(--main-font-color);
+        color: var(--card-color);
+      }
+    }
+  }
+}
+
+.active-select {
+  background-color: var(--main-font-color);
+  color: var(--card-color);
+}
+
+.image-preview {
+  width: 100%;
+  @include displayCenter;
+  justify-content: center;
+
+  .image-preview-list {
+    border: 1px solid var(--card-color);
+    padding: 0.5rem;
+    border-radius: 10px;
+    @include displayCenter;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    li {
+      position: relative;
+    }
+
+    img {
+      width: 150px;
+      height: 120px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+  }
+}
+
+.remove {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+  background-color: var(--card-color);
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  @include displayCenter;
+  justify-content: center;
+
+  &:hover {
+    background-color: red;
+    color: var(--background-color);
+  }
+}
+
+.select-image {
+  height: 120px;
+  width: 150px;
+  @include displayCenter;
+  justify-content: center;
+  background-color: var(--card-color);
+  border-radius: 10px;
+}
