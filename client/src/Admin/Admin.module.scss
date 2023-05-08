@@ -8,8 +8,12 @@
 }
 
 .admin-aside {
+  position: relative;
+
   ul {
     @include displayCol;
+    position: sticky;
+    top: 15%;
   }
 
   li {
@@ -152,4 +156,46 @@
   justify-content: center;
   background-color: var(--card-color);
   border-radius: 10px;
+}
+
+.size-set {
+  p {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+}
+
+.hero-image {
+  img {
+    width: 200px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  fieldset {
+    width: 200px;
+    height: 160px;
+    background-color: var(--card-color);
+    border-radius: 10px;
+    @include displayCenter;
+    justify-content: center;
+
+    label {
+      @include displayCol;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.hero-main {
+  width: 100%;
+  @include displayCenter;
+  justify-content: center;
 }

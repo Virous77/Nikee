@@ -48,7 +48,6 @@ const MultipleImage: React.FC<MultipleImageType> = ({ image, setImage }) => {
             id="images"
             style={{ display: "none" }}
             onChange={handleImage}
-            multiple={true}
           />
         </div>
       </ul>
