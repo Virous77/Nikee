@@ -1,33 +1,55 @@
 import React from "react";
-import { Image } from "./AddProductForm";
 import { FaCameraRetro } from "react-icons/fa";
 import styles from "./Admin.module.scss";
 import { AiOutlineDelete } from "react-icons/ai";
+import { useAdminContext } from "../store/AdminContext";
 
-type MultipleImageType = {
-  image: Image;
-  setImage: React.Dispatch<React.SetStateAction<Image>>;
-};
+const MultipleImage = () => {
+  const { productDetails, setProductDetails } = useAdminContext();
+  const { images, imagesR } = productDetails;
 
-const MultipleImage: React.FC<MultipleImageType> = ({ image, setImage }) => {
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
+
+    const files = e.target.files;
     const tempImage: string[] = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      tempImage.push(URL.createObjectURL(e.target.files[i]));
+    const imageList: string[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      tempImage.push(URL.createObjectURL(file));
+
+      const fileReader = new FileReader();
+
+      const onload = new Promise((resolve) => {
+        fileReader.onload = () => {
+          if (typeof fileReader.result === "string") {
+            imageList.push(fileReader.result);
+            resolve("done");
+          }
+        };
+      });
+
+      fileReader.readAsDataURL(file);
+      await onload;
     }
-    setImage({ ...image, images: [...image.images, ...tempImage] });
+
+    setProductDetails({
+      ...productDetails,
+      images: [...images, ...tempImage],
+      imagesR: [...imagesR, ...imageList],
+    });
   };
 
   const handleDeleteImage = (ref: string) => {
-    const filterImage = image.images.filter((img) => img !== ref);
-    setImage({ ...image, images: filterImage });
+    const filterImage = images.filter((img) => img !== ref);
+    setProductDetails({ ...productDetails, images: filterImage });
   };
 
   return (
     <div className={styles["image-preview"]}>
       <ul className={styles["image-preview-list"]}>
-        {image.images.map((item, idx) => (
+        {images.map((item, idx) => (
           <li key={idx}>
             <img src={item} alt="images" />
 

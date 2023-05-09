@@ -10,6 +10,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { GlobalContextProvider } from "./store/GlobalContext.tsx";
 import { CartContextProvider } from "./store/cartContext.tsx";
 import { PaymentContextProvider } from "./store/paymentContext.tsx";
+import { AdminContextProvider } from "./store/AdminContext.tsx";
 
 const client = new QueryClient();
 
@@ -22,7 +23,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             <AuthContextProvider>
               <CartContextProvider>
                 <PaymentContextProvider>
-                  <App />
+                  <AdminContextProvider>
+                    <App />
+                  </AdminContextProvider>
                 </PaymentContextProvider>
               </CartContextProvider>
               <ReactQueryDevtools />

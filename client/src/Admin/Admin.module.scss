@@ -205,6 +205,23 @@
   margin-top: 2rem;
 }
 
+.product-button {
+  @include displayCenter;
+  justify-content: flex-end;
+  margin-top: 1rem;
+
+  button {
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+    padding: 10px 35px;
+    border-radius: 3px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
 @media (max-width: 992px) {
   .admin {
     padding: 2rem 1rem;
@@ -251,6 +268,14 @@
 
     .flat-add {
       flex-direction: column;
+    }
+
+    .product-button {
+      width: 100%;
+
+      button {
+        width: 100%;
+      }
     }
   }
 

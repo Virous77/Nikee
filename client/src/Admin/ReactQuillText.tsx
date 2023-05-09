@@ -5,7 +5,7 @@ import styles from "./Admin.module.scss";
 
 type ReactQuillTextType = {
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (e: string) => void;
 };
 
 export const ReactQuillText: React.FC<ReactQuillTextType> = ({

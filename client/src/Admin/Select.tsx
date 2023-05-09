@@ -3,12 +3,12 @@ import React from "react";
 type SelectType = {
   data: string[];
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const Select: React.FC<SelectType> = ({ data, value, setValue }) => {
   return (
-    <select value={value} onChange={(e) => setValue(e.target.value)}>
+    <select value={value} onChange={setValue}>
       {data.map((item, idx) => (
         <option value={item} key={idx}>
           {item}

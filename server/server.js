@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import UserRouter from "./src/Routes/user.js";
 import PaymentRouter from "./src/Routes/Payment.js";
@@ -12,6 +13,8 @@ dotenv.config();
 const app = express();
 
 //App middleware
+app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

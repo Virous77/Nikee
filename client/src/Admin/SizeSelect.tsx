@@ -1,19 +1,24 @@
 import React from "react";
 import styles from "./Admin.module.scss";
+import { useAdminContext } from "../store/AdminContext";
 
 type SelectType = {
   data: string[];
-  value: string[];
-  setValue: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const SizeSelect: React.FC<SelectType> = ({ data, value, setValue }) => {
+const SizeSelect: React.FC<SelectType> = ({ data }) => {
+  const { productDetails, setProductDetails } = useAdminContext();
+  const { productSize } = productDetails;
+
   const handleSelect = (size: string) => {
-    if (value.includes(size)) {
-      const filterData = value.filter((item) => item !== size);
-      return setValue(filterData);
+    if (productSize.includes(size)) {
+      const filterData = productSize.filter((item) => item !== size);
+      return setProductDetails({ ...productDetails, productSize: filterData });
     }
-    setValue((old) => [...old, size]);
+    setProductDetails({
+      ...productDetails,
+      productSize: [...productSize, size],
+    });
   };
 
   return (
@@ -23,7 +28,7 @@ const SizeSelect: React.FC<SelectType> = ({ data, value, setValue }) => {
           key={idx}
           onClick={() => handleSelect(size)}
           className={
-            value.find((li) => li === size) ? styles["active-select"] : ""
+            productSize.find((li) => li === size) ? styles["active-select"] : ""
           }
         >
           {size}
