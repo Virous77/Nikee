@@ -130,7 +130,7 @@ const AddProductForm: React.FC<AddProductFormType> = ({
         <ReactQuillText setValue={setValue} value={value} />
       </div>
 
-      <div className={styles["size-set"]} style={{ marginTop: "2rem" }}>
+      <div className={`${styles["size-set"]}  ${styles["info"]}`}>
         <p>Product Information</p>
         <ReactQuillText setValue={setValue} value={value} />
       </div>
