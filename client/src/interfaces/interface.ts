@@ -55,3 +55,22 @@ export interface Order {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Product {
+  _id: string;
+  name: string;
+  amount: number;
+  discount: number;
+  aboutProduct: string;
+  brands: string;
+  color: string;
+  category: string;
+  heroImage: string;
+  images: string[];
+  productInformation: string;
+  productType: string;
+  size: string[];
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+}

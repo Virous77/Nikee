@@ -68,3 +68,28 @@ export type CartStateType = {
   allAddressData: UserAddress[] | undefined;
   refetch: () => void;
 };
+
+export type ProductDetailsType = {
+  aboutProduct: string;
+  productInformation: string;
+  productsType: string;
+  productCategory: string;
+  productSize: string[];
+  images: string[];
+  image: string;
+  name: string;
+  amount: number;
+  discount: number;
+  color: string;
+  brands: string;
+  imagesR: string[] | [];
+  imageR: string | undefined;
+};
+
+export type AdminContextType = {
+  productDetails: ProductDetailsType;
+  setProductDetails: React.Dispatch<React.SetStateAction<ProductDetailsType>>;
+  handleCreatingData: () => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
+};

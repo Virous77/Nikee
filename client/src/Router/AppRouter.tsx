@@ -15,6 +15,7 @@ import {
   ProfilePage,
   PaymentPage,
   AdminPage,
+  ProductDetailsPage,
 } from "../pages/index";
 import PrivateRoutes from "../components/PrivateRoutes/PrivateRoutes";
 import PreventOnLogin from "../components/PrivateRoutes/PrventonLogin";
@@ -30,6 +31,7 @@ const AppRouter = () => {
         <Route path="/sale" element={<SalePage />} />
         <Route path="/featured" element={<FeaturePage />} />
         <Route path="/sneakers" element={<SneakersPage />} />
+        <Route path="/product/:name" element={<ProductDetailsPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route
           path="/checkout"

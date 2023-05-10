@@ -63,7 +63,7 @@ const ProductsSchema = new mongoose.Schema(
 
 ProductsSchema.pre("validate", function (next) {
   if (this.name) {
-    this.slug = slugify(this.title, { lower: true, strict: true, trim: true });
+    this.slug = slugify(this.name, { lower: true, strict: true, trim: true });
   }
 
   next();
