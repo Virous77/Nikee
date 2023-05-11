@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./Admin.module.scss";
 import { useAdminContext } from "../store/AdminContext";
+import Size from "../common/Size";
 
 type SelectType = {
   data: string[];
@@ -22,19 +22,14 @@ const SizeSelect: React.FC<SelectType> = ({ data }) => {
   };
 
   return (
-    <ul className={styles["size-select"]}>
-      {data.map((size, idx) => (
-        <li
-          key={idx}
-          onClick={() => handleSelect(size)}
-          className={
-            productSize.find((li) => li === size) ? styles["active-select"] : ""
-          }
-        >
-          {size}
-        </li>
-      ))}
-    </ul>
+    <Size
+      handleSelect={handleSelect}
+      data={data}
+      mainClass="size-select"
+      active="active-select"
+      productSize={productSize}
+      padding="li-padding"
+    />
   );
 };
 

@@ -1,5 +1,188 @@
+@import "../../common/variables.scss";
+
 .product-d-wrap {
   width: 1200px;
   padding: 1rem 2rem;
   margin: auto;
+}
+
+.product-d-wrap {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  gap: 4rem;
+}
+
+.product-d-img {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  position: relative;
+  gap: 1rem;
+
+  ul {
+    @include displayCol;
+    gap: 10px;
+    position: sticky;
+    top: 0%;
+  }
+
+  li {
+    border-radius: 10px;
+    box-shadow: var(--shadow-one);
+    cursor: pointer;
+  }
+
+  img {
+    border-radius: 10px;
+    object-fit: cover;
+    height: 60px;
+    box-shadow: var(--shadow-one);
+  }
+}
+
+.heroImg {
+  height: 600px;
+
+  img {
+    height: 100%;
+  }
+}
+
+.activeImg {
+  border: 2px solid var(--main-font-color);
+  transition: all 100ms ease-in-out;
+}
+
+.product-d-t {
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  b {
+    font-weight: 600;
+    display: inline-block;
+    font-size: var(--fourth-font-size);
+  }
+
+  span {
+    display: block;
+    opacity: 0.75;
+  }
+}
+
+.product-i-img {
+  width: 100px;
+  height: 80px;
+  margin: 1.5rem 0;
+
+  img {
+    border-radius: 10px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.product-d-size {
+  margin-top: 1rem;
+  h3 {
+    font-weight: 500;
+    font-size: var(--third-font-size);
+    margin-bottom: 8px;
+  }
+}
+
+.product-action {
+  @include displayCol;
+  width: 90%;
+  margin-top: 3rem;
+  gap: 1rem;
+
+  button {
+    padding: 18px;
+    border-radius: 30px;
+    font-size: var(--fourth-font-size);
+    font-weight: 600;
+    @include displayCenter;
+    justify-content: center;
+    gap: 8px;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  span {
+    display: flex;
+  }
+}
+
+.addto-bag {
+  background-color: var(--main-font-color);
+  color: var(--background-color);
+}
+
+.about-product {
+  margin-top: 3rem;
+
+  p {
+    line-height: 1.7;
+  }
+
+  h1 {
+    font-size: var(--primary-font-size);
+    font-weight: 600;
+  }
+
+  h3,
+  h2 {
+    font-size: var(--primary-font-size);
+    font-weight: 600;
+  }
+
+  button {
+    margin-top: 1rem;
+    background-color: transparent;
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: var(--third-font-size);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.product-modal-m {
+  margin-top: 2rem;
+  img {
+    height: 80px;
+    width: 100px;
+    border-radius: 5px;
+  }
+
+  h3 {
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 5px;
+  }
+}
+
+.product-d-m-w {
+  @include displayCenter;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.product-content {
+  height: 430px;
+  overflow: scroll;
+  margin-top: 1rem;
 }

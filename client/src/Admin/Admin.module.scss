@@ -75,36 +75,6 @@
       border: 1px solid var(--main-font-color);
     }
   }
-
-  .size-select {
-    @include displayCenter;
-    gap: 10px;
-    flex-wrap: wrap;
-
-    li {
-      border: 1px solid var(--main-font-color);
-      border-radius: 3px;
-      width: 60px;
-      @include displayCenter;
-      justify-content: center;
-      padding: 5px 3px;
-      cursor: pointer;
-
-      &:hover {
-        opacity: 0.8;
-      }
-
-      &:active {
-        background-color: var(--main-font-color);
-        color: var(--card-color);
-      }
-    }
-  }
-}
-
-.active-select {
-  background-color: var(--main-font-color);
-  color: var(--card-color);
 }
 
 .image-preview {

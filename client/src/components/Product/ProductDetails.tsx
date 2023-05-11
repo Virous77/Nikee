@@ -5,6 +5,8 @@ import { getData } from "../../api/api";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError } from "../../interfaces/interface";
 import { Product } from "../../interfaces/interface";
+import ProductImage from "./ProductImage";
+import ProductInfo from "./ProductInfo";
 
 const ProductDetails = () => {
   const { name } = useParams();
@@ -30,7 +32,8 @@ const ProductDetails = () => {
   return (
     <main className={styles["product-d"]}>
       <div className={styles["product-d-wrap"]}>
-        <p>cool</p>
+        <ProductImage images={data ? [data?.heroImage, ...data.images] : []} />
+        <ProductInfo  productDetails={data} />
       </div>
     </main>
   );
