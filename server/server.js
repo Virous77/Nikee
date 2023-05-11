@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import morgan from "morgan";
+import helmet from "helmet";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import UserRouter from "./src/Routes/user.js";
@@ -15,10 +17,12 @@ const app = express();
 //App middleware
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(morgan("dev"));
 
 // App api middleware
 app.use("/api/v1", UserRouter);

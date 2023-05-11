@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Navbar from "./layouts/Navbar";
 import AppRouter from "./Router/AppRouter";
 import ShowSearch from "./components/search/ShowSearch";
@@ -11,7 +12,10 @@ const App = () => {
     <main>
       <ShowSearch />
       {pathname !== "/checkout" && <Navbar />}
-      <AppRouter />
+      <Suspense fallback={<p>Loading...</p>}>
+        <AppRouter />
+      </Suspense>
+
       {/* <Footer /> */}
       <Notification />
     </main>

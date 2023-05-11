@@ -1,24 +1,28 @@
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import {
-  HomePage,
-  MenPage,
-  WomenPage,
-  KidsPage,
-  SalePage,
-  SneakersPage,
-  FeaturePage,
-  CartPage,
-  LoginPage,
-  RegisterPage,
-  ErrorPage,
-  CheckoutPage,
-  ProfilePage,
-  PaymentPage,
-  AdminPage,
-  ProductDetailsPage,
-} from "../pages/index";
-import PrivateRoutes from "../components/PrivateRoutes/PrivateRoutes";
-import PreventOnLogin from "../components/PrivateRoutes/PrventonLogin";
+
+const HomePage = lazy(() => import("../pages/HomePage"));
+const MenPage = lazy(() => import("../pages/MenPage"));
+const WomenPage = lazy(() => import("../pages/WomenPage"));
+const KidsPage = lazy(() => import("../pages/KidsPage"));
+const SalePage = lazy(() => import("../pages/SalePage"));
+const SneakersPage = lazy(() => import("../pages/SneakersPage"));
+const FeaturePage = lazy(() => import("../pages/FeaturePage"));
+const CartPage = lazy(() => import("../pages/CartPage"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const RegisterPage = lazy(() => import("../pages/RegisterPage"));
+const ErrorPage = lazy(() => import("../pages/ErrorPage"));
+const CheckoutPage = lazy(() => import("../pages/CheckoutPage"));
+const ProfilePage = lazy(() => import("../pages/ProfilePage"));
+const PaymentPage = lazy(() => import("../pages/PaymentPage"));
+const AdminPage = lazy(() => import("../pages/AdminPage"));
+const ProductDetailsPage = lazy(() => import("../pages/ProductDetailsPage"));
+const PrivateRoutes = lazy(
+  () => import("../components/PrivateRoutes/PrivateRoutes")
+);
+const PreventOnLogin = lazy(
+  () => import("../components/PrivateRoutes/PrventonLogin")
+);
 
 const AppRouter = () => {
   return (
