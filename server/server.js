@@ -6,10 +6,10 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import UserRouter from "./src/Routes/user.js";
-import PaymentRouter from "./src/Routes/Payment.js";
-import AddressRouter from "./src/Routes/Address.js";
-import ProductsRouter from "./src/Routes/Products.js";
+import UserRouter from "./src/Routes/userRoutes.js";
+import PaymentRouter from "./src/Routes/PaymentRoutes.js";
+import AddressRouter from "./src/Routes/AddressRoutes.js";
+import ProductsRouter from "./src/Routes/ProductsRoutes.js";
 
 dotenv.config();
 const app = express();

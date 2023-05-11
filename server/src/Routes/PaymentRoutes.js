@@ -4,7 +4,7 @@ import {
   getOrderData,
   getOrders,
   verifyAndCompletePayment,
-} from "../Controllers/RazorPay/payment.js";
+} from "../Controllers/RazorPay/paymentController.js";
 
 const router = express.Router();
 
