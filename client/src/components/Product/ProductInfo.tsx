@@ -1,75 +1,97 @@
 import React, { useState } from "react";
-import styles from "./Product.module.scss";
-import { Product } from "../../interfaces/interface";
-import Size from "../../common/Size";
-import ProductAction from "./ProductAction";
-import HtmlParser from "../../common/HtmlParser";
+import { Product, AppError } from "../../interfaces/interface";
 import { Modal } from "../Modal/Modal";
 import ModalHeader from "../Modal/ModalHeader";
 import ProductAboutModal from "./ProductAboutModal";
+import { useMutation, useQuery } from "react-query";
+import { createData, deleteData, getData } from "../../api/api";
+import { getLocalData } from "../../utils/data";
+import { useGlobalContext } from "../../store/GlobalContext";
+import ProductInfoData from "./ProductInfoData";
 
 type ProductDetailsType = {
   productDetails: Product | undefined;
+};
+
+export type FavType = {
+  status: boolean;
 };
 
 const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   const [aboutProduct, setAboutProduct] = useState<Product | undefined>(
     undefined
   );
+
+  const userId = getLocalData("nike");
+  const { handleSetNotification } = useGlobalContext();
+
+  const { data: isInFav, refetch } = useQuery(
+    ["product-fav", userId, productDetails?._id],
+    async () => {
+      if (productDetails?._id) {
+        const data: FavType = await getData(
+          `/fav/${productDetails._id}/${userId}`
+        );
+        return data;
+      }
+    },
+    {
+      onError: (response: AppError) => {
+        handleSetNotification({
+          message: response.data.message,
+          status: "error",
+        });
+      },
+      retry: false,
+    }
+  );
+
+  const { mutate, isLoading } = useMutation({
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    mutationFn: (data: any) => {
+      if (isInFav?.status) {
+        return deleteData(`/fav/${productDetails?._id}`);
+      } else {
+        return createData({ endpoints: "/fav", userData: data });
+      }
+    },
+    onSuccess: ({ message }: { message: string }) => {
+      handleSetNotification({ message, status: "success" });
+      refetch();
+    },
+    onError: ({ data }: AppError) => {
+      handleSetNotification({ message: data.message, status: "error" });
+    },
+  });
+
   const handleSelect = () => {};
+
+  const handleFav = () => {
+    const data = {
+      userId,
+      productId: productDetails?._id,
+      productImage: productDetails?.heroImage,
+      productName: productDetails?.name,
+      productPrice: productDetails?.amount,
+      productType: productDetails?.productType,
+      productCategory: productDetails?.category,
+    };
+    mutate(data);
+  };
+
+  const handleAddToBag = () => {};
 
   return (
     <React.Fragment>
-      <section className={styles["product-d-info"]}>
-        <div className={styles["product-d-t"]}>
-          <h1>{productDetails?.name}</h1>
-          <p>
-            {productDetails?.productType}'s {productDetails?.category}
-          </p>
-
-          <b>MRP : $ {productDetails?.amount}</b>
-          <span style={{ marginTop: "10px" }}>incl of taxes</span>
-          <span>(Also includes all applicable duties)</span>
-        </div>
-
-        <div className={styles["product-i-img"]}>
-          <img src={productDetails?.heroImage} alt="photo" />
-        </div>
-
-        <div className={styles["product-d-size"]}>
-          <h3>Select Size</h3>
-          <Size
-            handleSelect={handleSelect}
-            data={productDetails?.size}
-            mainClass="size-select"
-            active="active-select"
-            productSize={productDetails?.size}
-            padding="li-padding-p"
-            title="product"
-          />
-        </div>
-
-        <div className={styles["product-action"]}>
-          <ProductAction
-            name="Add to Bag"
-            handleProductAction={() => console.log("col")}
-            addtoBag={styles["addto-bag"]}
-          />
-          <ProductAction
-            name="Favourite"
-            title="yes"
-            active="cool"
-            handleProductAction={() => console.log("col")}
-          />
-        </div>
-
-        <div className={styles["about-product"]}>
-          <HtmlParser data={productDetails?.aboutProduct.substring(0, 300)} />
-          <button onClick={() => setAboutProduct(productDetails)}>
-            View More Details
-          </button>
-        </div>
-      </section>
+      <ProductInfoData
+        setAboutProduct={setAboutProduct}
+        handleAddToBag={handleAddToBag}
+        handleFav={handleFav}
+        handleSelect={handleSelect}
+        productDetails={productDetails}
+        isLoading={isLoading}
+        isInFav={isInFav}
+      />
 
       {aboutProduct && (
         <Modal isOpen="isOpen" onClose={() => setAboutProduct(undefined)}>
