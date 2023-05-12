@@ -74,3 +74,28 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Fav {
+  _id: string;
+  userId: string;
+  productId: string;
+  productImage: string;
+  createdAt: string;
+  updatedAt: string;
+  productName: string;
+  productPrice: number;
+  productType: string;
+  productCategory: string;
+}
+
+export interface Review {
+  _id: string;
+  userId: string;
+  productId: string;
+  createdAt: string;
+  updatedAt: string;
+  userName: string;
+  userImage: string;
+  rating: number;
+  message: string;
+}

@@ -186,3 +186,93 @@
   overflow: scroll;
   margin-top: 1rem;
 }
+
+.product-review {
+  padding: 2rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--card-color);
+  border-bottom: 1px solid var(--card-color);
+}
+
+.top-review {
+  @include displayFlex;
+
+  p {
+    font-size: var(--secondary-font-size);
+    font-weight: 500;
+  }
+}
+
+.rating {
+  @include displayCenter;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.review-Body {
+  max-height: 200px;
+  overflow: scroll;
+  min-height: fit-content;
+}
+
+.review-Modal {
+  header {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    @include displayCenter;
+    align-items: flex-start;
+    gap: 10px;
+
+    img {
+      width: 100px;
+      height: 80px;
+      border-radius: 5px;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: var(--secondary-font-size);
+    }
+  }
+
+  fieldset {
+    border: none;
+    width: 100%;
+    @include displayCol;
+    gap: 5px;
+
+    label {
+      font-weight: 600;
+    }
+
+    textarea {
+      min-width: 100%;
+      max-width: 100%;
+      height: 100px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid var(--card-color);
+      font-size: 16px;
+
+      &:focus {
+        outline: 1px solid var(--main-font-color);
+      }
+    }
+  }
+}
+
+.review-button {
+  width: 100%;
+  text-align: end;
+  margin-top: 2rem;
+
+  button {
+    @include buttonMain;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}

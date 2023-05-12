@@ -5,6 +5,7 @@ import ProductAction from "./ProductAction";
 import HtmlParser from "../../common/HtmlParser";
 import { Product } from "../../interfaces/interface";
 import { FavType } from "./ProductInfo";
+import ProductReview from "./ProductReview";
 
 type ProductInfoDataType = {
   productDetails: Product | undefined;
@@ -75,6 +76,8 @@ const ProductInfoData: React.FC<ProductInfoDataType> = ({
           View More Details
         </button>
       </div>
+
+      <ProductReview productDetails={productDetails} />
     </section>
   );
 };
