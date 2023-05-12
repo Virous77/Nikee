@@ -1,7 +1,6 @@
 import Products from "../Models/Products.js";
 import { createError } from "../utils/utility.js";
 import { uploadImage } from "../utils/imageUpload.js";
-import mongoose from "mongoose";
 
 export const createProduct = async (req, res, next) => {
   const {
@@ -66,9 +65,6 @@ export const getProduct = async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    if (!mongoose.Types.ObjectId.isValid(id))
-      return next(createError({ status: 400, message: "Id is not valid" }));
-
     const product = await Products.findById(id);
     if (!product)
       return next(createError({ status: 400, message: "Product not exists" }));

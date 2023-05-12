@@ -5,12 +5,13 @@ import {
   deleteAddress,
   updateAddress,
 } from "../Controllers/addressController.js";
+import { validateId } from "../middlewares/validateId.js";
 
 const router = express.Router();
 
 router.post("/address", createAddress);
-router.get("/address/:id", getAddress);
-router.delete("/address/:id", deleteAddress);
-router.put("/address/:id", updateAddress);
+router.get("/address/:id", validateId, getAddress);
+router.delete("/address/:id", validateId, deleteAddress);
+router.put("/address/:id", validateId, updateAddress);
 
 export default router;

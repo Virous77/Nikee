@@ -10,6 +10,8 @@ import UserRouter from "./src/Routes/userRoutes.js";
 import PaymentRouter from "./src/Routes/PaymentRoutes.js";
 import AddressRouter from "./src/Routes/AddressRoutes.js";
 import ProductsRouter from "./src/Routes/ProductsRoutes.js";
+import FavRouter from "./src/Routes/FavRoutes.js";
+import ReviewRouter from "./src/Routes/ReviewRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -29,6 +31,8 @@ app.use("/api/v1", UserRouter);
 app.use("/api/v1", AddressRouter);
 app.use("/api/v1", PaymentRouter);
 app.use("/api/v1", ProductsRouter);
+app.use("/api/v1", FavRouter);
+app.use("/api/v1", ReviewRouter);
 
 //Handle app Error
 app.use((err, req, res, next) => {

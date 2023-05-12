@@ -7,7 +7,6 @@ import fs from "fs";
 import { promises as fsPromises } from "fs";
 import path from "path";
 import { createError } from "../../utils/utility.js";
-import mongoose from "mongoose";
 
 const filePath = path.resolve(".", "id.json");
 
@@ -106,11 +105,6 @@ export const getOrderData = async (req, res, next) => {
   const orderId = req.params.id;
 
   try {
-    if (!mongoose.Types.ObjectId.isValid(orderId))
-      return next(
-        createError({ status: 400, message: "Order Id is not valid" })
-      );
-
     const orderData = await Order.findById(orderId);
     if (!orderData)
       return next(
@@ -127,11 +121,6 @@ export const getOrders = async (req, res, next) => {
   const userId = req.params.id;
 
   try {
-    if (!mongoose.Types.ObjectId.isValid(userId))
-      return next(
-        createError({ status: 400, message: "User id is not valid" })
-      );
-
     const ordersData = await Order.find({ userId });
     res.status(200).json(ordersData);
   } catch (error) {

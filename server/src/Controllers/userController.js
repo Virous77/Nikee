@@ -1,7 +1,6 @@
 import User from "../Models/User.js";
 import { createError } from "../utils/utility.js";
 import bcrypt from "bcrypt";
-import mongoose from "mongoose";
 
 export const createUser = async (req, res, next) => {
   const { name, email, image, about, password, birth, gender, country } =
@@ -126,11 +125,6 @@ export const changePassword = async (req, res, next) => {
 export const getUser = async (req, res, next) => {
   const id = req.params.id;
   try {
-    if (!mongoose.Types.ObjectId.isValid(id))
-      return next(
-        createError({ status: 400, message: "User id is not valid" })
-      );
-
     const user = await User.findById(id).select("-password");
     if (!user)
       return next(createError({ status: 400, message: "User not exists" }));
