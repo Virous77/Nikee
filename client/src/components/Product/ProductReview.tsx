@@ -9,6 +9,7 @@ import { Product, AppError, Review } from "../../interfaces/interface";
 import { getData } from "../../api/api";
 import { useQuery } from "react-query";
 import { useGlobalContext } from "../../store/GlobalContext";
+import ReviewList from "./ReviewList";
 
 type ProductReviewType = {
   productDetails: Product | undefined;
@@ -78,6 +79,20 @@ const ProductReview: React.FC<ProductReviewType> = ({ productDetails }) => {
         {showMore === "review" && (
           <div className={styles["review-Body"]}>
             <button onClick={() => setShowMore("write")}>Write a Review</button>
+
+            {reviewData && reviewData?.length > 0 ? (
+              <div className={styles["review-l-main"]}>
+                {reviewData &&
+                  reviewData.map((review) => (
+                    <ReviewList review={review} key={review._id} />
+                  ))}
+              </div>
+            ) : (
+              <p style={{ marginTop: "10px" }}>
+                Be the first to write a review for this{" "}
+                {productDetails?.category}
+              </p>
+            )}
           </div>
         )}
       </div>

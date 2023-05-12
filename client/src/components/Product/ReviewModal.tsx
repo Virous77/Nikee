@@ -6,6 +6,7 @@ import { Product, AppError } from "../../interfaces/interface";
 import { createData } from "../../api/api";
 import { useMutation } from "react-query";
 import { useGlobalContext } from "../../store/GlobalContext";
+import { useAuthContext } from "../../store/authContext";
 
 type ReviewModalType = {
   productDetails: Product | undefined;
@@ -20,6 +21,7 @@ const ReviewModal: React.FC<ReviewModalType> = ({
   const [rating, setRating] = useState(0);
   const { handleSetNotification } = useGlobalContext();
   const messageRef = useRef<HTMLTextAreaElement | null>(null);
+  const { UserData } = useAuthContext();
 
   const { mutate, isLoading } = useMutation({
     /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -46,8 +48,8 @@ const ReviewModal: React.FC<ReviewModalType> = ({
       userId,
       productId: productDetails?._id,
       rating,
-      userImage: productDetails?.heroImage,
-      userName: productDetails?.name,
+      userImage: UserData?.image,
+      userName: UserData?.name,
       message: messageRef.current.value,
     };
 

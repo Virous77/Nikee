@@ -210,9 +210,12 @@
 }
 
 .review-Body {
-  max-height: 200px;
-  overflow: scroll;
-  min-height: fit-content;
+  button {
+    text-decoration: underline;
+    margin-top: 10px;
+    font-weight: 600;
+    background-color: transparent;
+  }
 }
 
 .review-Modal {
@@ -275,4 +278,65 @@
       opacity: 0.9;
     }
   }
+}
+
+.product-info {
+  border-top: none;
+  padding-top: 0;
+
+  header {
+    @include displayFlex;
+
+    p {
+      font-weight: 600;
+      font-size: var(--secondary-font-size);
+    }
+  }
+}
+
+.review-l-main {
+  @include displayCol;
+  gap: 20px;
+  margin-top: 1rem;
+  max-height: 250px;
+  overflow: scroll;
+  min-height: fit-content;
+}
+
+.review-list {
+  border-bottom: 1px solid var(--card-color);
+  padding-bottom: 10px;
+
+  img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+  }
+}
+
+.flat-user-r {
+  @include displayCenter;
+  align-items: flex-start;
+  gap: 10px;
+
+  h3 {
+    font-weight: 600;
+    font-size: var(--fourth-font-size);
+  }
+
+  p {
+    font-size: var(--small-font-size);
+    opacity: 0.8;
+  }
+}
+
+.full-flat {
+  @include displayFlex;
+}
+
+.review-message {
+  margin-top: 0.5rem;
+  font-size: 16px;
+  padding-left: 60px;
 }

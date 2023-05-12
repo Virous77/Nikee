@@ -6,6 +6,7 @@ import HtmlParser from "../../common/HtmlParser";
 import { Product } from "../../interfaces/interface";
 import { FavType } from "./ProductInfo";
 import ProductReview from "./ProductReview";
+import ProductInformation from "./ProductInformation";
 
 type ProductInfoDataType = {
   productDetails: Product | undefined;
@@ -78,6 +79,7 @@ const ProductInfoData: React.FC<ProductInfoDataType> = ({
       </div>
 
       <ProductReview productDetails={productDetails} />
+      <ProductInformation info={productDetails?.productInformation} />
     </section>
   );
 };
