@@ -79,6 +79,23 @@ nav {
   }
 }
 
+.cart-button {
+  position: relative;
+
+  p {
+    background-color: black;
+    width: 17px;
+    height: 17px;
+    @include displayAllCenter;
+    border-radius: 100px;
+    color: var(--background-color);
+    font-size: 10px;
+    position: absolute;
+    top: -8%;
+    right: 0;
+  }
+}
+
 @media (max-width: 992px) {
   .link-list {
     display: none;

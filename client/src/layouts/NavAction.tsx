@@ -1,11 +1,11 @@
 import styles from "./Layout.module.scss";
 import Search from "../components/search/Search";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { BsHandbag } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 import { useSearchContext } from "../store/searchContext";
 import { useAuthContext } from "../store/authContext";
+import CartButton from "./CartButton";
 
 const NavAction = () => {
   const navigate = useNavigate();
@@ -29,13 +29,7 @@ const NavAction = () => {
         />
       </button>
 
-      <button>
-        <BsHandbag
-          size={19}
-          cursor="pointer"
-          onClick={() => navigate("/cart")}
-        />
-      </button>
+      <CartButton />
     </div>
   );
 };

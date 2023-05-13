@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { Cart } from "../interfaces/interface";
 
 type notificationType = {
   message: string;
@@ -7,6 +8,7 @@ type notificationType = {
 
 type stateType = {
   show: boolean;
+  cart: Cart | undefined;
 };
 
 type GlobalType = {
@@ -15,6 +17,7 @@ type GlobalType = {
   handleSetNotification: ({ message, status }: notificationType) => void;
   state: stateType;
   setState: React.Dispatch<React.SetStateAction<stateType>>;
+  handleSetCartNotification: (cart: Cart) => void;
 };
 
 const stateInitialValue = {
@@ -24,6 +27,7 @@ const stateInitialValue = {
 
 const stateInitialValueTwo = {
   show: false,
+  cart: undefined,
 };
 
 const initialValue: GlobalType = {
@@ -32,6 +36,7 @@ const initialValue: GlobalType = {
   handleSetNotification: () => {},
   state: stateInitialValueTwo,
   setState: () => {},
+  handleSetCartNotification: () => {},
 };
 
 const GlobalContext = createContext<GlobalType>(initialValue);
@@ -43,8 +48,10 @@ export const GlobalContextProvider = ({
 }) => {
   const [notification, setNotification] =
     useState<notificationType>(stateInitialValue);
-  const [state, setState] = useState(stateInitialValueTwo);
+  const [state, setState] = useState<stateType>(stateInitialValueTwo);
+  // const cartData: Cart[] | null = getLocalData("nikeCart");
 
+  ///App notification
   const handleSetNotification = ({ message, status }: notificationType) => {
     setNotification({ ...notification, message, status });
 
@@ -58,9 +65,24 @@ export const GlobalContextProvider = ({
     }, 3000);
   };
 
+  ///Cart notification
+  const handleSetCartNotification = (cart: Cart) => {
+    setState({ ...state, cart: cart });
+
+    setTimeout(() => {
+      setState({ ...state, cart: undefined });
+    }, 5000);
+  };
+
   return (
     <GlobalContext.Provider
-      value={{ notification, handleSetNotification, state, setState }}
+      value={{
+        notification,
+        handleSetNotification,
+        state,
+        setState,
+        handleSetCartNotification,
+      }}
     >
       {children}
     </GlobalContext.Provider>

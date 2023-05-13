@@ -1,0 +1,90 @@
+@import "../../common/variables.scss";
+
+.overlay {
+  width: 100%;
+  height: 100vh;
+  top: 100%;
+  position: absolute;
+  z-index: 1000;
+  background-color: rgba($color: #000000, $alpha: 0.4);
+  scale: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.cart-not {
+  position: absolute;
+  z-index: 1001;
+  right: 0;
+  top: 100%;
+  width: 400px;
+  height: fit-content;
+  background-color: var(--background-color);
+  padding: 10px;
+  scale: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+
+  header {
+    @include displayFlex;
+    padding: 10px 0;
+
+    p {
+      @include displayCenter;
+      gap: 10px;
+    }
+  }
+}
+
+.cart-noto-action {
+  @include displayFlex;
+  gap: 2rem;
+
+  button {
+    width: 100%;
+    padding: 11px;
+    border-radius: 25px;
+    font-size: var(--fourth-font-size);
+    font-weight: 500;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:nth-child(2) {
+      background-color: var(--main-font-color);
+      color: var(--background-color);
+    }
+  }
+}
+
+.cart-content {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  @include displayCenter;
+  align-items: flex-start;
+  gap: 20px;
+
+  img {
+    width: 100px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+
+  h2 {
+    font-size: var(--third-font-size);
+    font-weight: 600;
+    margin-bottom: 5px;
+
+    p {
+      font-size: var(--small-font-size);
+      opacity: 0.9;
+    }
+  }
+}
+
+.success {
+  scale: 1;
+  opacity: 1;
+}

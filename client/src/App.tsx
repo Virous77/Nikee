@@ -5,13 +5,18 @@ import ShowSearch from "./components/search/ShowSearch";
 import Notification from "./components/UI/Notification";
 import Footer from "./layouts/Footer";
 import { useLocation } from "react-router-dom";
+import CartNotification from "./components/UI/CartNotification";
 
 const App = () => {
   const { pathname } = useLocation();
   return (
     <main>
       <ShowSearch />
-      {pathname !== "/checkout" && <Navbar />}
+      <div style={{ position: "relative" }}>
+        {pathname !== "/checkout" && <Navbar />}
+        <CartNotification />
+      </div>
+
       <Suspense fallback={<p>Loading...</p>}>
         <AppRouter />
       </Suspense>

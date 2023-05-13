@@ -25,7 +25,8 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   const [error, setError] = useState("");
 
   const userId = getLocalData("nike");
-  const { handleSetNotification } = useGlobalContext();
+  const { handleSetNotification, handleSetCartNotification } =
+    useGlobalContext();
 
   const { data: isInFav, refetch } = useQuery(
     ["product-fav", userId, productDetails?._id],
@@ -112,11 +113,12 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
         item.quantity++;
         data.quantity = item.quantity;
       } else {
-        acc.push(item);
+        acc.unshift(item);
       }
       return acc;
     }, [] as Cart[]);
 
+    handleSetCartNotification(data);
     localStorage.setItem("nikeCart", JSON.stringify([data, ...cartData]));
   };
 
