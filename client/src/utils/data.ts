@@ -20,6 +20,11 @@ export const getLocalData = (name: string) => {
   return localData ? JSON.parse(localData) : null;
 };
 
+export const getLocalDataArray = (name: string) => {
+  const localData = localStorage.getItem(name);
+  return localData ? JSON.parse(localData) : [];
+};
+
 export const navLinks = [
   {
     id: 1,

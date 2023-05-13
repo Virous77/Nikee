@@ -99,3 +99,16 @@ export interface Review {
   rating: number;
   message: string;
 }
+
+export interface Cart {
+  productImage: string;
+  quantity: number;
+  size: string;
+  selectSize: string[];
+  productId: string;
+  productName: string;
+  productCategory: string;
+  productType: string;
+  productColor: string;
+  productPrice: number;
+}

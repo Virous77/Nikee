@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Product, AppError } from "../../interfaces/interface";
+import { Product, AppError, Cart } from "../../interfaces/interface";
 import { Modal } from "../Modal/Modal";
 import ModalHeader from "../Modal/ModalHeader";
 import ProductAboutModal from "./ProductAboutModal";
 import { useMutation, useQuery } from "react-query";
 import { createData, deleteData, getData } from "../../api/api";
-import { getLocalData } from "../../utils/data";
+import { getLocalDataArray, getLocalData } from "../../utils/data";
 import { useGlobalContext } from "../../store/GlobalContext";
 import ProductInfoData from "./ProductInfoData";
 
@@ -21,6 +21,8 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   const [aboutProduct, setAboutProduct] = useState<Product | undefined>(
     undefined
   );
+  const [selectedSize, setSelectedSize] = useState("");
+  const [error, setError] = useState("");
 
   const userId = getLocalData("nike");
   const { handleSetNotification } = useGlobalContext();
@@ -64,7 +66,14 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     },
   });
 
-  const handleSelect = () => {};
+  const handleSelect = (size: string) => {
+    setError("");
+    if (selectedSize === size) {
+      setSelectedSize("");
+    } else {
+      setSelectedSize(size);
+    }
+  };
 
   const handleFav = () => {
     const data = {
@@ -79,7 +88,37 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     mutate(data);
   };
 
-  const handleAddToBag = () => {};
+  const handleAddToBag = () => {
+    let cartData: Cart[] = getLocalDataArray("nikeCart");
+    if (!selectedSize) return setError("Please select a size");
+
+    if (!productDetails) return;
+
+    const data: Cart = {
+      productImage: productDetails?.heroImage,
+      productName: productDetails?.name,
+      productCategory: productDetails?.category,
+      productType: productDetails?.productType,
+      productColor: productDetails?.color,
+      productId: productDetails?._id,
+      productPrice: productDetails?.amount,
+      quantity: 1,
+      selectSize: productDetails?.size,
+      size: selectedSize,
+    };
+
+    cartData = cartData.reduce((acc, item) => {
+      if (item.productId === data.productId) {
+        item.quantity++;
+        data.quantity = item.quantity;
+      } else {
+        acc.push(item);
+      }
+      return acc;
+    }, [] as Cart[]);
+
+    localStorage.setItem("nikeCart", JSON.stringify([data, ...cartData]));
+  };
 
   return (
     <React.Fragment>
@@ -87,10 +126,12 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
         setAboutProduct={setAboutProduct}
         handleAddToBag={handleAddToBag}
         handleFav={handleFav}
-        handleSelect={handleSelect}
+        handleSelect={(size) => handleSelect(size)}
         productDetails={productDetails}
         isLoading={isLoading}
         isInFav={isInFav}
+        selectedSize={selectedSize}
+        error={error}
       />
 
       {aboutProduct && (

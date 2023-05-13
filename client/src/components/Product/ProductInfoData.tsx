@@ -10,12 +10,14 @@ import ProductInformation from "./ProductInformation";
 
 type ProductInfoDataType = {
   productDetails: Product | undefined;
-  handleSelect: () => void;
+  handleSelect: (size: string) => void;
   handleAddToBag: () => void;
   handleFav: () => void;
   isLoading: boolean;
   setAboutProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
   isInFav: FavType | undefined;
+  selectedSize: string;
+  error: string;
 };
 
 const ProductInfoData: React.FC<ProductInfoDataType> = ({
@@ -26,6 +28,8 @@ const ProductInfoData: React.FC<ProductInfoDataType> = ({
   isLoading,
   setAboutProduct,
   isInFav,
+  selectedSize,
+  error,
 }) => {
   return (
     <section className={styles["product-d-info"]}>
@@ -47,14 +51,15 @@ const ProductInfoData: React.FC<ProductInfoDataType> = ({
       <div className={styles["product-d-size"]}>
         <h3>Select Size</h3>
         <Size
-          handleSelect={handleSelect}
+          handleSelect={(size) => handleSelect(size)}
           data={productDetails?.size}
           mainClass="size-select"
           active="active-select"
-          productSize={productDetails?.size}
+          productSize={[selectedSize]}
           padding="li-padding-p"
           title="product"
         />
+        <p>{error}</p>
       </div>
 
       <div className={styles["product-action"]}>
