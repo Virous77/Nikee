@@ -8,6 +8,8 @@ import { AppError } from "../../interfaces/interface";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthContext } from "../../store/authContext";
+import useCart from "../../hooks/useCart";
+import { getLocalData } from "../../utils/data";
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -15,8 +17,10 @@ const Payment = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get("orderId");
-  const { handleSetNotification, setState, state } = useGlobalContext();
+  const { handleSetNotification } = useGlobalContext();
   const makeUserName = UserData?.name.split(" ").join("-");
+  const { deleteMultipleMutate } = useCart();
+  const userId = getLocalData("nike");
 
   const {
     data: orderData,
@@ -26,8 +30,7 @@ const Payment = () => {
     ["orderDone"],
     async () => {
       const data = await getData(`/order/${orderId}`);
-      localStorage.removeItem("nikeCart");
-      setState({ ...state, total: 0 });
+      deleteMultipleMutate(userId);
       return data;
     },
 

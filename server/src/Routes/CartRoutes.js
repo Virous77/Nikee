@@ -5,6 +5,7 @@ import {
   deleteCart,
   getCart,
   updateCart,
+  deleteMultiple,
 } from "../Controllers/CartController.js";
 import { validateId } from "../middlewares/validateId.js";
 
@@ -15,5 +16,6 @@ router.get("/cart/:id", validateId, getCarts);
 router.delete("/cart/:id", validateId, deleteCart);
 router.get("/cart/:id/:userId", getCart);
 router.put("/cart/:id", validateId, updateCart);
+router.delete("/cart/many/:id", deleteMultiple);
 
 export default router;

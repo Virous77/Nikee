@@ -52,3 +52,13 @@ export const updateCart = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteMultiple = async (req, res, next) => {
+  const userId = req.params.id;
+  try {
+    await Cart.deleteMany({ userId });
+    res.status(200).json({ message: "All Cart items removed" });
+  } catch (error) {
+    next(error);
+  }
+};

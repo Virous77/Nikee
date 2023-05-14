@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
-import { getLocalData, getLocalDataArray } from "../utils/data";
+import { getLocalData } from "../utils/data";
 import { useAuthContext } from "./authContext";
 import { nikeLogo } from "../utils/data";
 import { createData } from "../api/api";
-import { UserAddress, Cart } from "../interfaces/interface";
+import { UserAddress } from "../interfaces/interface";
 import useCart from "../hooks/useCart";
 
 type PaymentContextType = {
@@ -23,20 +23,21 @@ export const PaymentContextProvider = ({
 }) => {
   const id = getLocalData("nike");
   const address: UserAddress = getLocalData("checkout");
-  const cartData: Cart[] = getLocalDataArray("nikeCart");
   const { UserData } = useAuthContext();
-  const { totalPrice, totalTax } = useCart();
+  const { totalPrice, totalTax, cartData } = useCart();
 
-  const shoppingProduct = cartData?.map((item) => {
-    const createData = {
-      name: item.productName,
-      quantity: item.quantity,
-      price: item.productPrice,
-      image: item.productImage,
-    };
+  const shoppingProduct =
+    cartData &&
+    cartData?.map((item) => {
+      const createData = {
+        name: item.productName,
+        quantity: item.quantity,
+        price: item.productPrice,
+        image: item.productImage,
+      };
 
-    return createData;
-  });
+      return createData;
+    });
 
   const handlePayment = async () => {
     const checkoutData = {

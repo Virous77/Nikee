@@ -39,6 +39,18 @@ const useCart = () => {
     },
   });
 
+  const { mutate: deleteMultipleMutate } = useMutation({
+    mutationFn: (id: string) => {
+      return deleteData(`/cart/many/${id}`);
+    },
+    onError: ({ data }: AppError) => {
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
   const { mutate: updateMutate } = useMutation({
     mutationFn: (data: updateType) => {
       return updateData({
@@ -101,6 +113,7 @@ const useCart = () => {
     totalPrice,
     totalTax,
     updateMutate,
+    deleteMultipleMutate,
   };
 };
 
