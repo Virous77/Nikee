@@ -7,10 +7,15 @@ import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
+import useCart from "../../../hooks/useCart";
+import { Cart } from "../../../interfaces/interface";
+import { getLocalDataArray } from "../../../utils/data";
 
 const CheckoutSummary = () => {
   const navigate = useNavigate();
   const [showCartItem, setShowCartItem] = useState(false);
+  const data: Cart[] = getLocalDataArray("nikeCart");
+  const { cartData } = useCart(data);
 
   return (
     <section className={styles["checkout-summary"]}>
@@ -36,7 +41,7 @@ const CheckoutSummary = () => {
 
       <div className={styles["checkout-wrapper"]}>
         <div className={showCartItem ? styles["showItem"] : styles["hideItem"]}>
-          <PriceSummaryCard />
+          <PriceSummaryCard cartData={cartData} />
         </div>
 
         <div className={showCartItem ? styles["showItem"] : styles["hideItem"]}>

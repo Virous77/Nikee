@@ -38,6 +38,7 @@ export interface Order {
   _id: string;
   amount: number;
   userId: string;
+  paymentSuccess: boolean;
   address: {
     address: string;
     landmark: string;
@@ -46,7 +47,7 @@ export interface Order {
     city: string;
     addressType: string;
   };
-  order: string[];
+  order: [{ name: string; image: string; price: number; quantity: number }];
   payment: {
     paymentId: string;
     orderId: string;

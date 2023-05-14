@@ -1,27 +1,39 @@
 import styles from "./Checkout.module.scss";
-import { cartItem } from "../../../utils/data";
+import { Cart } from "../../../interfaces/interface";
+import useCart from "../../../hooks/useCart";
+import {
+  getLocalDataArray,
+  getNextDate,
+  dateFormate,
+} from "../../../utils/data";
 
 const CheckoutProductList = () => {
+  const data: Cart[] = getLocalDataArray("nikeCart");
+  const { cartData } = useCart(data);
+
+  const date = getNextDate();
+
   return (
     <div className={styles["checkout-product"]}>
-      <h3>Arriving by Mon 8 May</h3>
+      <h3>Arriving by {dateFormate(date)}</h3>
 
       <div className={styles["product-list"]}>
-        {cartItem.map((item) => (
-          <div key={item.id} className={styles["list-sub"]}>
-            <img src={item.image} alt={item.name} />
+        {cartData.map((item) => (
+          <div key={item.productId} className={styles["list-sub"]}>
+            <img src={item.productImage} alt={item.productName} />
             <div className={styles["checkout-details"]}>
               <p>
-                {item.name} {item.category}
+                {item.productName} {item.productCategory}
               </p>
-              <span>Size: {item.Size}</span>
-              <span>Color: {item.color}</span>
+              <span>Size : {item.size}</span>{" "}
+              <span style={{ marginLeft: "10px" }}>
+                {" "}
+                Color : {item.productColor}
+              </span>
               <div>
                 <span>Qty: 7</span>
-                <span>@</span>
-                <span>${item.price}</span>
               </div>
-              <span>$875.00</span>
+              <span>Price : ${item.productPrice}</span>
             </div>
           </div>
         ))}

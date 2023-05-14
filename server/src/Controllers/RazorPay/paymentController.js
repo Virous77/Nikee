@@ -48,6 +48,7 @@ export const checkout = async (req, res, next) => {
 
     res.status(200).json(order);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -88,6 +89,7 @@ export const verifyAndCompletePayment = async (req, res, next) => {
         orderId: req.body.razorpay_order_id,
         signature: req.body.razorpay_signature,
       },
+      paymentSuccess: true,
     };
     const options = { new: true };
     const updatedOrder = await Order.findOneAndUpdate(filter, update, options);
@@ -121,7 +123,7 @@ export const getOrders = async (req, res, next) => {
   const userId = req.params.id;
 
   try {
-    const ordersData = await Order.find({ userId });
+    const ordersData = await Order.find({ userId, paymentSuccess: true });
     res.status(200).json(ordersData);
   } catch (error) {
     next(error);

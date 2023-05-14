@@ -2,7 +2,7 @@ import styles from "./Order.module.scss";
 import { Order } from "../../interfaces/interface";
 import React from "react";
 import ModalHeader from "../Modal/ModalHeader";
-import { dateFormate, nikeLogo } from "../../utils/data";
+import { dateFormate } from "../../utils/data";
 
 type OrderModalType = {
   orderDetails: Order;
@@ -25,12 +25,12 @@ const OrderModal: React.FC<OrderModalType> = ({
 
       <div className={styles["order-modal-wrap"]}>
         <div className={styles["order-item"]}>
-          {orderDetails?.order.map((item) => (
-            <div key={item} className={styles["order-item-details"]}>
-              <img src={nikeLogo} alt="product" />
+          {orderDetails?.order.map((item, idx) => (
+            <div key={idx} className={styles["order-item-details"]}>
+              <img src={item.image} alt="product" />
               <div>
-                <p>Nike Product</p>
-                <span>x3</span>
+                <p>{item.name}</p>
+                <span>x{item.quantity}</span>
               </div>
             </div>
           ))}

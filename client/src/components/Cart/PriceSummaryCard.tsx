@@ -13,7 +13,7 @@ const PriceSummaryCard: React.FC<PriceSummaryCardType> = ({
 }) => {
   const subTotal = useMemo(() => {
     const data = cart
-      .map((item) => item.productPrice)
+      ?.map((item) => item.productPrice)
       ?.reduce((acc, curr) => acc + curr, 0);
 
     return data;
@@ -21,7 +21,7 @@ const PriceSummaryCard: React.FC<PriceSummaryCardType> = ({
 
   const Total = useMemo(() => {
     const data = cart
-      .map((item) => item.quantity)
+      ?.map((item) => item.quantity)
       ?.reduce((acc, curr) => acc + curr, 0);
 
     return data;

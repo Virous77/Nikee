@@ -25,8 +25,6 @@ const CartMain = () => {
     }
   };
 
-  console.log(state.total);
-
   return (
     <main className={styles["cart"]}>
       <div className={styles["cart-wrapper"]}>

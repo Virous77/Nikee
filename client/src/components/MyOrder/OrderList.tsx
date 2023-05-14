@@ -19,7 +19,7 @@ const OrderList: React.FC<OrderListType> = React.memo(
 
     return (
       <div className={styles["order-card"]}>
-        <img src={nikeLogo} alt="order" />
+        <img src={order.order[0].image} alt="order" />
         <div className={styles["orders-details"]}>
           <p>Amount: {order.amount} </p>
           <p>Shop Date: {dateFormate(order.createdAt)} </p>

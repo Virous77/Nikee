@@ -1,24 +1,16 @@
-import { createContext, useContext, useEffect } from "react";
-import { getLocalData } from "../utils/data";
+import { createContext, useContext, useMemo } from "react";
+import { getLocalData, getLocalDataArray } from "../utils/data";
 import { useAuthContext } from "./authContext";
 import { nikeLogo } from "../utils/data";
 import { createData } from "../api/api";
-import { UserAddress, Order, AppError } from "../interfaces/interface";
-import { getData } from "../api/api";
-import { useLocation } from "react-router-dom";
-import { useGlobalContext } from "./GlobalContext";
-import { useQuery } from "react-query";
+import { UserAddress, Cart } from "../interfaces/interface";
 
 type PaymentContextType = {
   handlePayment: () => void;
-  isLoading: boolean;
-  orderData: Order | undefined;
 };
 
 const initialValue = {
   handlePayment: () => {},
-  isLoading: false,
-  orderData: {} as Order,
 };
 
 const PaymentContext = createContext<PaymentContextType>(initialValue);
@@ -30,15 +22,41 @@ export const PaymentContextProvider = ({
 }) => {
   const id = getLocalData("nike");
   const address: UserAddress = getLocalData("checkout");
+  const cartData: Cart[] = getLocalDataArray("nikeCart");
   const { UserData } = useAuthContext();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const orderId = searchParams.get("orderId");
-  const { handleSetNotification } = useGlobalContext();
+
+  const shoppingProduct = cartData.map((item) => {
+    const createData = {
+      name: item.productName,
+      quantity: item.quantity,
+      price: item.productPrice,
+      image: item.productImage,
+    };
+
+    return createData;
+  });
+  const subTotal = useMemo(() => {
+    const data = cartData
+      ?.map((item) => item.productPrice)
+      ?.reduce((acc, curr) => acc + curr, 0);
+
+    return data;
+  }, [cartData]);
+
+  const Total = useMemo(() => {
+    const data = cartData
+      ?.map((item) => item.quantity)
+      ?.reduce((acc, curr) => acc + curr, 0);
+
+    return data;
+  }, [cartData]);
+
+  const totalPrice = subTotal * Total;
+  const totalTax = totalPrice && totalPrice * 0.1;
 
   const handlePayment = async () => {
     const checkoutData = {
-      amount: 400,
+      amount: totalTax + totalPrice,
       userId: id,
       address: {
         address: address.address,
@@ -48,11 +66,7 @@ export const PaymentContextProvider = ({
         city: address.city,
         addressType: address.addressType,
       },
-      order: [
-        "644cdcdad754b8cbc94391f6",
-        "644cdcdad754b8cbc94391f6",
-        "644cdcdad754b8cbc94391f6",
-      ],
+      order: shoppingProduct,
     };
     const data = await createData({
       endpoints: "/checkout",
@@ -82,37 +96,8 @@ export const PaymentContextProvider = ({
     razor.open();
   };
 
-  const {
-    data: orderData,
-    isLoading,
-    refetch,
-  } = useQuery(
-    ["orderDone"],
-    async () => {
-      if (location.pathname.includes("payment-complete")) {
-        const data = await getData(`/order/${orderId}`);
-        return data;
-      }
-    },
-    {
-      onError: (response: AppError) => {
-        handleSetNotification({
-          message: response.data.message,
-          status: "error",
-        });
-      },
-      retry: false,
-    }
-  );
-
-  useEffect(() => {
-    if (location.pathname.includes("orders")) {
-      refetch();
-    }
-  }, [location.pathname, refetch]);
-
   return (
-    <PaymentContext.Provider value={{ handlePayment, isLoading, orderData }}>
+    <PaymentContext.Provider value={{ handlePayment }}>
       {children}
     </PaymentContext.Provider>
   );

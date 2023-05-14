@@ -10,6 +10,10 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    paymentSuccess: {
+      type: Boolean,
+      default: false,
+    },
     address: {
       address: {
         type: String,
@@ -19,6 +23,7 @@ const OrderSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
+
       postalCode: {
         type: String,
         required: true,
@@ -38,7 +43,7 @@ const OrderSchema = new mongoose.Schema(
       },
     },
     order: {
-      type: [String],
+      type: [{ name: String, image: String, quantity: Number, price: Number }],
       required: true,
     },
     payment: {

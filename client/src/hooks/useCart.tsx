@@ -55,7 +55,6 @@ const useCart = (data?: Cart[]) => {
       .map((item) => item.quantity)
       .reduce((acc, curr) => acc + curr, 0);
     setState({ ...state, total: Total });
-    console.log(Total, cartData);
   }, [cartData]);
 
   return {
