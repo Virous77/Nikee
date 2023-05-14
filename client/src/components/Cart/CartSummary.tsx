@@ -3,11 +3,16 @@ import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PriceSummaryCard from "./PriceSummaryCard";
+import { Cart } from "../../interfaces/interface";
 
-const CartSummary = () => {
+type CartSummaryType = {
+  cartData: Cart[];
+};
+
+const CartSummary: React.FC<CartSummaryType> = ({ cartData }) => {
   const [showPromo, setShowPromo] = useState(false);
   const navigate = useNavigate();
 
@@ -41,7 +46,7 @@ const CartSummary = () => {
             <button>Apply</button>
           </div>
         </div>
-        <PriceSummaryCard show="active" />
+        <PriceSummaryCard show="active" cartData={cartData} />
         <div className={styles["cart-checkout"]}>
           <button
             className={styles["checkout-button"]}

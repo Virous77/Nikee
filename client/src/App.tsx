@@ -12,10 +12,11 @@ const App = () => {
   return (
     <main>
       <ShowSearch />
-      <div style={{ position: "relative" }}>
+
+      <section style={{ position: "relative" }}>
         {pathname !== "/checkout" && <Navbar />}
         <CartNotification />
-      </div>
+      </section>
 
       <Suspense fallback={<p>Loading...</p>}>
         <AppRouter />

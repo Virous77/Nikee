@@ -9,6 +9,7 @@ type notificationType = {
 type stateType = {
   show: boolean;
   cart: Cart | undefined;
+  total: number;
 };
 
 type GlobalType = {
@@ -28,6 +29,7 @@ const stateInitialValue = {
 const stateInitialValueTwo = {
   show: false,
   cart: undefined,
+  total: 0,
 };
 
 const initialValue: GlobalType = {
@@ -49,7 +51,6 @@ export const GlobalContextProvider = ({
   const [notification, setNotification] =
     useState<notificationType>(stateInitialValue);
   const [state, setState] = useState<stateType>(stateInitialValueTwo);
-  // const cartData: Cart[] | null = getLocalData("nikeCart");
 
   ///App notification
   const handleSetNotification = ({ message, status }: notificationType) => {

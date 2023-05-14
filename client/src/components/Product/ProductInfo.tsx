@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Product, AppError, Cart } from "../../interfaces/interface";
+import { Product, AppError } from "../../interfaces/interface";
 import { Modal } from "../Modal/Modal";
 import ModalHeader from "../Modal/ModalHeader";
 import ProductAboutModal from "./ProductAboutModal";
-import { useMutation, useQuery } from "react-query";
-import { createData, deleteData, getData } from "../../api/api";
-import { getLocalDataArray, getLocalData } from "../../utils/data";
+import { useQuery } from "react-query";
+import { getData } from "../../api/api";
+import { getLocalData } from "../../utils/data";
 import { useGlobalContext } from "../../store/GlobalContext";
 import ProductInfoData from "./ProductInfoData";
+import useFav from "../../hooks/useFav";
+import useCart from "../../hooks/useCart";
 
 type ProductDetailsType = {
   productDetails: Product | undefined;
@@ -23,10 +25,9 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   );
   const [selectedSize, setSelectedSize] = useState("");
   const [error, setError] = useState("");
-
   const userId = getLocalData("nike");
-  const { handleSetNotification, handleSetCartNotification } =
-    useGlobalContext();
+  const { handleSetNotification } = useGlobalContext();
+  const { handleAddToBag } = useCart();
 
   const { data: isInFav, refetch } = useQuery(
     ["product-fav", userId, productDetails?._id],
@@ -49,22 +50,10 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     }
   );
 
-  const { mutate, isLoading } = useMutation({
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    mutationFn: (data: any) => {
-      if (isInFav?.status) {
-        return deleteData(`/fav/${productDetails?._id}`);
-      } else {
-        return createData({ endpoints: "/fav", userData: data });
-      }
-    },
-    onSuccess: ({ message }: { message: string }) => {
-      handleSetNotification({ message, status: "success" });
-      refetch();
-    },
-    onError: ({ data }: AppError) => {
-      handleSetNotification({ message: data.message, status: "error" });
-    },
+  const { mutate, isLoading } = useFav({
+    isInFav: isInFav?.status,
+    refetch,
+    id: productDetails?._id,
   });
 
   const handleSelect = (size: string) => {
@@ -89,44 +78,13 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     mutate(data);
   };
 
-  const handleAddToBag = () => {
-    let cartData: Cart[] = getLocalDataArray("nikeCart");
-    if (!selectedSize) return setError("Please select a size");
-
-    if (!productDetails) return;
-
-    const data: Cart = {
-      productImage: productDetails?.heroImage,
-      productName: productDetails?.name,
-      productCategory: productDetails?.category,
-      productType: productDetails?.productType,
-      productColor: productDetails?.color,
-      productId: productDetails?._id,
-      productPrice: productDetails?.amount,
-      quantity: 1,
-      selectSize: productDetails?.size,
-      size: selectedSize,
-    };
-
-    cartData = cartData.reduce((acc, item) => {
-      if (item.productId === data.productId) {
-        item.quantity++;
-        data.quantity = item.quantity;
-      } else {
-        acc.unshift(item);
-      }
-      return acc;
-    }, [] as Cart[]);
-
-    handleSetCartNotification(data);
-    localStorage.setItem("nikeCart", JSON.stringify([data, ...cartData]));
-  };
-
   return (
     <React.Fragment>
       <ProductInfoData
         setAboutProduct={setAboutProduct}
-        handleAddToBag={handleAddToBag}
+        handleAddToBag={() =>
+          handleAddToBag({ productDetails, selectedSize, setError })
+        }
         handleFav={handleFav}
         handleSelect={(size) => handleSelect(size)}
         productDetails={productDetails}

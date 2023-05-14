@@ -218,3 +218,15 @@
     }
   }
 }
+
+.cart-up-count {
+  position: fixed;
+  background-color: var(--main-font-color);
+  width: 25px;
+  height: 25px;
+  border-radius: 100px;
+  color: var(--background-color);
+  top: 10%;
+  left: 5%;
+  z-index: 1000;
+}
