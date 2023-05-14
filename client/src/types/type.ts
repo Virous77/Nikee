@@ -93,3 +93,17 @@ export type AdminContextType = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isLoading: boolean;
 };
+
+export type localCart = {
+  productImage: string;
+  quantity: number;
+  size: string;
+  selectSize: string[];
+  productId: string;
+  productName: string;
+  productCategory: string;
+  productType: string;
+  productColor: string;
+  productPrice: number;
+  userId: string;
+};

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Cart } from "../interfaces/interface";
+import { localCart } from "../types/type";
 
 type notificationType = {
   message: string;
@@ -8,8 +9,7 @@ type notificationType = {
 
 type stateType = {
   show: boolean;
-  cart: Cart | undefined;
-  total: number;
+  cart: localCart | undefined;
 };
 
 type GlobalType = {
@@ -18,7 +18,7 @@ type GlobalType = {
   handleSetNotification: ({ message, status }: notificationType) => void;
   state: stateType;
   setState: React.Dispatch<React.SetStateAction<stateType>>;
-  handleSetCartNotification: (cart: Cart) => void;
+  handleSetCartNotification: (cart: localCart) => void;
 };
 
 const stateInitialValue = {
@@ -26,10 +26,9 @@ const stateInitialValue = {
   status: "",
 };
 
-const stateInitialValueTwo = {
+const stateInitialValueTwo: stateType = {
   show: false,
   cart: undefined,
-  total: 0,
 };
 
 const initialValue: GlobalType = {
@@ -50,7 +49,7 @@ export const GlobalContextProvider = ({
 }) => {
   const [notification, setNotification] =
     useState<notificationType>(stateInitialValue);
-  const [state, setState] = useState<stateType>(stateInitialValueTwo);
+  const [state, setState] = useState(stateInitialValueTwo);
 
   ///App notification
   const handleSetNotification = ({ message, status }: notificationType) => {
@@ -67,7 +66,7 @@ export const GlobalContextProvider = ({
   };
 
   ///Cart notification
-  const handleSetCartNotification = (cart: Cart) => {
+  const handleSetCartNotification = (cart: localCart) => {
     setState({ ...state, cart: cart });
 
     setTimeout(() => {

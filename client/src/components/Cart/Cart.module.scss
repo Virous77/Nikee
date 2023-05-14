@@ -61,17 +61,10 @@
 .item-size {
   @include displayCenter;
   gap: 10px;
-}
 
-.cart-pin {
-  margin-top: 15px;
-  @include displayCenter;
-  gap: 5px;
-  font-size: var(--fourth-font-size);
-
-  b {
-    font-weight: 600;
-    text-decoration: underline;
+  p {
+    @include displayCenter;
+    gap: 5px;
     cursor: pointer;
   }
 }

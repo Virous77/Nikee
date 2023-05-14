@@ -112,4 +112,6 @@ export interface Cart {
   productType: string;
   productColor: string;
   productPrice: number;
+  userId: string;
+  _id: string;
 }

@@ -10,7 +10,7 @@ import { validateId } from "../middlewares/validateId.js";
 const router = express.Router();
 
 router.post("/fav", createFav);
-router.delete("/fav/:id", validateId, removeFav);
+router.delete("/fav/:id/:userId", removeFav);
 router.get("/fav/:productId/:userId", getFav);
 router.get("/fav/:id", validateId, getFavs);
 

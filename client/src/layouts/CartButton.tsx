@@ -1,18 +1,11 @@
 import styles from "./Layout.module.scss";
 import { BsHandbag } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { getLocalDataArray } from "../utils/data";
-import { Cart } from "../interfaces/interface";
-import { useGlobalContext } from "../store/GlobalContext";
+import useCart from "../hooks/useCart";
 
 const CartButton = () => {
   const navigate = useNavigate();
-  const cart: Cart[] = getLocalDataArray("nikeCart");
-  const { state } = useGlobalContext();
-
-  const Total = cart
-    .map((item) => item.quantity)
-    .reduce((acc, curr) => acc + curr, 0);
+  const { Total } = useCart();
 
   return (
     <div className={styles["cart-button"]}>
@@ -23,7 +16,7 @@ const CartButton = () => {
           onClick={() => navigate("/cart")}
         />
       </button>
-      <p>{state.total ? state.total : Total}</p>
+      <p>{Total}</p>
     </div>
   );
 };

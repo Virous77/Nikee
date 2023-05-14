@@ -88,3 +88,34 @@
   scale: 1;
   opacity: 1;
 }
+
+.cart-empty {
+  max-width: 1200px;
+  margin: auto;
+  height: 80vh;
+  @include displayFlex;
+  justify-content: center;
+}
+
+.cart-wrap {
+  width: 300px;
+  height: fit-content;
+  text-align: center;
+
+  img {
+    width: 100%;
+    height: 200px;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    margin-top: 5px;
+    opacity: 0.8;
+  }
+
+  button {
+    @include buttonMain;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+  }
+}

@@ -1,34 +1,15 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "./Cart.module.scss";
 import { Cart } from "../../interfaces/interface";
+import useCart from "../../hooks/useCart";
 
 type PriceSummaryCardType = {
   show?: string;
   cartData: Cart[];
 };
 
-const PriceSummaryCard: React.FC<PriceSummaryCardType> = ({
-  show,
-  cartData: cart,
-}) => {
-  const subTotal = useMemo(() => {
-    const data = cart
-      ?.map((item) => item.productPrice)
-      ?.reduce((acc, curr) => acc + curr, 0);
-
-    return data;
-  }, [cart]);
-
-  const Total = useMemo(() => {
-    const data = cart
-      ?.map((item) => item.quantity)
-      ?.reduce((acc, curr) => acc + curr, 0);
-
-    return data;
-  }, [cart]);
-
-  const totalPrice = subTotal * Total;
-  const totalTax = totalPrice && totalPrice * 0.1;
+const PriceSummaryCard: React.FC<PriceSummaryCardType> = ({ show }) => {
+  const { totalPrice, totalTax } = useCart();
 
   return (
     <>

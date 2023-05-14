@@ -12,9 +12,10 @@ export const createFav = async (req, res, next) => {
 };
 
 export const removeFav = async (req, res, next) => {
-  const id = req.params.id;
+  const { id, userId } = req.params;
   try {
     const gotData = await Fav.findOne({
+      userId,
       $or: [{ _id: id }, { productId: id }],
     });
     if (!gotData) {

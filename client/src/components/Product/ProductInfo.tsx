@@ -10,6 +10,7 @@ import { useGlobalContext } from "../../store/GlobalContext";
 import ProductInfoData from "./ProductInfoData";
 import useFav from "../../hooks/useFav";
 import useCart from "../../hooks/useCart";
+import { localCart } from "../../types/type";
 
 type ProductDetailsType = {
   productDetails: Product | undefined;
@@ -26,8 +27,9 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   const [selectedSize, setSelectedSize] = useState("");
   const [error, setError] = useState("");
   const userId = getLocalData("nike");
-  const { handleSetNotification } = useGlobalContext();
-  const { handleAddToBag } = useCart();
+  const { handleSetNotification, handleSetCartNotification } =
+    useGlobalContext();
+  const { mutate: createMutate, updateMutate } = useCart();
 
   const { data: isInFav, refetch } = useQuery(
     ["product-fav", userId, productDetails?._id],
@@ -50,10 +52,21 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     }
   );
 
-  const { mutate, isLoading } = useFav({
-    isInFav: isInFav?.status,
+  const { data: inCartData } = useQuery(
+    ["inCart", userId, productDetails?._id],
+    async () => {
+      if (productDetails?._id) {
+        const data = await getData(`/cart/${productDetails._id}/${userId}`);
+        return data;
+      }
+    },
+    {
+      retry: false,
+    }
+  );
+
+  const { mutate, isLoading, deleteMutate } = useFav({
     refetch,
-    id: productDetails?._id,
   });
 
   const handleSelect = (size: string) => {
@@ -75,16 +88,45 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
       productType: productDetails?.productType,
       productCategory: productDetails?.category,
     };
-    mutate(data);
+
+    if (isInFav?.status) {
+      deleteMutate({ id: productDetails?._id, userId });
+    } else {
+      mutate(data);
+    }
+  };
+
+  const handleAddToBag = () => {
+    if (!selectedSize) return setError("Please select a size");
+    if (!productDetails) return;
+
+    const data: localCart = {
+      userId,
+      productImage: productDetails?.heroImage,
+      productName: productDetails?.name,
+      productCategory: productDetails?.category,
+      productType: productDetails?.productType,
+      productColor: productDetails?.color,
+      productId: productDetails?._id,
+      productPrice: productDetails?.amount,
+      quantity: 1,
+      selectSize: productDetails?.size,
+      size: selectedSize,
+    };
+
+    if (inCartData) {
+      updateMutate({ id: inCartData._id, updateData: data });
+    } else {
+      createMutate(data);
+    }
+    handleSetCartNotification(data);
   };
 
   return (
     <React.Fragment>
       <ProductInfoData
         setAboutProduct={setAboutProduct}
-        handleAddToBag={() =>
-          handleAddToBag({ productDetails, selectedSize, setError })
-        }
+        handleAddToBag={handleAddToBag}
         handleFav={handleFav}
         handleSelect={(size) => handleSelect(size)}
         productDetails={productDetails}

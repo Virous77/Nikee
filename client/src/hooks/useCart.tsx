@@ -1,66 +1,106 @@
-import { Product } from "../interfaces/interface";
-import { getLocalDataArray } from "../utils/data";
+import { getLocalData } from "../utils/data";
 import { useGlobalContext } from "../store/GlobalContext";
-import { Cart } from "../interfaces/interface";
-import { useEffect, useState } from "react";
+import { Cart, AppError } from "../interfaces/interface";
+import { useQuery, useMutation } from "react-query";
+import { getData, createData, deleteData, updateData } from "../api/api";
+import { useMemo } from "react";
+import { localCart } from "../types/type";
 
-type useCartType = {
-  productDetails: Product | undefined;
-  selectedSize: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
+type updateType = {
+  id: string;
+  updateData: localCart;
 };
 
-const useCart = (data?: Cart[]) => {
-  const { handleSetCartNotification, setState, state } = useGlobalContext();
-  const [cartData, setCart] = useState<Cart[]>(data ? data : []);
+const useCart = () => {
+  const userId = getLocalData("nike");
+  const { handleSetNotification } = useGlobalContext();
 
-  const handleAddToBag = ({
-    productDetails,
-    setError,
-    selectedSize,
-  }: useCartType) => {
-    let cartData: Cart[] = getLocalDataArray("nikeCart");
-    if (!selectedSize) return setError("Please select a size");
-    if (!productDetails) return;
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (data: localCart) => {
+      return createData({ userData: data, endpoints: "/cart" });
+    },
+    onError: ({ data }: AppError) => {
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
-    const data: Cart = {
-      productImage: productDetails?.heroImage,
-      productName: productDetails?.name,
-      productCategory: productDetails?.category,
-      productType: productDetails?.productType,
-      productColor: productDetails?.color,
-      productId: productDetails?._id,
-      productPrice: productDetails?.amount,
-      quantity: 1,
-      selectSize: productDetails?.size,
-      size: selectedSize,
-    };
+  const { mutate: deleteMutate } = useMutation({
+    mutationFn: (id: string) => {
+      return deleteData(`/cart/${id}`);
+    },
+    onError: ({ data }: AppError) => {
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
 
-    cartData = cartData.reduce((acc, item) => {
-      if (item.productId === data.productId) {
-        item.quantity++;
-        data.quantity = item.quantity;
-      } else {
-        acc.unshift(item);
+  const { mutate: updateMutate } = useMutation({
+    mutationFn: (data: updateType) => {
+      return updateData({
+        endpoints: `/cart/${data.id}`,
+        userData: data.updateData,
+      });
+    },
+    onError: ({ data }: AppError) => {
+      handleSetNotification({ message: data?.message, status: "error" });
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const { data: cartData, refetch } = useQuery(
+    ["cartData"],
+    async () => {
+      if (userId) {
+        const data: Cart[] = await getData(`/cart/${userId}`);
+        return data;
       }
-      return acc;
-    }, [] as Cart[]);
+    },
+    {
+      onError: (response: AppError) => {
+        handleSetNotification({
+          message: response.data.message,
+          status: "error",
+        });
+      },
+      retry: false,
+    }
+  );
 
-    handleSetCartNotification(data);
-    localStorage.setItem("nikeCart", JSON.stringify([data, ...cartData]));
-  };
+  const subTotal = useMemo(() => {
+    const data = cartData
+      ?.map((item) => item.productPrice)
+      ?.reduce((acc, curr) => acc + curr, 0);
 
-  useEffect(() => {
-    const Total = cartData
-      .map((item) => item.quantity)
-      .reduce((acc, curr) => acc + curr, 0);
-    setState({ ...state, total: Total });
+    return data;
   }, [cartData]);
 
+  const Total = useMemo(() => {
+    const data = cartData
+      ?.map((item) => item.quantity)
+      ?.reduce((acc, curr) => acc + curr, 0);
+
+    return data;
+  }, [cartData]);
+
+  const totalPrice = subTotal && Total && subTotal * Total;
+  const totalTax = totalPrice && totalPrice * 0.1;
+
   return {
-    handleAddToBag,
-    setCart,
     cartData,
+    mutate,
+    isLoading,
+    deleteMutate,
+    Total,
+    totalPrice,
+    totalTax,
+    updateMutate,
   };
 };
 

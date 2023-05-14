@@ -2,6 +2,7 @@ import styles from "./Cart.module.scss";
 import CartAction from "./CartAction";
 import { Cart } from "../../interfaces/interface";
 import React from "react";
+import CartModify from "./CartModify";
 
 type CartItemListType = {
   cartData: Cart[];
@@ -16,7 +17,7 @@ const CartItemList: React.FC<CartItemListType> = ({
     <section className={styles["cart-item"]}>
       <h2>Bag</h2>
       <div className={styles["cart-item-list"]}>
-        {cartData.map((item) => (
+        {cartData?.map((item) => (
           <div className={styles["cart-item-sub"]} key={item.productId}>
             <div className={styles["cart-card"]}>
               <div className={styles["cart-details"]}>
@@ -29,20 +30,12 @@ const CartItemList: React.FC<CartItemListType> = ({
                     {item.productType} {item.productCategory}
                   </p>
                   <p>{item.productColor}</p>
-                  <div className={styles["item-size"]}>
-                    <p>Size : {item.size}</p>
-                    <p>Quantity : {item.quantity}</p>
-                  </div>
+                  <CartModify item={item} />
                   <CartAction cartItem={item} handleDelete={handleDelete} />
                 </div>
               </div>
 
               <b>${item.productPrice}</b>
-            </div>
-
-            <div className={styles["cart-pin"]}>
-              <p>Arrives by Mon, May 8 to </p>
-              <b>Edit Location</b>
             </div>
           </div>
         ))}

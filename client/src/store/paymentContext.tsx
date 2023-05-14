@@ -1,9 +1,10 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext } from "react";
 import { getLocalData, getLocalDataArray } from "../utils/data";
 import { useAuthContext } from "./authContext";
 import { nikeLogo } from "../utils/data";
 import { createData } from "../api/api";
 import { UserAddress, Cart } from "../interfaces/interface";
+import useCart from "../hooks/useCart";
 
 type PaymentContextType = {
   handlePayment: () => void;
@@ -24,8 +25,9 @@ export const PaymentContextProvider = ({
   const address: UserAddress = getLocalData("checkout");
   const cartData: Cart[] = getLocalDataArray("nikeCart");
   const { UserData } = useAuthContext();
+  const { totalPrice, totalTax } = useCart();
 
-  const shoppingProduct = cartData.map((item) => {
+  const shoppingProduct = cartData?.map((item) => {
     const createData = {
       name: item.productName,
       quantity: item.quantity,
@@ -35,28 +37,10 @@ export const PaymentContextProvider = ({
 
     return createData;
   });
-  const subTotal = useMemo(() => {
-    const data = cartData
-      ?.map((item) => item.productPrice)
-      ?.reduce((acc, curr) => acc + curr, 0);
-
-    return data;
-  }, [cartData]);
-
-  const Total = useMemo(() => {
-    const data = cartData
-      ?.map((item) => item.quantity)
-      ?.reduce((acc, curr) => acc + curr, 0);
-
-    return data;
-  }, [cartData]);
-
-  const totalPrice = subTotal * Total;
-  const totalTax = totalPrice && totalPrice * 0.1;
 
   const handlePayment = async () => {
     const checkoutData = {
-      amount: totalTax + totalPrice,
+      amount: totalPrice && totalTax && totalTax + totalPrice,
       userId: id,
       address: {
         address: address.address,

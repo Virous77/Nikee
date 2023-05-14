@@ -12,6 +12,7 @@ import AddressRouter from "./src/Routes/AddressRoutes.js";
 import ProductsRouter from "./src/Routes/ProductsRoutes.js";
 import FavRouter from "./src/Routes/FavRoutes.js";
 import ReviewRouter from "./src/Routes/ReviewRoutes.js";
+import CartRouter from "./src/Routes/CartRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -33,6 +34,7 @@ app.use("/api/v1", PaymentRouter);
 app.use("/api/v1", ProductsRouter);
 app.use("/api/v1", FavRouter);
 app.use("/api/v1", ReviewRouter);
+app.use("/api/v1", CartRouter);
 
 //Handle app Error
 app.use((err, req, res, next) => {
