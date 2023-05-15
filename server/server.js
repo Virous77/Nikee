@@ -13,6 +13,7 @@ import ProductsRouter from "./src/Routes/ProductsRoutes.js";
 import FavRouter from "./src/Routes/FavRoutes.js";
 import ReviewRouter from "./src/Routes/ReviewRoutes.js";
 import CartRouter from "./src/Routes/CartRoutes.js";
+import CouponRouter from "./src/Routes/CouponRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -35,6 +36,7 @@ app.use("/api/v1", ProductsRouter);
 app.use("/api/v1", FavRouter);
 app.use("/api/v1", ReviewRouter);
 app.use("/api/v1", CartRouter);
+app.use("/api/v1", CouponRouter);
 
 //Handle app Error
 app.use((err, req, res, next) => {
