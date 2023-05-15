@@ -2,6 +2,7 @@ import { MdCreateNewFolder, MdFeaturedPlayList } from "react-icons/md";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Admin.module.scss";
+import { RiCoupon2Line } from "react-icons/ri";
 
 const AdminMenu = () => {
   const navigate = useNavigate();
@@ -31,6 +32,13 @@ const AdminMenu = () => {
           className={pathname.includes("add") ? styles["active-menu"] : ""}
         >
           <MdCreateNewFolder /> Add Product
+        </li>
+
+        <li
+          onClick={() => navigate("/admin/coupon")}
+          className={pathname.includes("coupon") ? styles["active-menu"] : ""}
+        >
+          <RiCoupon2Line /> Coupon
         </li>
       </ul>
     </aside>

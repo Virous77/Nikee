@@ -115,3 +115,13 @@ export interface Cart {
   userId: string;
   _id: string;
 }
+
+export interface Coupon {
+  _id: string;
+  coupon: string;
+  validFrom: string;
+  validTill: string;
+  discountPercent: number;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -1,0 +1,59 @@
+@import "../../common/variables.scss";
+
+.fav-wrap {
+  @include displayCenter;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.fav-sub {
+  width: 300px;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow-one);
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    scale: 1.02;
+  }
+
+  img {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+.fa-details {
+  margin-top: 10px;
+
+  h2 {
+    font-size: var(--secondary-font-size);
+  }
+
+  p {
+    opacity: 0.8;
+  }
+}
+
+.fav-action {
+  @include displayFlex;
+  margin-top: 10px;
+
+  span {
+    font-weight: 500;
+  }
+
+  p {
+    width: 28px;
+    height: 28px;
+    background-color: transparent;
+    border-radius: 100%;
+    @include displayFlex;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+}

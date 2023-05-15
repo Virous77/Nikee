@@ -23,8 +23,13 @@ export const PaymentContextProvider = ({
 }) => {
   const id = getLocalData("nike");
   const address: UserAddress = getLocalData("checkout");
+  const coupon = getLocalData("coupon");
   const { UserData } = useAuthContext();
   const { totalPrice, totalTax, cartData } = useCart();
+
+  const total = totalPrice && totalTax && totalPrice + totalTax;
+  const createDisc = total && total * (+coupon / 100);
+  const totalDiscount = total && createDisc && total - createDisc;
 
   const shoppingProduct =
     cartData &&
@@ -41,7 +46,9 @@ export const PaymentContextProvider = ({
 
   const handlePayment = async () => {
     const checkoutData = {
-      amount: totalPrice && totalTax && totalTax + totalPrice,
+      amount: totalDiscount
+        ? totalDiscount
+        : totalPrice && totalTax && totalTax + totalPrice,
       userId: id,
       address: {
         address: address.address,

@@ -13,7 +13,10 @@ const CartMain = () => {
         <div className={styles["cart-wrapper"]}>
           <CartItemList
             cartData={cartData}
-            handleDelete={(id) => deleteMutate(id)}
+            handleDelete={(id) => {
+              deleteMutate(id);
+              localStorage.removeItem("coupon");
+            }}
           />
           <CartSummary cartData={cartData} />
         </div>

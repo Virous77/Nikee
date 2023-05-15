@@ -2,14 +2,24 @@ import React from "react";
 import styles from "./Cart.module.scss";
 import { Cart } from "../../interfaces/interface";
 import useCart from "../../hooks/useCart";
+import { getLocalData } from "../../utils/data";
 
 type PriceSummaryCardType = {
   show?: string;
   cartData: Cart[];
+  discount: number;
 };
 
-const PriceSummaryCard: React.FC<PriceSummaryCardType> = ({ show }) => {
+const PriceSummaryCard: React.FC<PriceSummaryCardType> = ({
+  show,
+  discount,
+}) => {
   const { totalPrice, totalTax } = useCart();
+  const coupon = getLocalData("coupon");
+
+  const total = totalPrice && totalTax && totalPrice + totalTax;
+  const createDisc = total && total * (+coupon / 100);
+  const totalDiscount = total && createDisc && total - createDisc;
 
   return (
     <>
@@ -29,6 +39,13 @@ const PriceSummaryCard: React.FC<PriceSummaryCardType> = ({ show }) => {
         <p>Total</p>
         <b>${totalTax && totalPrice && totalPrice + totalTax}</b>
       </div>
+
+      {(discount > 0 || coupon) && (
+        <div className={styles["cart-total"]}>
+          <p>After Discount</p>
+          <b>${totalDiscount}</b>
+        </div>
+      )}
       {show && <hr />}
     </>
   );

@@ -11,6 +11,23 @@
   }
 }
 
+.checkout-cart {
+  position: relative;
+
+  p {
+    background-color: black;
+    width: 17px;
+    height: 17px;
+    @include displayAllCenter;
+    border-radius: 100px;
+    color: var(--background-color);
+    font-size: 10px;
+    position: absolute;
+    top: -8%;
+    right: 0;
+  }
+}
+
 .checkout-content {
   max-width: 1120px;
   padding: 0 2rem;

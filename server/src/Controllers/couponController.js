@@ -6,7 +6,7 @@ export const createCoupon = async (req, res, next) => {
   const { coupon, validFrom, validTill, discountPercent, userId } = req.body;
 
   try {
-    if (!coupon || !validFrom || !validTill || !discountPercent)
+    if (!coupon || !validFrom || !validTill || !discountPercent || !userId)
       return next(
         createError({
           message: "All fields need to fill to create Coupon",
@@ -15,7 +15,6 @@ export const createCoupon = async (req, res, next) => {
       );
 
     const user = await User.findById(userId);
-
     if (!user.isAdmin)
       return next(
         createError({ status: 400, message: "You are not authorized" })

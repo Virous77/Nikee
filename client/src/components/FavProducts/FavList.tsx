@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Fav.module.scss";
 import { Fav } from "../../interfaces/interface";
+import { AiOutlineDelete } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 type FavListType = {
   favItem: Fav;
@@ -8,18 +10,25 @@ type FavListType = {
 };
 
 const FavList: React.FC<FavListType> = ({ favItem, deleteMutate }) => {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div
+      className={styles["fav-sub"]}
+      onClick={() => navigate(`/product/${favItem.productId}`)}
+    >
       <img src={favItem.productImage} alt={favItem.productName} />
-      <div>
+      <div className={styles["fa-details"]}>
         <h2>{favItem.productName}</h2>
         <p>
           {favItem.productCategory} {favItem.productType}
         </p>
 
-        <div>
-          <span>{favItem.productPrice}</span>
-          <p onClick={() => deleteMutate(favItem._id)}>UNfav</p>
+        <div className={styles["fav-action"]}>
+          <span>Price : ${favItem.productPrice}</span>
+          <p onClick={() => deleteMutate(favItem._id)}>
+            <AiOutlineDelete />
+          </p>
         </div>
       </div>
     </div>
