@@ -59,3 +59,15 @@
     }
   }
 }
+
+@media (max-width: 620px) {
+  .mobile-auth {
+    flex-direction: column;
+    width: 100%;
+    padding: 0 1.5rem;
+
+    button {
+      width: 100%;
+    }
+  }
+}

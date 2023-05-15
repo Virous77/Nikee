@@ -11,14 +11,15 @@
   padding: 1rem;
   border-radius: 10px;
   transition: all 300ms ease-in-out;
+  width: 220px;
 
   &:hover {
     scale: 1.02;
   }
 
   img {
-    width: 130;
-    height: 100px;
+    width: 100%;
+    height: 160px;
     object-fit: cover;
   }
 }
@@ -88,5 +89,20 @@
 
   span {
     text-transform: capitalize;
+  }
+}
+
+@media (max-width: 520px) {
+  .orders-list {
+    flex-direction: column;
+  }
+
+  .order-card {
+    width: 100%;
+
+    img {
+      height: 270px;
+      object-fit: cover;
+    }
   }
 }

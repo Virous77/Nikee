@@ -57,3 +57,10 @@
     }
   }
 }
+
+@media (max-width: 630px) {
+  .fav-sub {
+    flex-direction: column;
+    width: 100%;
+  }
+}
