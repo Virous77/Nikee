@@ -1,0 +1,128 @@
+@import "../../common/variables.scss";
+
+.products {
+  padding: 2rem 2.8rem;
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 1rem;
+}
+
+.state-products {
+  padding: 2rem 2.8rem;
+}
+
+.product-header {
+  padding: 1rem 0;
+  text-align: end;
+}
+
+.flat-header {
+  @include displayCenter;
+  justify-content: flex-end;
+  gap: 15px;
+
+  button {
+    background-color: transparent;
+    @include displayCenter;
+    gap: 4px;
+    font-size: var(--fourth-font-size);
+  }
+
+  select {
+    outline: none;
+    cursor: pointer;
+    padding: 2px 6px;
+  }
+}
+
+.products-side {
+  padding: 1rem;
+  position: sticky;
+  top: 0%;
+  overflow: scroll;
+  height: 90vh;
+}
+
+.hide-p {
+  display: none;
+}
+
+.product-category {
+  margin-top: 1.5rem;
+  @include displayCol;
+  gap: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.product-content {
+  //   height: 200vh;
+}
+
+.shop {
+  margin-top: 1.7rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid silver;
+}
+
+.shop-head {
+  @include displayFlex;
+  margin-bottom: 20px;
+
+  p {
+    display: flex;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  span {
+    font-weight: 600;
+  }
+}
+
+.shop-list {
+  @include displayCol;
+  gap: 10px;
+}
+
+.shop-sub {
+  @include displayCenter;
+  gap: 10px;
+
+  b {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  p {
+    border: 1px solid silver;
+    width: 18px;
+    height: 18px;
+    @include displayFlex;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+.color-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  p {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+
+  span {
+    text-transform: capitalize;
+    font-size: 14px;
+  }
+}

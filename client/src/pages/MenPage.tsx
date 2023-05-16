@@ -1,5 +1,7 @@
+import Products from "../components/ProductsAll/Products";
+
 const MenPage = () => {
-  return <div>MenPage</div>;
+  return <Products />;
 };
 
 export default MenPage;

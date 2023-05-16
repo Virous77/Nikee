@@ -198,3 +198,49 @@ export const getNextDate = (orderData?: Date | undefined) => {
 
   return new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000);
 };
+
+export const sortProduct = [
+  {
+    id: 1,
+    name: "Featured",
+    value: "featured",
+  },
+  {
+    id: 2,
+    name: "Newest",
+    value: "newest",
+  },
+  {
+    id: 3,
+    name: "Price: High-Low",
+    value: "high-low",
+  },
+  {
+    id: 4,
+    name: "Price: Low-High",
+    value: "low-high",
+  },
+];
+
+export const shopByPrice = [
+  {
+    id: 1,
+    name: "Under ₹2500.00",
+    value: [0, 2500],
+  },
+  {
+    id: 1,
+    name: "₹2500.00 to ₹7500.00",
+    value: [2500, 7500],
+  },
+  {
+    id: 1,
+    name: "₹7500.00 to ₹13000.00",
+    value: [7500, 13000],
+  },
+  {
+    id: 1,
+    name: "Over ₹13000.00",
+    value: [13000, 100000],
+  },
+];
