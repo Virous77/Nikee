@@ -1,33 +1,58 @@
 import React from "react";
 import { Cart } from "../../interfaces/interface";
 import styles from "./Cart.module.scss";
-import { HiChevronDown } from "react-icons/hi";
+import useCart from "../../hooks/useCart";
 
 type CartModifyType = {
   item: Cart;
 };
 
 type sizeType = {
-  id: string;
-  size: string;
+  item: Cart;
+  currentSize?: string;
+  currentQuantity?: number;
 };
 
 const CartModify: React.FC<CartModifyType> = ({ item }) => {
-  //   const handleUpdateSize = ({ id, size }: sizeType) => {
-  //     const findItem = cartData.find((item) => item.productId === id);
-  //     const filterCart = cartData.filter((item) => item.productId !== id);
-  //     findItem && (findItem.size = size);
-  //     localStorage.setItem("nikeCart", JSON.stringify([...filterCart, findItem]));
+  const { updateMutate } = useCart();
 
-  //     if (!filterCart || !findItem) return;
-  //     setState({ ...state, cartData: [findItem, ...filterCart] });
-  //   };
+  const handleUpdateSize = ({
+    item,
+    currentSize,
+    currentQuantity,
+  }: sizeType) => {
+    if (!currentQuantity) {
+      if (!currentSize) return;
+      const { size, _id, ...restData } = item;
+
+      const updateData = {
+        ...restData,
+        size: currentSize,
+      };
+
+      updateMutate({ updateData, id: _id });
+    } else {
+      if (!currentQuantity) return;
+      const { quantity, _id, ...restData } = item;
+
+      const updateData = {
+        ...restData,
+        quantity: currentQuantity,
+      };
+      updateMutate({ updateData, id: _id });
+    }
+  };
 
   return (
     <div className={styles["item-size"]}>
-      <div>
+      <div className={styles["flat-select"]}>
         <p>Size : </p>
-        <select value={item.size}>
+        <select
+          value={item.size}
+          onChange={(e) => {
+            handleUpdateSize({ item: item, currentSize: e.target.value });
+          }}
+        >
           {item.selectSize.map((size) => (
             <option key={size} value={size}>
               {size}
@@ -35,9 +60,22 @@ const CartModify: React.FC<CartModifyType> = ({ item }) => {
           ))}
         </select>
       </div>
-      <p>
-        Quantity : {item.quantity} <HiChevronDown size={22} />{" "}
-      </p>
+
+      <div className={styles["flat-select"]}>
+        <p>Quantity : </p>
+        <select
+          value={item.quantity}
+          onChange={(e) => {
+            handleUpdateSize({ item: item, currentQuantity: +e.target.value });
+          }}
+        >
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((count) => (
+            <option key={count} value={count}>
+              {count}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

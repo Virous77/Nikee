@@ -266,10 +266,12 @@
 
 .address-card-list {
   border: 2px solid silver;
+  width: 100% !important;
 }
 
 .address-card-list-n {
   border: 2px solid transparent;
+  width: 100% !important;
 }
 
 @media (max-width: 992px) {

@@ -28,10 +28,10 @@ const AddressList: React.FC<AddressListType> = ({
       key={address._id}
       className={
         classStyle
-          ? `${styles[classStyle]} ${styles["address-card"]}`
+          ? `${styles["address-card"]} ${styles[classStyle]}   `
           : styles["address-card"]
       }
-      onClick={() => onClick(address)}
+      onClick={() => onClick && onClick(address)}
     >
       {address.addressType === "home" ? (
         <h4>
@@ -55,11 +55,11 @@ const AddressList: React.FC<AddressListType> = ({
           <div className={styles["address-action"]}>
             <CiEdit
               cursor="pointer"
-              onClick={() => handleEditAddress(address)}
+              onClick={() => handleEditAddress && handleEditAddress(address)}
             />
             <MdOutlineDeleteOutline
               cursor="pointer"
-              onClick={() => setDeleteAddress(address._id)}
+              onClick={() => setDeleteAddress && setDeleteAddress(address._id)}
             />
           </div>
         )}

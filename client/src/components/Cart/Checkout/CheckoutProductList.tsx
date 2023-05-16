@@ -25,7 +25,7 @@ const CheckoutProductList = () => {
                   Color : {item.productColor}
                 </span>
                 <div>
-                  <span>Qty: 7</span>
+                  <span>Qty: {item.quantity}</span>
                 </div>
                 <span>Price : ${item.productPrice}</span>
               </div>

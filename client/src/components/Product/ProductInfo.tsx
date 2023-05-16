@@ -11,6 +11,7 @@ import ProductInfoData from "./ProductInfoData";
 import useFav from "../../hooks/useFav";
 import useCart from "../../hooks/useCart";
 import { localCart } from "../../types/type";
+import { Cart } from "../../interfaces/interface";
 
 type ProductDetailsType = {
   productDetails: Product | undefined;
@@ -56,7 +57,9 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     ["inCart", userId, productDetails?._id],
     async () => {
       if (productDetails?._id) {
-        const data = await getData(`/cart/${productDetails._id}/${userId}`);
+        const data: Cart = await getData(
+          `/cart/${productDetails._id}/${userId}`
+        );
         return data;
       }
     },
@@ -114,8 +117,15 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
       size: selectedSize,
     };
 
+    const { quantity, ...restData } = data;
+    if (!inCartData) return;
+    const updateData = {
+      ...restData,
+      quantity: inCartData.quantity + 1,
+    };
+
     if (inCartData) {
-      updateMutate({ id: inCartData._id, updateData: data });
+      updateMutate({ id: inCartData._id, updateData });
     } else {
       createMutate(data);
     }

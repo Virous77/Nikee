@@ -167,6 +167,21 @@
   }
 }
 
+.flat-select {
+  @include displayCenter;
+  gap: 5px;
+  margin-top: 5px;
+
+  select {
+    cursor: pointer;
+    padding: 0px 6px;
+  }
+
+  p {
+    font-weight: 500;
+  }
+}
+
 @media (max-width: 992px) {
   .cart-wrapper {
     grid-template-columns: 1fr;
