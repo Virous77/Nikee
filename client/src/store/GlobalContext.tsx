@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Cart } from "../interfaces/interface";
-import { localCart } from "../types/type";
 
 type notificationType = {
   message: string;
@@ -9,7 +8,7 @@ type notificationType = {
 
 type stateType = {
   show: boolean;
-  cart: localCart | undefined;
+  cart: Cart | undefined;
 };
 
 type GlobalType = {

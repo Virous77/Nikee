@@ -84,6 +84,8 @@ export type ProductDetailsType = {
   brands: string;
   imagesR: string[] | [];
   imageR: string | undefined;
+  featured: boolean;
+  sale: boolean;
 };
 
 export type AdminContextType = {
@@ -92,18 +94,4 @@ export type AdminContextType = {
   handleCreatingData: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isLoading: boolean;
-};
-
-export type localCart = {
-  productImage: string;
-  quantity: number;
-  size: string;
-  selectSize: string[];
-  productId: string;
-  productName: string;
-  productCategory: string;
-  productType: string;
-  productColor: string;
-  productPrice: number;
-  userId: string;
 };

@@ -20,7 +20,7 @@ const ProductReview: React.FC<ProductReviewType> = ({ productDetails }) => {
   const { handleSetNotification } = useGlobalContext();
 
   const { data: reviewData, refetch } = useQuery(
-    ["review", productDetails],
+    ["review", productDetails?._id],
     async () => {
       if (productDetails) {
         const data: Review[] = await getData(`/review/${productDetails._id}`);

@@ -11,6 +11,7 @@ import MultipleImage from "./MultipleImage";
 import styles from "./Admin.module.scss";
 import { FaCameraRetro } from "react-icons/fa";
 import { useAdminContext } from "../store/AdminContext";
+import { BsCheck } from "react-icons/bs";
 
 const AddProductForm = () => {
   const {
@@ -31,6 +32,8 @@ const AddProductForm = () => {
     discount,
     color,
     brands,
+    featured,
+    sale,
   } = productDetails;
 
   const category =
@@ -194,6 +197,30 @@ const AddProductForm = () => {
             onChange={handleChange}
           />
         </fieldset>
+      </div>
+
+      <div className={styles["flat-adds"]}>
+        <div className={styles["prod-more"]}>
+          <p
+            onClick={() =>
+              setProductDetails({ ...productDetails, featured: !featured })
+            }
+          >
+            {featured && <BsCheck />}
+          </p>
+          <span>Featured</span>
+        </div>
+
+        <div className={styles["prod-more"]}>
+          <p
+            onClick={() =>
+              setProductDetails({ ...productDetails, sale: !sale })
+            }
+          >
+            {sale && <BsCheck />}
+          </p>
+          <span>Sale</span>
+        </div>
       </div>
 
       <div className={styles["product-button"]}>

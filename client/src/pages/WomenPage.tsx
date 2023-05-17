@@ -1,5 +1,7 @@
+import Products from "../components/ProductsAll/Products";
+
 const WomenPage = () => {
-  return <div>WomenPage</div>;
+  return <Products />;
 };
 
 export default WomenPage;

@@ -30,6 +30,10 @@ const ProductsSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    sale: {
+      type: Boolean,
+      default: false,
+    },
     heroImage: {
       type: String,
       required: true,

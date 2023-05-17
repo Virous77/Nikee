@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../store/GlobalContext";
 import { getLocalData } from "../utils/data";
 import { useAuthContext } from "../store/authContext";
+import useCart from "../hooks/useCart";
 
 type MobileNavlinksType = {
   id: number;
@@ -18,6 +19,7 @@ const MobileMenu = () => {
   const user = getLocalData("nike");
   const { UserData } = useAuthContext();
   const makeUserName = UserData?.name.split(" ").join("-");
+  const { refetch } = useCart();
 
   const handleNavigation = (nav: MobileNavlinksType) => {
     navigate(nav.link);
@@ -58,6 +60,7 @@ const MobileMenu = () => {
               localStorage.removeItem("nike");
               navigate("/");
               setState({ ...state, show: false });
+              refetch();
             }}
           >
             Logout

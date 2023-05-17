@@ -4,26 +4,27 @@ import { Cart, AppError } from "../interfaces/interface";
 import { useQuery, useMutation } from "react-query";
 import { getData, createData, deleteData, updateData } from "../api/api";
 import { useMemo } from "react";
-import { localCart } from "../types/type";
 
 type updateType = {
   id: string;
-  updateData: localCart;
+  updateData: any;
 };
 
 const useCart = () => {
   const userId = getLocalData("nike");
-  const { handleSetNotification } = useGlobalContext();
+  const { handleSetNotification, handleSetCartNotification } =
+    useGlobalContext();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data: localCart) => {
+    mutationFn: (data) => {
       return createData({ userData: data, endpoints: "/cart" });
     },
     onError: ({ data }: AppError) => {
       handleSetNotification({ message: data?.message, status: "error" });
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       refetch();
+      handleSetCartNotification(data);
     },
   });
 
@@ -114,6 +115,7 @@ const useCart = () => {
     totalTax,
     updateMutate,
     deleteMultipleMutate,
+    refetch,
   };
 };
 

@@ -74,6 +74,8 @@ export interface Product {
   slug: string;
   createdAt: string;
   updatedAt: string;
+  sale: boolean;
+  featured: boolean;
 }
 
 export interface Fav {

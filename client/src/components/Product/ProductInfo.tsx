@@ -10,7 +10,6 @@ import { useGlobalContext } from "../../store/GlobalContext";
 import ProductInfoData from "./ProductInfoData";
 import useFav from "../../hooks/useFav";
 import useCart from "../../hooks/useCart";
-import { localCart } from "../../types/type";
 import { Cart } from "../../interfaces/interface";
 
 type ProductDetailsType = {
@@ -28,14 +27,13 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   const [selectedSize, setSelectedSize] = useState("");
   const [error, setError] = useState("");
   const userId = getLocalData("nike");
-  const { handleSetNotification, handleSetCartNotification } =
-    useGlobalContext();
+  const { handleSetNotification } = useGlobalContext();
   const { mutate: createMutate, updateMutate } = useCart();
 
   const { data: isInFav, refetch } = useQuery(
     ["product-fav", userId, productDetails?._id],
     async () => {
-      if (productDetails?._id) {
+      if (productDetails?._id && userId) {
         const data: FavType = await getData(
           `/fav/${productDetails._id}/${userId}`
         );
@@ -54,9 +52,9 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   );
 
   const { data: inCartData } = useQuery(
-    ["inCart", userId, productDetails?._id],
+    ["inCart", productDetails?._id],
     async () => {
-      if (productDetails?._id) {
+      if (productDetails?._id && userId) {
         const data: Cart = await getData(
           `/cart/${productDetails._id}/${userId}`
         );
@@ -103,7 +101,7 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     if (!selectedSize) return setError("Please select a size");
     if (!productDetails) return;
 
-    const data: localCart = {
+    const data = {
       userId,
       productImage: productDetails?.heroImage,
       productName: productDetails?.name,
@@ -118,18 +116,16 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     };
 
     const { quantity, ...restData } = data;
-    if (!inCartData) return;
-    const updateData = {
-      ...restData,
-      quantity: inCartData.quantity + 1,
-    };
 
     if (inCartData) {
+      const updateData = {
+        ...restData,
+        quantity: inCartData.quantity + 1,
+      };
       updateMutate({ id: inCartData._id, updateData });
     } else {
       createMutate(data);
     }
-    handleSetCartNotification(data);
   };
 
   return (

@@ -17,6 +17,7 @@ import { getData } from "../api/api";
 import { getLocalData } from "../utils/data";
 import { User } from "../interfaces/interface";
 import { uploadImage } from "../utils/imageupload";
+import useCart from "../hooks/useCart";
 
 const stateInitialValue = {
   name: "",
@@ -53,6 +54,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [registerData, setRegisterData] = useState(stateInitialValue);
   const [validate, setValidate] = useState(false);
   const [userEditData, setUserEditData] = useState<User | undefined>(undefined);
+  const { refetch: cartFetch } = useCart();
 
   const navigate = useNavigate();
   const { handleSetNotification } = useGlobalContext();
@@ -102,6 +104,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("nike", JSON.stringify(data._id));
       setRegisterData(stateInitialValue);
       refetch();
+      cartFetch();
     },
     onError: ({ data }: AppError) => {
       if (!data) return;

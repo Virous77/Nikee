@@ -26,7 +26,7 @@ export const productWomenCategory = [
   "Sweatshirt",
 ];
 
-export const productType = ["men", "women", "kids"];
+export const productType = ["Men", "Women", "Kids"];
 
 export const clothSizeMen = ["S", "M", "L", "XL", "2XL"];
 export const clothSizeWomen = ["XS", "S", "M", "L", "XL"];

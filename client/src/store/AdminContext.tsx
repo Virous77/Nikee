@@ -28,6 +28,8 @@ const productInitialState = {
   discount: 0,
   color: "",
   brands: "",
+  featured: false,
+  sale: false,
 };
 
 const AdminContext = createContext(initialState);
