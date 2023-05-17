@@ -23,6 +23,7 @@ const PrivateRoutes = lazy(
 const PreventOnLogin = lazy(
   () => import("../components/PrivateRoutes/PrventonLogin")
 );
+const ProductCategory = lazy(() => import("../pages/ProductCategory"));
 
 const AppRouter = () => {
   return (
@@ -36,6 +37,7 @@ const AppRouter = () => {
         <Route path="/featured" element={<FeaturePage />} />
         <Route path="/sneakers" element={<SneakersPage />} />
         <Route path="/product/:name" element={<ProductDetailsPage />} />
+        <Route path="/product/:type/:category" element={<ProductCategory />} />
         <Route path="/cart" element={<CartPage />} />
         <Route
           path="/checkout"

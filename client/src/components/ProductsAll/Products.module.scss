@@ -119,10 +119,54 @@
     height: 30px;
     border-radius: 100px;
     cursor: pointer;
+    @include displayCenter;
+    justify-content: center;
+    size: 2rem;
+    color: var(--background-shadow);
   }
 
   span {
     text-transform: capitalize;
     font-size: 14px;
+  }
+}
+
+.prod-list {
+  @include displayCenter;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.prod-sub {
+  width: 350px;
+  padding: 1rem;
+  box-shadow: var(--shadow-two);
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--background-shadow);
+  }
+
+  img {
+    height: 230px;
+  }
+}
+
+.prod-details {
+  margin-top: 10px;
+
+  h3 {
+    font-weight: 600;
+  }
+
+  p {
+    opacity: 0.7;
+  }
+
+  b {
+    margin-top: 10px;
+    display: inline-block;
+    font-weight: 600;
   }
 }

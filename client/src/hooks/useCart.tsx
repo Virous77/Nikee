@@ -16,7 +16,7 @@ const useCart = () => {
     useGlobalContext();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data) => {
+    mutationFn: (data: any) => {
       return createData({ userData: data, endpoints: "/cart" });
     },
     onError: ({ data }: AppError) => {

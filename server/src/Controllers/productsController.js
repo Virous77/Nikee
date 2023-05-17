@@ -62,10 +62,10 @@ export const createProduct = async (req, res, next) => {
 };
 
 export const getProduct = async (req, res, next) => {
-  const id = req.params.id;
+  const slug = req.params.slug;
 
   try {
-    const product = await Products.findById(id);
+    const product = await Products.findOne({ slug });
     if (!product)
       return next(createError({ status: 400, message: "Product not exists" }));
 

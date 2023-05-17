@@ -10,6 +10,13 @@ import { useGlobalContext } from "../../store/GlobalContext";
 import { useLocation } from "react-router-dom";
 import { updateURLParams, retrieveQueryParams } from "../../utils/query";
 
+export type queryType = {
+  price: string;
+  brand: string;
+  sort: string;
+  color: string;
+};
+
 const Products = () => {
   const [show, setShow] = useState("");
   const { handleSetNotification } = useGlobalContext();
@@ -70,9 +77,19 @@ const Products = () => {
         show === "show" ? styles["state-products"] : styles["products"]
       }
     >
-      <ProductSide show={show} setShow={setShow} />
+      <ProductSide
+        show={show}
+        setShow={setShow}
+        query={query}
+        setQuery={setQuery}
+      />
       <section>
-        <ProductHeader setShow={setShow} show={show} />
+        <ProductHeader
+          setShow={setShow}
+          show={show}
+          setQuery={setQuery}
+          query={query}
+        />
         <ProductContent productData={productData} />
       </section>
     </main>

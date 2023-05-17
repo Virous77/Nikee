@@ -34,6 +34,7 @@ li {
   --main-font-color: #111;
   --background-color: hsl(0, 0%, 100%);
   --shadow-one: 0px 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-two: 0px 2px 8px rgba(0, 0, 0, 0.04);
   --secondary-font-color: #757575;
   --card-color: hsl(0, 0%, 90%);
   --primary-font-size: 25px;
@@ -41,4 +42,5 @@ li {
   --third-font-size: 18px;
   --fourth-font-size: 16px;
   --small-font-size: 13px;
+  --background-shadow: hsl(0, 0%, 97%);
 }

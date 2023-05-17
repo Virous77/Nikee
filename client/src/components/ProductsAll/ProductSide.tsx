@@ -4,13 +4,25 @@ import { productMensCategory } from "../../utils/NikeData";
 import { shopByPrice } from "../../utils/data";
 import { BsCheck } from "react-icons/bs";
 import ProductSideHead from "./ProductSideHead";
+import { useNavigate, useLocation } from "react-router-dom";
+import { queryType } from "./Products";
 
 type ProductSideType = {
   show: string;
   setShow: React.Dispatch<React.SetStateAction<string>>;
+  setQuery: React.Dispatch<React.SetStateAction<queryType>>;
+  query: queryType;
 };
 
-const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
+const ProductSide: React.FC<ProductSideType> = ({
+  show,
+  setShow,
+  query,
+  setQuery,
+}) => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   return (
     <aside
       className={show === "show" ? styles["hide-p"] : styles["products-side"]}
@@ -19,7 +31,12 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
 
       <div className={styles["product-category"]}>
         {productMensCategory.map((category, idx) => (
-          <p key={idx}>{category}</p>
+          <p
+            key={idx}
+            onClick={() => navigate(`/product${pathname}/${category}`)}
+          >
+            {category}
+          </p>
         ))}
       </div>
 
@@ -36,8 +53,18 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
           <div className={styles["shop-list"]}>
             {shopByPrice.map((price, idx) => (
               <div key={idx} className={styles["shop-sub"]}>
-                <p>
-                  <BsCheck />
+                <p
+                  onClick={() =>
+                    setQuery({
+                      ...query,
+                      price:
+                        query.price && query.price === price.value
+                          ? ""
+                          : price.value,
+                    })
+                  }
+                >
+                  {query.price === price.value && <BsCheck />}
                 </p>
                 <b>{price.name}</b>
               </div>
@@ -67,7 +94,17 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
               "silver",
             ].map((color, idx) => (
               <div key={idx} className={styles["color-sub"]}>
-                <p style={{ background: color }}></p>
+                <p
+                  style={{ background: color }}
+                  onClick={() =>
+                    setQuery({
+                      ...query,
+                      color: query.color && query.color === color ? "" : color,
+                    })
+                  }
+                >
+                  {query.color === color && <BsCheck />}
+                </p>
 
                 <span>{color}</span>
               </div>
@@ -85,11 +122,28 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
           show={show}
         />
 
-        <div className={styles["product-category"]} style={{ marginTop: "0" }}>
-          {productMensCategory.slice(0, 4).map((category, idx) => (
-            <p key={idx}>{category}</p>
-          ))}
-        </div>
+        {show !== "brands" && (
+          <div
+            className={styles["product-category"]}
+            style={{ marginTop: "0" }}
+          >
+            {productMensCategory.slice(0, 4).map((brand, idx) => (
+              <div key={idx} className={styles["shop-sub"]}>
+                <p
+                  onClick={() =>
+                    setQuery({
+                      ...query,
+                      brand: query.brand && query.brand === brand ? "" : brand,
+                    })
+                  }
+                >
+                  {query.brand === brand && <BsCheck />}
+                </p>
+                <b>{brand}</b>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </aside>
   );

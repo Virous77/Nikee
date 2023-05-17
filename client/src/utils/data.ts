@@ -226,21 +226,21 @@ export const shopByPrice = [
   {
     id: 1,
     name: "Under ₹2500.00",
-    value: [0, 2500],
+    value: "0-2500",
   },
   {
     id: 1,
     name: "₹2500.00 to ₹7500.00",
-    value: [2500, 7500],
+    value: "2500-7500",
   },
   {
     id: 1,
     name: "₹7500.00 to ₹13000.00",
-    value: [7500, 13000],
+    value: "7500-13000",
   },
   {
     id: 1,
     name: "Over ₹13000.00",
-    value: [13000, 100000],
+    value: "13000-100000",
   },
 ];
