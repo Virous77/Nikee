@@ -74,3 +74,13 @@ export const getProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getProductByType = async (req, res, next) => {
+  const type = req.params.type;
+  try {
+    const queryData = await Products.find({ productType: type });
+    res.status(200).json(queryData);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -18,8 +18,8 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
       <h1>Mens (1200)</h1>
 
       <div className={styles["product-category"]}>
-        {productMensCategory.map((category) => (
-          <p>{category}</p>
+        {productMensCategory.map((category, idx) => (
+          <p key={idx}>{category}</p>
         ))}
       </div>
 
@@ -34,8 +34,8 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
 
         {show !== "price" && (
           <div className={styles["shop-list"]}>
-            {shopByPrice.map((price) => (
-              <div key={price.id} className={styles["shop-sub"]}>
+            {shopByPrice.map((price, idx) => (
+              <div key={idx} className={styles["shop-sub"]}>
                 <p>
                   <BsCheck />
                 </p>
@@ -65,8 +65,8 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
               "yellow",
               "purple",
               "silver",
-            ].map((color) => (
-              <div key={color} className={styles["color-sub"]}>
+            ].map((color, idx) => (
+              <div key={idx} className={styles["color-sub"]}>
                 <p style={{ background: color }}></p>
 
                 <span>{color}</span>
@@ -86,8 +86,8 @@ const ProductSide: React.FC<ProductSideType> = ({ show, setShow }) => {
         />
 
         <div className={styles["product-category"]} style={{ marginTop: "0" }}>
-          {productMensCategory.slice(0, 4).map((category) => (
-            <p>{category}</p>
+          {productMensCategory.slice(0, 4).map((category, idx) => (
+            <p key={idx}>{category}</p>
           ))}
         </div>
       </div>
