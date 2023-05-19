@@ -46,8 +46,12 @@ export const updateCart = async (req, res, next) => {
   const id = req.params.id;
 
   try {
-    await Cart.findByIdAndUpdate(id, { $set: req.body });
-    res.status(200).json({ status: true });
+    const updatedProduct = await Cart.findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json(updatedProduct);
   } catch (error) {
     next(error);
   }

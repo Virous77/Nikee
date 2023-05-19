@@ -37,7 +37,9 @@ const Products = () => {
   const { data: productData, refetch } = useQuery(
     ["productAll"],
     async () => {
-      const data: Product[] = await getData(`/product/type/${queryKey}`);
+      const data: Product[] = await getData(
+        `/product/type/${queryKey}?price=${price}&color=${color}&brands=${brand}&sort=${sort}`
+      );
       return data;
     },
     {
@@ -59,6 +61,7 @@ const Products = () => {
       color,
       search: location.search,
     });
+    refetch();
   }, [price, color, sort, brand]);
 
   useEffect(() => {

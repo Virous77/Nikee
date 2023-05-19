@@ -51,7 +51,7 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     }
   );
 
-  const { data: inCartData } = useQuery(
+  const { data: inCartData, refetch: cartRefetch } = useQuery(
     ["inCart", productDetails?._id],
     async () => {
       if (productDetails?._id && userId) {
@@ -98,6 +98,7 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   };
 
   const handleAddToBag = () => {
+    cartRefetch();
     if (!selectedSize) return setError("Please select a size");
     if (!productDetails) return;
 

@@ -84,3 +84,25 @@ export const getProductByType = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getProducts = async (req, res, next) => {
+  const type = req.params.type;
+  const { sort, price, color, brand } = req.query;
+  const breakPrice = price && price.split("-");
+
+  try {
+    const products = await Products.find({
+      productType: type,
+      color: color || { $exists: true },
+      brands: brand || { $exists: true },
+      featured: sort === "featured" ? true : { $exists: true },
+      amount: { $gt: +breakPrice?.[0] || 0, $lt: +breakPrice?.[1] || 100000 },
+    }).sort({
+      createdAt: sort === "newest" ? -1 : 1,
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};

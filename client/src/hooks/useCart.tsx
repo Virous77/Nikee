@@ -62,8 +62,9 @@ const useCart = () => {
     onError: ({ data }: AppError) => {
       handleSetNotification({ message: data?.message, status: "error" });
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       refetch();
+      handleSetCartNotification(data);
     },
   });
 
