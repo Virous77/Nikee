@@ -87,21 +87,34 @@ export const getProductByType = async (req, res, next) => {
 
 export const getProducts = async (req, res, next) => {
   const type = req.params.type;
-  const { sort, price, color, brand } = req.query;
+  const { sort, price, color, brands } = req.query;
   const breakPrice = price && price.split("-");
 
   try {
-    const products = await Products.find({
+    const pureProducts = await Products.find({
+      productType: type,
+    });
+    let products = await Products.find({
       productType: type,
       color: color || { $exists: true },
-      brands: brand || { $exists: true },
+      brands: brands || { $exists: true },
       featured: sort === "featured" ? true : { $exists: true },
       amount: { $gt: +breakPrice?.[0] || 0, $lt: +breakPrice?.[1] || 100000 },
     }).sort({
-      createdAt: sort === "newest" ? -1 : 1,
+      amount: sort === "high-low" ? -1 : 1,
     });
 
-    res.status(200).json(products);
+    if (sort === "newest") {
+      products = products.sort((a, b) => b.createdAt - a.createdAt);
+    }
+
+    const brandsGet = pureProducts.map((product) => product.brands);
+    const uniqueBrands = [...new Set(brandsGet)];
+    const colorGet = pureProducts.map((product) => product.color);
+    const uniqueColor = [...new Set(colorGet)];
+    res
+      .status(200)
+      .json({ data: products, brands: uniqueBrands, color: uniqueColor });
   } catch (error) {
     next(error);
   }

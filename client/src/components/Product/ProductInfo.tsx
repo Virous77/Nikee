@@ -62,6 +62,11 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
       }
     },
     {
+      onSuccess: (data) => {
+        if (data?.quantity === 3) {
+          localStorage.removeItem("cartId");
+        }
+      },
       retry: false,
     }
   );
@@ -88,6 +93,7 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
       productPrice: productDetails?.amount,
       productType: productDetails?.productType,
       productCategory: productDetails?.category,
+      slug: productDetails?.slug,
     };
 
     if (isInFav?.status) {
@@ -98,6 +104,7 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   };
 
   const handleAddToBag = () => {
+    const id = getLocalData("cartId");
     cartRefetch();
     if (!selectedSize) return setError("Please select a size");
     if (!productDetails) return;
@@ -114,18 +121,23 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
       quantity: 1,
       selectSize: productDetails?.size,
       size: selectedSize,
+      slug: productDetails.slug,
     };
 
     const { quantity, ...restData } = data;
 
-    if (inCartData) {
+    if (inCartData || id) {
       const updateData = {
         ...restData,
-        quantity: inCartData.quantity + 1,
+        quantity: inCartData ? inCartData.quantity + 1 : 2,
       };
-      updateMutate({ id: inCartData._id, updateData });
+      updateMutate({ id: inCartData ? inCartData._id : id, updateData });
     } else {
       createMutate(data);
+    }
+
+    if (inCartData) {
+      localStorage.removeItem("cartId");
     }
   };
 

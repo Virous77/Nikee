@@ -41,6 +41,7 @@ const CartModify: React.FC<CartModifyType> = ({ item }) => {
       };
       updateMutate({ updateData, id: _id });
     }
+    localStorage.removeItem("cartId");
   };
 
   return (

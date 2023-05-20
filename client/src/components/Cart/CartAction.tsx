@@ -47,6 +47,7 @@ const CartAction: React.FC<CartActionType> = ({ cartItem, handleDelete }) => {
       productPrice: cart.productPrice,
       productType: cart.productType,
       productCategory: cart.productCategory,
+      slug: cart.slug,
     };
     mutate(data);
   };

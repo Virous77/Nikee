@@ -5,7 +5,7 @@ import ProductSide from "./ProductSide";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getData } from "../../api/api";
-import { AppError, Product } from "../../interfaces/interface";
+import { AppError, Product, ProductAll } from "../../interfaces/interface";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { useLocation } from "react-router-dom";
 import { updateURLParams, retrieveQueryParams } from "../../utils/query";
@@ -23,7 +23,7 @@ const Products = () => {
   const { pathname } = useLocation();
   const queryKey = pathname.substring(1, pathname.length);
   const location = useLocation();
-  const data = retrieveQueryParams(location.search);
+  const queryData = retrieveQueryParams(location.search);
 
   const initialState = {
     price: "",
@@ -37,8 +37,10 @@ const Products = () => {
   const { data: productData, refetch } = useQuery(
     ["productAll"],
     async () => {
-      const data: Product[] = await getData(
-        `/product/type/${queryKey}?price=${price}&color=${color}&brands=${brand}&sort=${sort}`
+      const data: ProductAll = await getData(
+        `/product/type/${queryKey}?price=${price || queryData.price}&color=${
+          color || queryData.color
+        }&brands=${brand || queryData.brand}&sort=${sort || queryData.sort}`
       );
       return data;
     },
@@ -67,10 +69,10 @@ const Products = () => {
   useEffect(() => {
     setQuery({
       ...query,
-      price: data?.price,
-      sort: data?.sort,
-      brand: data?.brand,
-      color: data?.color,
+      price: queryData?.price,
+      sort: queryData?.sort,
+      brand: queryData?.brand,
+      color: queryData?.color,
     });
   }, []);
 
@@ -85,6 +87,8 @@ const Products = () => {
         setShow={setShow}
         query={query}
         setQuery={setQuery}
+        brands={productData?.brands}
+        color={productData?.color}
       />
       <section>
         <ProductHeader
@@ -93,7 +97,7 @@ const Products = () => {
           setQuery={setQuery}
           query={query}
         />
-        <ProductContent productData={productData} />
+        <ProductContent productData={productData?.data} />
       </section>
     </main>
   );

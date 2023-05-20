@@ -23,8 +23,9 @@ const useCart = () => {
       handleSetNotification({ message: data?.message, status: "error" });
     },
     onSuccess: (data) => {
-      refetch();
       handleSetCartNotification(data);
+      refetch();
+      localStorage.setItem("cartId", JSON.stringify(data._id));
     },
   });
 
@@ -62,9 +63,8 @@ const useCart = () => {
     onError: ({ data }: AppError) => {
       handleSetNotification({ message: data?.message, status: "error" });
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       refetch();
-      handleSetCartNotification(data);
     },
   });
 

@@ -15,7 +15,7 @@ const FavList: React.FC<FavListType> = ({ favItem, deleteMutate }) => {
   return (
     <div
       className={styles["fav-sub"]}
-      onClick={() => navigate(`/product/${favItem.productId}`)}
+      onClick={() => navigate(`/product/${favItem.slug}`)}
     >
       <img src={favItem.productImage} alt={favItem.productName} />
       <div className={styles["fa-details"]}>
@@ -26,7 +26,13 @@ const FavList: React.FC<FavListType> = ({ favItem, deleteMutate }) => {
 
         <div className={styles["fav-action"]}>
           <span>Price : ${favItem.productPrice}</span>
-          <p onClick={() => deleteMutate(favItem._id)}>
+
+          <p
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteMutate(favItem._id);
+            }}
+          >
             <AiOutlineDelete />
           </p>
         </div>

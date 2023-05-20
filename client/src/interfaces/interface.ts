@@ -89,6 +89,7 @@ export interface Fav {
   productPrice: number;
   productType: string;
   productCategory: string;
+  slug: string;
 }
 
 export interface Review {
@@ -116,6 +117,7 @@ export interface Cart {
   productPrice: number;
   userId: string;
   _id: string;
+  slug: string;
 }
 
 export interface Coupon {
@@ -126,4 +128,10 @@ export interface Coupon {
   discountPercent: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ProductAll {
+  data: Product[];
+  brands: string[];
+  color: string[];
 }
