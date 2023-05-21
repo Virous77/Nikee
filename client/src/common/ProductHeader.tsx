@@ -3,6 +3,7 @@ import { BsFilterRight } from "react-icons/bs";
 import { sortProduct } from "../utils/data";
 import React from "react";
 import { queryType } from "../components/ProductsAll/Products";
+import { AiOutlineMenu } from "react-icons/ai";
 
 type ProductHeaderType = {
   setShow: React.Dispatch<React.SetStateAction<string>>;
@@ -19,6 +20,14 @@ const ProductHeader: React.FC<ProductHeaderType> = ({
 }) => {
   return (
     <header className={styles["product-header"]}>
+      <div className={styles["p-menu"]}>
+        <AiOutlineMenu
+          size={23}
+          cursor="pointer"
+          onClick={() => setShow("fixed")}
+        />
+      </div>
+
       <div className={styles["flat-header"]}>
         <button
           onClick={() => {

@@ -87,7 +87,7 @@ export const getProductByType = async (req, res, next) => {
 
 export const getProducts = async (req, res, next) => {
   const type = req.params.type;
-  const { sort, price, color, brands, sale } = req.query;
+  const { sort, price, color, brands, sale, category } = req.query;
   const breakPrice = price && price.split("-");
 
   try {
@@ -99,6 +99,7 @@ export const getProducts = async (req, res, next) => {
       sale: sale || { $exists: true },
       color: color || { $exists: true },
       brands: brands || { $exists: true },
+      category: category || { $exists: true },
       featured: sort === "featured" ? true : { $exists: true },
       amount: { $gt: +breakPrice?.[0] || 0, $lt: +breakPrice?.[1] || 100000 },
     }).sort({

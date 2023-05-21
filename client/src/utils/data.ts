@@ -244,3 +244,21 @@ export const shopByPrice = [
     value: "13000-100000",
   },
 ];
+
+export const saleType = [
+  {
+    id: 1,
+    name: "Men",
+    link: "/sale/men",
+  },
+  {
+    id: 2,
+    name: "Women",
+    link: "/sale/women",
+  },
+  {
+    id: 3,
+    name: "Kids",
+    link: "/sale/kids",
+  },
+];

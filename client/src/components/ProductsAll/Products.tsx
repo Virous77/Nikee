@@ -87,16 +87,24 @@ const Products: React.FC<ProductsType> = ({ title, endPoints, type }) => {
         show === "show" ? styles["state-products"] : styles["products"]
       }
     >
-      <ProductSide
-        show={show}
-        setShow={setShow}
-        query={query}
-        setQuery={setQuery}
-        brands={productData?.brands}
-        color={productData?.color}
-        productCount={productData?.data.length}
-        title={title}
-      />
+      <section
+        className={
+          show === "fixed" ? `${styles["p-side"]}` : styles["p-side-hide"]
+        }
+      >
+        <div className={styles["p-overlay"]} onClick={() => setShow("")} />
+        <ProductSide
+          show={show}
+          setShow={setShow}
+          query={query}
+          setQuery={setQuery}
+          brands={productData?.brands}
+          color={productData?.color}
+          productCount={productData?.data.length}
+          title={title}
+        />
+      </section>
+
       <section>
         <ProductHeader
           setShow={setShow}
