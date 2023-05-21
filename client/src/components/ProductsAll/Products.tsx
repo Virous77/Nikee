@@ -1,27 +1,32 @@
 import styles from "./Products.module.scss";
-import ProductHeader from "./ProductHeader";
-import ProductContent from "./ProductContent";
-import ProductSide from "./ProductSide";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getData } from "../../api/api";
-import { AppError, Product, ProductAll } from "../../interfaces/interface";
+import { AppError, ProductAll } from "../../interfaces/interface";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { useLocation } from "react-router-dom";
 import { updateURLParams, retrieveQueryParams } from "../../utils/query";
+import ProductContent from "../../common/ProductContent";
+import ProductHeader from "../../common/ProductHeader";
+import ProductSide from "../../common/ProductSide";
 
 export type queryType = {
   price: string;
   brand: string;
   sort: string;
   color: string;
+  type?: string;
 };
 
-const Products = () => {
+type ProductsType = {
+  title: string;
+  endPoints: string;
+  type?: string;
+};
+
+const Products: React.FC<ProductsType> = ({ title, endPoints, type }) => {
   const [show, setShow] = useState("");
   const { handleSetNotification } = useGlobalContext();
-  const { pathname } = useLocation();
-  const queryKey = pathname.substring(1, pathname.length);
   const location = useLocation();
   const queryData = retrieveQueryParams(location.search);
 
@@ -35,10 +40,10 @@ const Products = () => {
   const { price, brand, sort, color } = query;
 
   const { data: productData, refetch } = useQuery(
-    ["productAll"],
+    [title],
     async () => {
       const data: ProductAll = await getData(
-        `/product/type/${queryKey}?price=${price || queryData.price}&color=${
+        `${endPoints}price=${price || queryData.price}&color=${
           color || queryData.color
         }&brands=${brand || queryData.brand}&sort=${sort || queryData.sort}`
       );
@@ -64,7 +69,7 @@ const Products = () => {
       search: location.search,
     });
     refetch();
-  }, [price, color, sort, brand]);
+  }, [price, color, sort, brand, type]);
 
   useEffect(() => {
     setQuery({
@@ -89,6 +94,8 @@ const Products = () => {
         setQuery={setQuery}
         brands={productData?.brands}
         color={productData?.color}
+        productCount={productData?.data.length}
+        title={title}
       />
       <section>
         <ProductHeader

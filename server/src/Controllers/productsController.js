@@ -87,7 +87,7 @@ export const getProductByType = async (req, res, next) => {
 
 export const getProducts = async (req, res, next) => {
   const type = req.params.type;
-  const { sort, price, color, brands } = req.query;
+  const { sort, price, color, brands, sale } = req.query;
   const breakPrice = price && price.split("-");
 
   try {
@@ -96,6 +96,7 @@ export const getProducts = async (req, res, next) => {
     });
     let products = await Products.find({
       productType: type,
+      sale: sale || { $exists: true },
       color: color || { $exists: true },
       brands: brands || { $exists: true },
       featured: sort === "featured" ? true : { $exists: true },

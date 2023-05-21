@@ -1,8 +1,8 @@
-import styles from "./Products.module.scss";
+import styles from "../components/ProductsAll/Products.module.scss";
 import { BsFilterRight } from "react-icons/bs";
-import { sortProduct } from "../../utils/data";
+import { sortProduct } from "../utils/data";
 import React from "react";
-import { queryType } from "./Products";
+import { queryType } from "../components/ProductsAll/Products";
 
 type ProductHeaderType = {
   setShow: React.Dispatch<React.SetStateAction<string>>;

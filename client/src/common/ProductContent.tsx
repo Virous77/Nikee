@@ -1,6 +1,6 @@
 import React from "react";
-import { Product } from "../../interfaces/interface";
-import styles from "./Products.module.scss";
+import { Product } from "../interfaces/interface";
+import styles from "../components/ProductsAll/Products.module.scss";
 import { useNavigate } from "react-router-dom";
 
 type ProductContentType = {

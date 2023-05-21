@@ -1,11 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { navLinks } from "../utils/data";
 import styles from "./Layout.module.scss";
-import useProducts from "../hooks/useProducts";
 
 const NavLink = () => {
   const navigate = useNavigate();
-  const { setShow } = useProducts();
+  const { pathname } = useLocation();
+
+  const pathExact =
+    pathname === "/men" || pathname === "/women" || pathname === "/kids";
 
   return (
     <ul className={styles["link-list"]}>
@@ -13,8 +15,15 @@ const NavLink = () => {
         <li
           key={type.id}
           onClick={() => {
-            navigate(type.link);
-            setShow(type.name);
+            if (type.name === "Sale") {
+              if (pathExact) {
+                navigate(`/sale${pathname}`);
+              } else {
+                navigate(`/sale/men`);
+              }
+            } else {
+              navigate(type.link);
+            }
           }}
         >
           {type.name}
