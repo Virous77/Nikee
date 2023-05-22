@@ -1,5 +1,7 @@
+import Sneakers from "../components/Sneakers/Sneakers";
+
 const SneakersPage = () => {
-  return <div>SneakersPage</div>;
+  return <Sneakers />;
 };
 
 export default SneakersPage;
