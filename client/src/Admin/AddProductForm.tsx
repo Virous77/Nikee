@@ -10,17 +10,29 @@ import SizeSelect from "./SizeSelect";
 import MultipleImage from "./MultipleImage";
 import styles from "./Admin.module.scss";
 import { FaCameraRetro } from "react-icons/fa";
-import { useAdminContext } from "../store/AdminContext";
 import { BsCheck } from "react-icons/bs";
+import React from "react";
+import { ProductDetailsType } from "../types/type";
 
-const AddProductForm = () => {
-  const {
-    productDetails,
-    setProductDetails,
-    handleChange,
-    handleCreatingData,
-    isLoading,
-  } = useAdminContext();
+type AddProductFormType = {
+  productDetails: ProductDetailsType;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCreatingData: () => void;
+  setProductDetails: React.Dispatch<React.SetStateAction<ProductDetailsType>>;
+  title: string;
+};
+
+const AddProductForm: React.FC<AddProductFormType> = ({
+  productDetails,
+  handleImageUpload,
+  isLoading,
+  handleChange,
+  handleCreatingData,
+  setProductDetails,
+  title,
+}) => {
   const {
     productCategory,
     productInformation,
@@ -41,31 +53,12 @@ const AddProductForm = () => {
       ? productMensCategory
       : productWomenCategory;
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-
-    const fileReader = new FileReader();
-    const file = e.target.files[0];
-
-    fileReader.onload = () => {
-      if (typeof fileReader.result === "string") {
-        if (!e.target.files) return;
-        setProductDetails({
-          ...productDetails,
-          image: URL.createObjectURL(e.target.files[0]),
-          imageR: fileReader.result,
-        });
-      }
-    };
-    fileReader.readAsDataURL(file);
-  };
-
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <fieldset>
         <input
           type="text"
-          placeholder="Product Name"
+          placeholder={`${title} Name`}
           name="name"
           value={name}
           onChange={handleChange}
@@ -106,31 +99,36 @@ const AddProductForm = () => {
           }
         />
 
-        <Select
-          data={category}
-          value={productCategory}
-          setValue={(e) =>
-            setProductDetails({
-              ...productDetails,
-              productCategory: e.target.value,
-            })
-          }
-        />
+        {title === "Product" && (
+          <Select
+            data={category}
+            value={productCategory}
+            setValue={(e) =>
+              setProductDetails({
+                ...productDetails,
+                productCategory: e.target.value,
+              })
+            }
+          />
+        )}
       </div>
 
       <fieldset className={styles["size-set"]}>
-        <p>Select {productCategory} Size</p>
+        <p>Select {title === "Product" ? productCategory : "Sneaker"} Size</p>
         <SizeSelect
           data={size({
             name: productsType,
             Category: productCategory,
             products: productsType,
           })}
+          setProductDetails={setProductDetails}
+          productDetails={productDetails}
+          productSize={productDetails.productSize}
         />
       </fieldset>
 
       <div className={`${styles["size-set"]} ${styles["hero-image"]} `}>
-        <p>Product Images</p>
+        <p>{title} Images</p>
 
         <div className={styles["hero-main"]}>
           {image ? (
@@ -153,12 +151,15 @@ const AddProductForm = () => {
       </div>
 
       <div className={styles["size-set"]}>
-        <p>Product Images</p>
-        <MultipleImage />
+        <p>{title} Images</p>
+        <MultipleImage
+          setProductDetails={setProductDetails}
+          productDetails={productDetails}
+        />
       </div>
 
       <div className={styles["size-set"]}>
-        <p>About Product</p>
+        <p>About {title}</p>
         <ReactQuillText
           setValue={(e) =>
             setProductDetails({ ...productDetails, aboutProduct: e })
@@ -168,7 +169,7 @@ const AddProductForm = () => {
       </div>
 
       <div className={`${styles["size-set"]}  ${styles["info"]}`}>
-        <p>Product Information</p>
+        <p>{title} Information</p>
         <ReactQuillText
           setValue={(e) =>
             setProductDetails({ ...productDetails, productInformation: e })
@@ -225,7 +226,7 @@ const AddProductForm = () => {
 
       <div className={styles["product-button"]}>
         <button disabled={isLoading} onClick={handleCreatingData}>
-          {isLoading ? "Creating..." : "Add Product"}
+          {isLoading ? "Creating..." : `Add ${title}`}
         </button>
       </div>
     </form>

@@ -3,6 +3,7 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Admin.module.scss";
 import { RiCoupon2Line } from "react-icons/ri";
+import { GiConverseShoe } from "react-icons/gi";
 
 const AdminMenu = () => {
   const navigate = useNavigate();
@@ -39,6 +40,13 @@ const AdminMenu = () => {
           className={pathname.includes("coupon") ? styles["active-menu"] : ""}
         >
           <RiCoupon2Line /> Coupon
+        </li>
+
+        <li
+          onClick={() => navigate("/admin/sneaker")}
+          className={pathname.includes("sneaker") ? styles["active-menu"] : ""}
+        >
+          <GiConverseShoe /> Sneaker
         </li>
       </ul>
     </aside>

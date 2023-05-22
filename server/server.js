@@ -14,6 +14,7 @@ import FavRouter from "./src/Routes/FavRoutes.js";
 import ReviewRouter from "./src/Routes/ReviewRoutes.js";
 import CartRouter from "./src/Routes/CartRoutes.js";
 import CouponRouter from "./src/Routes/CouponRoutes.js";
+import SneakerRouter from "./src/Routes/SneakersRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api/v1", FavRouter);
 app.use("/api/v1", ReviewRouter);
 app.use("/api/v1", CartRouter);
 app.use("/api/v1", CouponRouter);
+app.use("/api/v1", SneakerRouter);
 
 //Handle app Error
 app.use((err, req, res, next) => {

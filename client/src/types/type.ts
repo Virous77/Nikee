@@ -94,4 +94,9 @@ export type AdminContextType = {
   handleCreatingData: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isLoading: boolean;
+  sneakerLoading: boolean;
+  setSneaker: React.Dispatch<React.SetStateAction<ProductDetailsType>>;
+  sneaker: ProductDetailsType;
+  handleChangeSneaker: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCreatingSneaker: () => void;
 };

@@ -1,15 +1,20 @@
 import React from "react";
-import { useAdminContext } from "../store/AdminContext";
 import Size from "../common/Size";
+import { ProductDetailsType } from "../types/type";
 
 type SelectType = {
   data: string[];
+  productSize: string[];
+  productDetails: ProductDetailsType;
+  setProductDetails: React.Dispatch<React.SetStateAction<ProductDetailsType>>;
 };
 
-const SizeSelect: React.FC<SelectType> = ({ data }) => {
-  const { productDetails, setProductDetails } = useAdminContext();
-  const { productSize } = productDetails;
-
+const SizeSelect: React.FC<SelectType> = ({
+  data,
+  productSize,
+  productDetails,
+  setProductDetails,
+}) => {
   const handleSelect = (size: string) => {
     if (productSize.includes(size)) {
       const filterData = productSize.filter((item) => item !== size);

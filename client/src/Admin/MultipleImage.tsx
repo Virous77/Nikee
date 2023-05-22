@@ -2,10 +2,17 @@ import React from "react";
 import { FaCameraRetro } from "react-icons/fa";
 import styles from "./Admin.module.scss";
 import { AiOutlineDelete } from "react-icons/ai";
-import { useAdminContext } from "../store/AdminContext";
+import { ProductDetailsType } from "../types/type";
 
-const MultipleImage = () => {
-  const { productDetails, setProductDetails } = useAdminContext();
+type MultipleImageType = {
+  productDetails: ProductDetailsType;
+  setProductDetails: React.Dispatch<React.SetStateAction<ProductDetailsType>>;
+};
+
+const MultipleImage: React.FC<MultipleImageType> = ({
+  productDetails,
+  setProductDetails,
+}) => {
   const { images, imagesR } = productDetails;
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {

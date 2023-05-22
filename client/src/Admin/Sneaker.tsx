@@ -1,14 +1,14 @@
-import styles from "./Admin.module.scss";
 import AddProductForm from "./AddProductForm";
 import { useAdminContext } from "../store/AdminContext";
+import styles from "./Admin.module.scss";
 
-const AddProduct = () => {
+const Sneaker = () => {
   const {
-    productDetails,
-    setProductDetails,
-    handleChange,
-    handleCreatingData,
-    isLoading,
+    sneaker,
+    setSneaker,
+    sneakerLoading,
+    handleChangeSneaker,
+    handleCreatingSneaker,
   } = useAdminContext();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +20,8 @@ const AddProduct = () => {
     fileReader.onload = () => {
       if (typeof fileReader.result === "string") {
         if (!e.target.files) return;
-        setProductDetails({
-          ...productDetails,
+        setSneaker({
+          ...sneaker,
           image: URL.createObjectURL(e.target.files[0]),
           imageR: fileReader.result,
         });
@@ -33,16 +33,16 @@ const AddProduct = () => {
   return (
     <section className={styles["add-product"]}>
       <AddProductForm
-        productDetails={productDetails}
+        productDetails={sneaker}
+        setProductDetails={setSneaker}
+        isLoading={sneakerLoading}
+        handleChange={handleChangeSneaker}
+        handleCreatingData={handleCreatingSneaker}
+        title="Sneaker"
         handleImageUpload={handleImageUpload}
-        setProductDetails={setProductDetails}
-        isLoading={isLoading}
-        handleChange={handleChange}
-        handleCreatingData={handleCreatingData}
-        title="Product"
       />
     </section>
   );
 };
 
-export default AddProduct;
+export default Sneaker;
