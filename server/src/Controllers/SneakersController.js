@@ -60,3 +60,28 @@ export const createSneaker = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getSneakers = async (req, res, next) => {
+  try {
+    const sneakers = await Sneakers.find();
+    res.status(200).json(sneakers);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getSneaker = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const sneaker = await Sneakers.findById(id);
+
+    if (!sneaker)
+      return next(
+        createError({ message: "Sneaker don't exists anymore", status: 404 })
+      );
+
+    res.status(200).json(sneaker);
+  } catch (error) {
+    next(error);
+  }
+};

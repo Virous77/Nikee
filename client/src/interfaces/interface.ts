@@ -135,3 +135,23 @@ export interface ProductAll {
   brands: string[];
   color: string[];
 }
+
+export interface Sneaker {
+  _id: string;
+  name: string;
+  amount: number;
+  discount: number;
+  aboutSneaker: string;
+  brands: string;
+  color: string;
+  heroImage: string;
+  images: string[];
+  sneakerInformation: string;
+  sneakerType: string;
+  size: string[];
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  sale: boolean;
+  featured: boolean;
+}

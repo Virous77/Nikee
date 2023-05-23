@@ -11,6 +11,10 @@ const SneakersSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    sneakerType: {
+      type: String,
+      required: true,
+    },
     discount: {
       type: Number,
     },
