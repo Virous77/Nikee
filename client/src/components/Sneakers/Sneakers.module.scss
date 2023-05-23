@@ -146,6 +146,23 @@
   }
 }
 
+.buy {
+  width: 100%;
+  margin-top: 1.5rem;
+
+  button {
+    width: 100%;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+    padding: 15px;
+    border-radius: 30px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
 .sneak-content {
   margin-top: 2rem;
   text-align: center;
@@ -170,6 +187,33 @@
   p {
     line-height: 1.4;
   }
+}
+
+.sneak-size-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid var(--card-color);
+  margin-top: 2rem;
+
+  button {
+    border: 1px solid var(--card-color);
+    @include buttonMain;
+    border-radius: 0;
+
+    &:hover {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+}
+
+.active-size {
+  border: 1px solid var(--main-font-color);
+  background-color: var(--main-font-color);
+  color: var(--background-color);
+}
+
+.not-active {
+  background-color: transparent;
 }
 
 @media (max-width: 1140px) {

@@ -2,6 +2,7 @@ import React from "react";
 import { Sneaker } from "../../interfaces/interface";
 import styles from "./Sneakers.module.scss";
 import HtmlParser from "../../common/HtmlParser";
+import SneakerSize from "./SneakerSize";
 
 type SneakerDetailsType = {
   sneaker: Sneaker | undefined;
@@ -25,12 +26,17 @@ const SneakerDetails: React.FC<SneakerDetailsType> = ({ sneaker }) => {
 
       <div className={styles["sneak-number"]}>
         <p>Product Information:</p>
-
         <span>SKU: {sneaker?._id.slice(2, 12)}</span>
       </div>
 
       <div className={styles["sneak-information"]}>
         <HtmlParser data={sneaker?.sneakerInformation} />
+      </div>
+
+      <SneakerSize size={sneaker?.size} />
+
+      <div className={styles["buy"]}>
+        <button>BUY</button>
       </div>
     </div>
   );
