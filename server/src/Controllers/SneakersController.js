@@ -71,9 +71,9 @@ export const getSneakers = async (req, res, next) => {
 };
 
 export const getSneaker = async (req, res, next) => {
-  const { id } = req.params;
+  const { name } = req.params;
   try {
-    const sneaker = await Sneakers.findById(id);
+    const sneaker = await Sneakers.findOne({ slug: name });
 
     if (!sneaker)
       return next(

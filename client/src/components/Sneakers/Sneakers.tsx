@@ -5,8 +5,10 @@ import { AppError, Sneaker } from "../../interfaces/interface";
 import { useGlobalContext } from "../../store/GlobalContext";
 import SneakersList from "./SneakersList";
 import SneakerHead from "./SneakerHead";
+import { useState } from "react";
 
 const Sneakers = () => {
+  const [layout, setLayout] = useState(false);
   const { handleSetNotification } = useGlobalContext();
 
   const { data: sneakers, isLoading } = useQuery(
@@ -28,17 +30,13 @@ const Sneakers = () => {
 
   return (
     <main className={styles["sneakers"]}>
-      <SneakerHead />
+      <SneakerHead layout={layout} setLayout={setLayout} />
 
-      <section>
-        <h2>Sneaker Hots</h2>
-
-        <div className={styles["sneak-list"]}>
-          {sneakers?.map((sneaker) => (
-            <SneakersList key={sneaker._id} sneaker={sneaker} />
-          ))}
-        </div>
-      </section>
+      <div className={!layout ? styles["sneak-list"] : styles["sneak-grid"]}>
+        {sneakers?.map((sneaker) => (
+          <SneakersList key={sneaker._id} sneaker={sneaker} layout={layout} />
+        ))}
+      </div>
     </main>
   );
 };

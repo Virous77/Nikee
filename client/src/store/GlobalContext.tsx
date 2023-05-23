@@ -17,7 +17,7 @@ type GlobalType = {
   handleSetNotification: ({ message, status }: notificationType) => void;
   state: stateType;
   setState: React.Dispatch<React.SetStateAction<stateType>>;
-  handleSetCartNotification: (cart: localCart) => void;
+  handleSetCartNotification: (cart: any) => void;
 };
 
 const stateInitialValue = {
@@ -65,7 +65,7 @@ export const GlobalContextProvider = ({
   };
 
   ///Cart notification
-  const handleSetCartNotification = (cart: localCart) => {
+  const handleSetCartNotification = (cart: any) => {
     setState({ ...state, cart: cart });
 
     setTimeout(() => {
