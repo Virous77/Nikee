@@ -12,11 +12,16 @@ type FavListType = {
 const FavList: React.FC<FavListType> = ({ favItem, deleteMutate }) => {
   const navigate = useNavigate();
 
+  const handleNavigate = () => {
+    if (favItem.productCategory === "sneaker") {
+      navigate(`/sneaker/${favItem.slug}`);
+    } else {
+      navigate(`/product/${favItem.slug}`);
+    }
+  };
+
   return (
-    <div
-      className={styles["fav-sub"]}
-      onClick={() => navigate(`/product/${favItem.slug}`)}
-    >
+    <div className={styles["fav-sub"]} onClick={handleNavigate}>
       <img src={favItem.productImage} alt={favItem.productName} />
       <div className={styles["fa-details"]}>
         <h2>{favItem.productName}</h2>

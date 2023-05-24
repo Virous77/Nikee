@@ -1,6 +1,7 @@
 import Products from "../Models/Products.js";
 import { createError } from "../utils/utility.js";
 import { uploadImage } from "../utils/imageUpload.js";
+import Sneaker from "../Models/Sneakers.js";
 
 export const createProduct = async (req, res, next) => {
   const {
@@ -117,6 +118,19 @@ export const getProducts = async (req, res, next) => {
     res
       .status(200)
       .json({ data: products, brands: uniqueBrands, color: uniqueColor });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getFeaturedProduct = async (req, res, next) => {
+  try {
+    const products = await Products.aggregate([
+      { $match: { featured: true } },
+      { $sample: { size: 10 } },
+    ]);
+
+    res.status(200).json(products);
   } catch (error) {
     next(error);
   }

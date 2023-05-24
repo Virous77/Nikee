@@ -1,5 +1,7 @@
+import Featured from "../components/Featured/Featured";
+
 const FeaturePage = () => {
-  return <div>FeaturePage</div>;
+  return <Featured />;
 };
 
 export default FeaturePage;

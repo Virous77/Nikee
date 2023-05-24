@@ -1,0 +1,53 @@
+@import "../../common/common.module.scss";
+
+.featured {
+  padding: 1rem 0;
+}
+
+.featured-hero {
+  padding: 0 2.8rem;
+}
+
+.feature-img {
+  @include displayCenter;
+  margin-top: 2rem;
+  gap: 1rem;
+  overflow: hidden;
+  margin-left: -110px;
+  position: relative;
+
+  img {
+    width: 320px;
+    cursor: pointer;
+  }
+}
+
+.arrow {
+  width: 100%;
+
+  button {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    @include displayCenter;
+    justify-content: center;
+    background-color: var(--background-color);
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+
+  .first {
+    left: 0;
+    margin-left: 10rem;
+  }
+
+  .second {
+    right: 0;
+    margin-right: 3.8rem;
+  }
+}

@@ -15,6 +15,11 @@ import popular7 from "../assets/asset18.jpeg";
 import popular8 from "../assets/asset19.jpeg";
 import popular9 from "../assets/asset20.jpeg";
 
+import featured from "../assets/f1.jpeg";
+import featured2 from "../assets/f2.jpeg";
+import featured3 from "../assets/f3.jpeg";
+import featured4 from "../assets/f4.jpeg";
+
 export const getLocalData = (name: string) => {
   const localData = localStorage.getItem(name);
   return localData ? JSON.parse(localData) : null;
@@ -260,5 +265,36 @@ export const saleType = [
     id: 3,
     name: "Kids",
     link: "/sale/kids",
+  },
+];
+
+export const featuredType = [
+  {
+    id: 1,
+    name: "Tees",
+    image: featured,
+    type: "/product/women",
+    category: "T-shirt",
+  },
+  {
+    id: 2,
+    name: "Kicks",
+    image: featured2,
+    type: "/product/men",
+    category: "Shoes",
+  },
+  {
+    id: 3,
+    name: "Classic",
+    image: featured3,
+    type: "/product/men",
+    category: "T-shirt",
+  },
+  {
+    id: 4,
+    name: "Sandal",
+    image: featured4,
+    type: "/sneakers",
+    category: "",
   },
 ];
