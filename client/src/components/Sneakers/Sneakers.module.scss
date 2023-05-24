@@ -13,6 +13,14 @@
   }
 }
 
+.error {
+  color: red;
+  opacity: 0.9;
+  text-align: center;
+  margin: 10px;
+  font-size: var(--small-font-size);
+}
+
 .sneak-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -216,6 +224,10 @@
   background-color: transparent;
 }
 
+.mobileSneaker {
+  display: none;
+}
+
 @media (max-width: 1140px) {
   .sneak-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -223,6 +235,19 @@
 }
 
 @media (max-width: 992px) {
+  .sneak-single {
+    padding: 1rem;
+  }
+
+  .mobileSneaker {
+    display: block;
+    position: relative;
+  }
+
+  .sneak-image {
+    display: none;
+  }
+
   .sneakers {
     padding: 2rem 1rem;
   }
@@ -233,6 +258,30 @@
 
   .sneak-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sneak-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .single-sneak-det {
+    width: 100%;
+  }
+
+  .sub-image {
+    img {
+      height: 400px;
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    padding: 0 1rem;
+    @include displayFlex;
+    z-index: 10;
   }
 }
 

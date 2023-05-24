@@ -62,11 +62,6 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
       }
     },
     {
-      onSuccess: (data) => {
-        if (data?.quantity === 3) {
-          localStorage.removeItem("cartId");
-        }
-      },
       retry: false,
     }
   );

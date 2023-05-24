@@ -5,6 +5,7 @@ import { getData } from "../../api/api";
 import { useParams } from "react-router-dom";
 import { Sneaker, AppError } from "../../interfaces/interface";
 import SneakerDetails from "./SneakerDetails";
+import MobileSneaker from "./MobileSneaker";
 
 const SingleSneaker = () => {
   const { name } = useParams();
@@ -36,6 +37,9 @@ const SingleSneaker = () => {
             <img src={img} alt={sneaker.name} key={img} />
           ))}
         </div>
+        <MobileSneaker
+          image={sneaker && [sneaker.heroImage, ...sneaker.images]}
+        />
         <SneakerDetails sneaker={sneaker} />
       </div>
     </main>

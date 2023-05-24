@@ -43,7 +43,7 @@ const CartNotification = () => {
               {state.cart?.productCategory}'s {state.cart?.productType}
             </p>
 
-            <p>Size : {state.cart?.selectSize}</p>
+            <p>Size : {state.cart?.size}</p>
             {state.cart && (
               <p>Price : ${state.cart?.quantity * state.cart?.productPrice}</p>
             )}
