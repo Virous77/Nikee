@@ -1,7 +1,10 @@
 import shopAir from "../../assets/shopAir.jpeg";
 import styles from "./Home.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const ShopAir = () => {
+  const navigate = useNavigate();
+
   return (
     <section className={styles["hero-shoes"]}>
       <h2>Best of Air Max</h2>
@@ -16,7 +19,9 @@ const ShopAir = () => {
           and more.
         </p>
 
-        <button>Shop All Air Max</button>
+        <button onClick={() => navigate("/product/men/Shoes")} l>
+          Shop All Air Max
+        </button>
       </div>
     </section>
   );

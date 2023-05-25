@@ -7,6 +7,7 @@ import fs from "fs";
 import { promises as fsPromises } from "fs";
 import path from "path";
 import { createError } from "../../utils/utility.js";
+import Products from "../../Models/Products.js";
 
 const filePath = path.resolve(".", "id.json");
 
@@ -93,15 +94,24 @@ export const verifyAndCompletePayment = async (req, res, next) => {
     };
     const options = { new: true };
     const updatedOrder = await Order.findOneAndUpdate(filter, update, options);
+    const { _id, order } = updatedOrder._doc;
     await fsPromises.writeFile(filePath, JSON.stringify(filterAddress));
-
-    const { _id } = updatedOrder._doc;
-
+    updateProduct(order);
     res.redirect(`${process.env.PAYMENT_DONE_URL}?orderId=${_id.toString()}`);
   } catch (error) {
     next(error);
   }
 };
+
+async function updateProduct(order) {
+  await Promise.all(
+    order.map(async (product) => {
+      const updatedProduct = await Products.findById(product.id).exec();
+      updatedProduct.popular += 1;
+      await updatedProduct.save();
+    })
+  );
+}
 
 export const getOrderData = async (req, res, next) => {
   const orderId = req.params.id;

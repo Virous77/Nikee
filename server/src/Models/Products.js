@@ -63,6 +63,10 @@ const ProductsSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    popular: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

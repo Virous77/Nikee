@@ -1,6 +1,10 @@
 import heroImage from "../../assets/hero.jpeg";
 import styles from "./Home.module.scss";
+import { useNavigate } from "react-router-dom";
+
 const HeroImage = () => {
+  const navigate = useNavigate();
+
   return (
     <section className={styles["hero-image"]}>
       <img src={heroImage} alt="nike ad" />
@@ -12,7 +16,12 @@ const HeroImage = () => {
           fitness apparel.
         </p>
 
-        <button className={styles["shop-home-button"]}>Shop</button>
+        <button
+          className={styles["shop-home-button"]}
+          onClick={() => navigate("/sneakers")}
+        >
+          Shop
+        </button>
       </div>
     </section>
   );

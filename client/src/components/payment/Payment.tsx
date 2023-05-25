@@ -31,6 +31,8 @@ const Payment = () => {
     async () => {
       const data = await getData(`/order/${orderId}`);
       deleteMultipleMutate(userId);
+      localStorage.removeItem("cartId");
+      localStorage.removeItem("checkout");
       localStorage.removeItem("coupon");
       return data;
     },

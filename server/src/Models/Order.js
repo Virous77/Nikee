@@ -43,7 +43,15 @@ const OrderSchema = new mongoose.Schema(
       },
     },
     order: {
-      type: [{ name: String, image: String, quantity: Number, price: Number }],
+      type: [
+        {
+          name: String,
+          image: String,
+          quantity: Number,
+          price: Number,
+          id: String,
+        },
+      ],
       required: true,
     },
     payment: {
