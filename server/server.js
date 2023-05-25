@@ -30,15 +30,18 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // App api middleware
-app.use("/api/v1", UserRouter);
-app.use("/api/v1", AddressRouter);
-app.use("/api/v1", PaymentRouter);
-app.use("/api/v1", ProductsRouter);
-app.use("/api/v1", FavRouter);
-app.use("/api/v1", ReviewRouter);
-app.use("/api/v1", CartRouter);
-app.use("/api/v1", CouponRouter);
-app.use("/api/v1", SneakerRouter);
+app.use(
+  "/api/v1",
+  UserRouter,
+  AddressRouter,
+  PaymentRouter,
+  ProductsRouter,
+  FavRouter,
+  ReviewRouter,
+  CartRouter,
+  CouponRouter,
+  SneakerRouter
+);
 
 //Handle app Error
 app.use((err, req, res, next) => {
