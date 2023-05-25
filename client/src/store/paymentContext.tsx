@@ -22,7 +22,6 @@ export const PaymentContextProvider = ({
   children: React.ReactNode;
 }) => {
   const id = getLocalData("nike");
-  const address: UserAddress = getLocalData("checkout");
   const coupon = getLocalData("coupon");
   const { UserData } = useAuthContext();
   const { totalPrice, totalTax, cartData } = useCart();
@@ -46,6 +45,7 @@ export const PaymentContextProvider = ({
     });
 
   const handlePayment = async () => {
+    const address: UserAddress = getLocalData("checkout");
     const checkoutData = {
       amount: totalDiscount
         ? totalDiscount

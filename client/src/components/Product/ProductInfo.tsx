@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Product, AppError } from "../../interfaces/interface";
 import { Modal } from "../Modal/Modal";
 import ModalHeader from "../Modal/ModalHeader";
@@ -130,11 +130,13 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
     } else {
       createMutate(data);
     }
-
-    if (inCartData) {
-      localStorage.removeItem("cartId");
-    }
   };
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("cartId");
+    };
+  }, []);
 
   return (
     <React.Fragment>
