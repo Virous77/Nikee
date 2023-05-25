@@ -20,6 +20,10 @@ import featured2 from "../assets/f2.jpeg";
 import featured3 from "../assets/f3.jpeg";
 import featured4 from "../assets/f4.jpeg";
 
+import featuredBanner from "../assets/f20.jpeg";
+import featuredBanner2 from "../assets/f21.jpeg";
+import featuredBanner3 from "../assets/f22.jpeg";
+
 export const getLocalData = (name: string) => {
   const localData = localStorage.getItem(name);
   return localData ? JSON.parse(localData) : null;
@@ -296,5 +300,26 @@ export const featuredType = [
     image: featured4,
     type: "/sneakers",
     category: "",
+  },
+];
+
+export const featuredCategory = [
+  {
+    id: 1,
+    link: "/men",
+    image: featuredBanner,
+    name: "Men's",
+  },
+  {
+    id: 2,
+    link: "/women",
+    image: featuredBanner2,
+    name: "Women's",
+  },
+  {
+    id: 3,
+    link: "/kids",
+    image: featuredBanner3,
+    name: "Kids's",
   },
 ];

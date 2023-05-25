@@ -2,6 +2,7 @@ import styles from "./Featured.module.scss";
 import FeaturedHero from "./FeaturedHero";
 import FeatureScroll from "./FeatureScroll";
 import FeaturedProduct from "./FeaturedProduct";
+import FeatureBanner from "./FeatureBanner";
 
 const Featured = () => {
   return (
@@ -9,6 +10,7 @@ const Featured = () => {
       <FeaturedHero />
       <FeatureScroll />
       <FeaturedProduct />
+      <FeatureBanner />
     </div>
   );
 };

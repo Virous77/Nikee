@@ -27,7 +27,8 @@ const FeaturedProduct = () => {
 
   return (
     <section className={styles["featured-product"]}>
-      <div>
+      <h2>Shop Nike Featured</h2>
+      <div className={styles["feature-list"]}>
         {featuredData?.map((product) => (
           <FeaturedList product={product} key={product._id} />
         ))}
