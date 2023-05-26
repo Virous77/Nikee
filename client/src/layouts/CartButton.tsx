@@ -16,7 +16,7 @@ const CartButton = () => {
           onClick={() => navigate("/cart")}
         />
       </button>
-      {Total && <p>{Total}</p>}
+      <p>{Total && Total}</p>
     </div>
   );
 };

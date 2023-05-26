@@ -102,6 +102,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     onSuccess: (data) => {
       navigate("/");
       localStorage.setItem("nike", JSON.stringify(data._id));
+      localStorage.setItem("offCartId", JSON.stringify(data._id));
       setRegisterData(stateInitialValue);
       refetch();
       setTimeout(() => {

@@ -28,8 +28,7 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   const [selectedSize, setSelectedSize] = useState("");
   const [error, setError] = useState("");
   const userId = getLocalData("nike");
-  const { handleSetNotification, handleSetCartNotification } =
-    useGlobalContext();
+  const { handleSetNotification } = useGlobalContext();
   const { mutate: createMutate, updateMutate } = useCart();
   const navigate = useNavigate();
 
@@ -104,12 +103,14 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
 
   const handleAddToBag = () => {
     const id = getLocalData("cartId");
+    const cartId = getLocalData("offCartId");
+    if (!cartId) return navigate("/login");
     if (!selectedSize) return setError("Please select a size");
     cartRefetch();
     if (!productDetails) return;
 
     const data = {
-      userId,
+      userId: userId ? userId : cartId,
       productImage: productDetails?.heroImage,
       productName: productDetails?.name,
       productCategory: productDetails?.category,
@@ -125,22 +126,14 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
 
     const { quantity, ...restData } = data;
 
-    if (userId) {
-      if (inCartData || id) {
-        const updateData = {
-          ...restData,
-          quantity: inCartData ? inCartData.quantity + 1 : 2,
-        };
-        updateMutate({ id: inCartData ? inCartData._id : id, updateData });
-      } else {
-        createMutate(data);
-      }
-    } else {
-      const addData = {
-        ...data,
-        _id: "",
+    if (inCartData || id) {
+      const updateData = {
+        ...restData,
+        quantity: inCartData ? inCartData.quantity + 1 : 2,
       };
-      handleSetCartNotification(addData);
+      updateMutate({ id: inCartData ? inCartData._id : id, updateData });
+    } else {
+      createMutate(data);
     }
   };
 

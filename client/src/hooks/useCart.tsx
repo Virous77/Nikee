@@ -12,6 +12,7 @@ type updateType = {
 
 const useCart = () => {
   const userId = getLocalData("nike");
+  const cartId = getLocalData("offCartId");
   const { handleSetNotification, handleSetCartNotification } =
     useGlobalContext();
 
@@ -75,8 +76,8 @@ const useCart = () => {
   } = useQuery(
     ["cartData"],
     async () => {
-      if (userId) {
-        const data: Cart[] = await getData(`/cart/${userId}`);
+      if (userId || cartId) {
+        const data: Cart[] = await getData(`/cart/${userId ? userId : cartId}`);
         return data;
       }
     },
