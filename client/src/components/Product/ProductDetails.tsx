@@ -7,6 +7,7 @@ import { AppError } from "../../interfaces/interface";
 import { Product } from "../../interfaces/interface";
 import ProductImage from "./ProductImage";
 import ProductInfo from "./ProductInfo";
+import ProductDetailsShimmer from "../../common/shimmers/ProductDetailsShimmer";
 
 const ProductDetails = () => {
   const { name } = useParams();
@@ -31,10 +32,16 @@ const ProductDetails = () => {
 
   return (
     <main className={styles["product-d"]}>
-      <div className={styles["product-d-wrap"]}>
-        <ProductImage images={data ? [data?.heroImage, ...data.images] : []} />
-        <ProductInfo  productDetails={data} />
-      </div>
+      {!isLoading ? (
+        <div className={styles["product-d-wrap"]}>
+          <ProductImage
+            images={data ? [data?.heroImage, ...data.images] : []}
+          />
+          <ProductInfo productDetails={data} />
+        </div>
+      ) : (
+        <ProductDetailsShimmer />
+      )}
     </main>
   );
 };

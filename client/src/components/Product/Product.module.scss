@@ -1,8 +1,11 @@
 @import "../../common/variables.scss";
 
+.product-d {
+  padding: 1rem 2.8rem;
+}
+
 .product-d-wrap {
   max-width: 1200px;
-  padding: 1rem 2rem;
   margin: auto;
   display: grid;
   grid-template-columns: 55% 45%;
@@ -355,9 +358,12 @@
 }
 
 @media (max-width: 992px) {
+  .product-d {
+    padding: 1rem;
+  }
+
   .product-d-wrap {
     grid-template-columns: 1fr;
-    padding: 1rem;
     gap: 2rem;
   }
 
