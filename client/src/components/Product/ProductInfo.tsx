@@ -100,8 +100,8 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
 
   const handleAddToBag = () => {
     const id = getLocalData("cartId");
-    cartRefetch();
     if (!selectedSize) return setError("Please select a size");
+    cartRefetch();
     if (!productDetails) return;
 
     const data = {
