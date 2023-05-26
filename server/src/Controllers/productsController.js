@@ -135,3 +135,21 @@ export const getFeaturedProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPopularProducts = async (req, res, next) => {
+  try {
+    const tenDaysAgo = new Date();
+    tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+
+    const products = await Products.find({
+      category: "Shoes",
+      updatedAt: { $gte: tenDaysAgo },
+    })
+      .sort({ popular: -1 })
+      .limit(10);
+
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -85,3 +85,12 @@ export const getSneaker = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getSneakerIconic = async (req, res, next) => {
+  try {
+    const sneaker = await Sneakers.find().limit(10);
+    res.status(200).json(sneaker);
+  } catch (error) {
+    next(error);
+  }
+};
