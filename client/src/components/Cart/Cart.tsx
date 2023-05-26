@@ -3,9 +3,12 @@ import CartItemList from "./CartItemList";
 import CartSummary from "./CartSummary";
 import EmptyCart from "../UI/EmptyCart";
 import useCart from "../../hooks/useCart";
+import Loader from "../UI/Loader";
 
 const CartMain = () => {
-  const { cartData, deleteMutate } = useCart();
+  const { cartData, deleteMutate, cartLoading } = useCart();
+
+  if (cartLoading) return <Loader />;
 
   return (
     <main className={styles["cart"]}>
@@ -18,7 +21,7 @@ const CartMain = () => {
               localStorage.removeItem("coupon");
             }}
           />
-          <CartSummary cartData={cartData} />
+          <CartSummary />
         </div>
       ) : (
         <EmptyCart />

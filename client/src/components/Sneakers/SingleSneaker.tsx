@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { Sneaker, AppError } from "../../interfaces/interface";
 import SneakerDetails from "./SneakerDetails";
 import MobileSneaker from "./MobileSneaker";
+import Loader from "../UI/Loader";
 
 const SingleSneaker = () => {
   const { name } = useParams();
@@ -27,6 +28,8 @@ const SingleSneaker = () => {
       retry: false,
     }
   );
+
+  if (isLoading) return <Loader />;
 
   return (
     <main className={styles["sneak-single"]}>

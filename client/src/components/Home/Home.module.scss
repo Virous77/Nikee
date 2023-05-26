@@ -214,7 +214,7 @@
 
 .popular-wrap {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   gap: 1rem;
   overflow: scroll;
   padding-left: 3rem;
@@ -266,6 +266,10 @@
       padding-left: 1rem;
     }
   }
+
+  .popular-wrap {
+    padding-left: 1rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -287,9 +291,6 @@
   .hero-shoes-about {
     h1 {
       font-size: 35px;
-    }
-
-    p {
     }
   }
 }
@@ -317,7 +318,10 @@
   .popular-wrap {
     .popular-sub {
       width: 320px;
-      height: 270px;
+
+      img {
+        height: 260px;
+      }
     }
   }
 

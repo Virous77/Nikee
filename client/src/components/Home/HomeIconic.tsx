@@ -95,7 +95,7 @@ const HomeIconic = () => {
         </>
       )}
 
-      {isLoading && <FlexShimmer />}
+      {isLoading && <FlexShimmer stylesClass="home-box" />}
     </section>
   );
 };

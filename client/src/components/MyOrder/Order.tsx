@@ -8,13 +8,14 @@ import OrderList from "./OrderList";
 import { Modal } from "../Modal/Modal";
 import { useState } from "react";
 import OrderModal from "./OrderModal";
+import Loader from "../UI/Loader";
 
 const OrderPage = () => {
   const userId = getLocalData("nike");
   const { handleSetNotification } = useGlobalContext();
   const [orderDetails, setOrderDetails] = useState<Order | null>(null);
 
-  const { data: orders } = useQuery(
+  const { data: orders, isLoading } = useQuery(
     ["orders"],
     async () => {
       const data: Order[] = await getData(`/order/user/${userId}`);
@@ -30,6 +31,8 @@ const OrderPage = () => {
       retry: false,
     }
   );
+
+  if (isLoading) return <Loader />;
 
   return (
     <main className={styles.orders}>

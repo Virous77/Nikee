@@ -6,6 +6,7 @@ import { useGlobalContext } from "../../store/GlobalContext";
 import SneakersList from "./SneakersList";
 import SneakerHead from "./SneakerHead";
 import { useState } from "react";
+import Loader from "../UI/Loader";
 
 const Sneakers = () => {
   const [layout, setLayout] = useState(false);
@@ -27,6 +28,8 @@ const Sneakers = () => {
       retry: false,
     }
   );
+
+  if (isLoading) return <Loader />;
 
   return (
     <main className={styles["sneakers"]}>

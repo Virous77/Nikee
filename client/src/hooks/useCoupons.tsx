@@ -1,14 +1,12 @@
 import { useGlobalContext } from "../store/GlobalContext";
-import { getLocalData } from "../utils/data";
 import { useQuery, useMutation } from "react-query";
-import { getData, deleteData, updateData, createData } from "../api/api";
+import { getData, deleteData, createData } from "../api/api";
 import { AppError, Coupon } from "../interfaces/interface";
 import { useState } from "react";
 
 const useCoupons = () => {
   const [show, setShow] = useState(false);
   const { handleSetNotification } = useGlobalContext();
-  const userId = getLocalData("nike");
 
   const { data: coupons, refetch } = useQuery(
     ["coupons"],

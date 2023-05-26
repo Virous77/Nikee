@@ -19,7 +19,7 @@ const ShopAir = () => {
           and more.
         </p>
 
-        <button onClick={() => navigate("/product/men/Shoes")} l>
+        <button onClick={() => navigate("/product/men/Shoes")}>
           Shop All Air Max
         </button>
       </div>

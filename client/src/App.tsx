@@ -6,6 +6,7 @@ import Notification from "./components/UI/Notification";
 import Footer from "./layouts/Footer";
 import { useLocation } from "react-router-dom";
 import CartNotification from "./components/UI/CartNotification";
+import Loader from "./components/UI/Loader";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -18,11 +19,11 @@ const App = () => {
         <CartNotification />
       </section>
 
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<Loader />}>
         <AppRouter />
       </Suspense>
 
-      {/* <Footer /> */}
+      <Footer />
       <Notification />
     </main>
   );

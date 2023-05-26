@@ -3,19 +3,13 @@ import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
-import React, { useState, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import PriceSummaryCard from "./PriceSummaryCard";
-import { Cart } from "../../interfaces/interface";
 import useCoupons from "../../hooks/useCoupons";
 import { useGlobalContext } from "../../store/GlobalContext";
 
-type CartSummaryType = {
-  cartData: Cart[];
-};
-
-const CartSummary: React.FC<CartSummaryType> = ({ cartData }) => {
-  const [discount, setDiscount] = useState(0);
+const CartSummary = () => {
   const couponRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
   const { setShow, show, coupons } = useCoupons();
@@ -28,7 +22,6 @@ const CartSummary: React.FC<CartSummaryType> = ({ cartData }) => {
 
     if (findLegit) {
       localStorage.setItem("coupon", JSON.stringify(findLegit.discountPercent));
-      setDiscount(findLegit.discountPercent);
     } else {
       handleSetNotification({
         message: "Coupons not exists anymore",
@@ -65,11 +58,7 @@ const CartSummary: React.FC<CartSummaryType> = ({ cartData }) => {
             <button onClick={handleDiscount}>Apply</button>
           </div>
         </div>
-        <PriceSummaryCard
-          show="active"
-          cartData={cartData}
-          discount={discount}
-        />
+        <PriceSummaryCard show="active" />
         <div className={styles["cart-checkout"]}>
           <button
             className={styles["checkout-button"]}

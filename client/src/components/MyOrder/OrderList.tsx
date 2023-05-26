@@ -1,6 +1,5 @@
 import React from "react";
 import { Order } from "../../interfaces/interface";
-import { nikeLogo } from "../../utils/data";
 import { dateFormate } from "../../utils/data";
 import styles from "./Order.module.scss";
 

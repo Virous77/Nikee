@@ -9,6 +9,7 @@ import { updateURLParams, retrieveQueryParams } from "../../utils/query";
 import ProductContent from "../../common/ProductContent";
 import ProductHeader from "../../common/ProductHeader";
 import ProductSide from "../../common/ProductSide";
+import Loader from "../UI/Loader";
 
 export type queryType = {
   price: string;
@@ -39,7 +40,11 @@ const Products: React.FC<ProductsType> = ({ title, endPoints, type }) => {
   const [query, setQuery] = useState(initialState);
   const { price, brand, sort, color } = query;
 
-  const { data: productData, refetch } = useQuery(
+  const {
+    data: productData,
+    refetch,
+    isLoading,
+  } = useQuery(
     [title],
     async () => {
       const data: ProductAll = await getData(
@@ -80,6 +85,8 @@ const Products: React.FC<ProductsType> = ({ title, endPoints, type }) => {
       color: queryData?.color,
     });
   }, []);
+
+  if (isLoading) return <Loader />;
 
   return (
     <main

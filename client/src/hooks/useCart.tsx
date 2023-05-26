@@ -68,7 +68,11 @@ const useCart = () => {
     },
   });
 
-  const { data: cartData, refetch } = useQuery(
+  const {
+    data: cartData,
+    refetch,
+    isLoading: cartLoading,
+  } = useQuery(
     ["cartData"],
     async () => {
       if (userId) {
@@ -117,6 +121,7 @@ const useCart = () => {
     updateMutate,
     deleteMultipleMutate,
     refetch,
+    cartLoading,
   };
 };
 

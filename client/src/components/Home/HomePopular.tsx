@@ -6,10 +6,12 @@ import { getData } from "../../api/api";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError, Product } from "../../interfaces/interface";
 import FlexShimmer from "../../common/shimmers/FlexShimmer";
+import { useNavigate } from "react-router-dom";
 
 const HomePopular = () => {
   const nameRef = useRef<HTMLDivElement>(null);
   const { handleSetNotification } = useGlobalContext();
+  const navigate = useNavigate();
 
   const { data: products, isLoading } = useQuery(
     ["popular"],
@@ -68,7 +70,11 @@ const HomePopular = () => {
         <div ref={nameRef} className={styles["popular-wrap"]}>
           {products &&
             products.map((shoes) => (
-              <div className={styles["popular-sub"]} key={shoes._id}>
+              <div
+                className={styles["popular-sub"]}
+                key={shoes._id}
+                onClick={() => navigate(`/product/${shoes.slug}`)}
+              >
                 <img src={shoes.heroImage} alt={shoes.name} />
                 <div className={styles["popular-details"]}>
                   <p>{shoes.name}</p>
@@ -78,7 +84,7 @@ const HomePopular = () => {
             ))}
         </div>
       )}
-      {isLoading && <FlexShimmer />}
+      {isLoading && <FlexShimmer stylesClass="home-box" />}
     </section>
   );
 };

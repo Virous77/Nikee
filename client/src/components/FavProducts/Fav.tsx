@@ -5,12 +5,17 @@ import { getLocalData } from "../../utils/data";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError, Fav } from "../../interfaces/interface";
 import FavList from "./FavList";
+import Loader from "../UI/Loader";
 
 const FavComp = () => {
   const userId = getLocalData("nike");
   const { handleSetNotification } = useGlobalContext();
 
-  const { data: favData, refetch } = useQuery(
+  const {
+    data: favData,
+    refetch,
+    isLoading,
+  } = useQuery(
     ["fav"],
     async () => {
       const data: Fav[] = await getData(`/fav/${userId}`);
@@ -37,6 +42,8 @@ const FavComp = () => {
       refetch();
     },
   });
+
+  if (isLoading) return <Loader />;
 
   return (
     <main className={styles["fave"]}>
