@@ -8,6 +8,7 @@ import { getLocalData } from "../../utils/data";
 import { useQuery } from "react-query";
 import { getData } from "../../api/api";
 import { useGlobalContext } from "../../store/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 type CartActionType = {
   cartItem: Cart;
@@ -17,6 +18,7 @@ type CartActionType = {
 const CartAction: React.FC<CartActionType> = ({ cartItem, handleDelete }) => {
   const userId = getLocalData("nike");
   const { handleSetNotification } = useGlobalContext();
+  const navigate = useNavigate();
 
   const { data: favData, refetch } = useQuery(
     ["product-fav", userId, cartItem],
@@ -38,7 +40,9 @@ const CartAction: React.FC<CartActionType> = ({ cartItem, handleDelete }) => {
   );
 
   const { mutate, deleteMutate } = useFav({ refetch });
+
   const handleFav = (cart: Cart) => {
+    if (!userId) return navigate("/login");
     const data = {
       userId,
       productId: cart.productId,

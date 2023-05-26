@@ -11,6 +11,7 @@ import ProductInfoData from "./ProductInfoData";
 import useFav from "../../hooks/useFav";
 import useCart from "../../hooks/useCart";
 import { Cart } from "../../interfaces/interface";
+import { useNavigate } from "react-router-dom";
 
 type ProductDetailsType = {
   productDetails: Product | undefined;
@@ -27,8 +28,10 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   const [selectedSize, setSelectedSize] = useState("");
   const [error, setError] = useState("");
   const userId = getLocalData("nike");
-  const { handleSetNotification } = useGlobalContext();
+  const { handleSetNotification, handleSetCartNotification } =
+    useGlobalContext();
   const { mutate: createMutate, updateMutate } = useCart();
+  const navigate = useNavigate();
 
   const { data: isInFav, refetch } = useQuery(
     ["product-fav", userId, productDetails?._id],
@@ -80,6 +83,7 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
   };
 
   const handleFav = () => {
+    if (!userId) return navigate("/login");
     const data = {
       userId,
       productId: productDetails?._id,
@@ -121,14 +125,22 @@ const ProductInfo = ({ productDetails }: ProductDetailsType) => {
 
     const { quantity, ...restData } = data;
 
-    if (inCartData || id) {
-      const updateData = {
-        ...restData,
-        quantity: inCartData ? inCartData.quantity + 1 : 2,
-      };
-      updateMutate({ id: inCartData ? inCartData._id : id, updateData });
+    if (userId) {
+      if (inCartData || id) {
+        const updateData = {
+          ...restData,
+          quantity: inCartData ? inCartData.quantity + 1 : 2,
+        };
+        updateMutate({ id: inCartData ? inCartData._id : id, updateData });
+      } else {
+        createMutate(data);
+      }
     } else {
-      createMutate(data);
+      const addData = {
+        ...data,
+        _id: "",
+      };
+      handleSetCartNotification(addData);
     }
   };
 

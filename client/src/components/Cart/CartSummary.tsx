@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import PriceSummaryCard from "./PriceSummaryCard";
 import useCoupons from "../../hooks/useCoupons";
 import { useGlobalContext } from "../../store/GlobalContext";
+import { getLocalData } from "../../utils/data";
 
 const CartSummary = () => {
   const couponRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
   const { setShow, show, coupons } = useCoupons();
   const { handleSetNotification } = useGlobalContext();
+  const userId = getLocalData("nike");
 
   const handleDiscount = () => {
     const findLegit = coupons?.find(
@@ -62,7 +64,13 @@ const CartSummary = () => {
         <div className={styles["cart-checkout"]}>
           <button
             className={styles["checkout-button"]}
-            onClick={() => navigate("/checkout")}
+            onClick={() => {
+              if (!userId) {
+                return navigate("/login");
+              } else {
+                navigate("/checkout");
+              }
+            }}
           >
             Checkout
           </button>
