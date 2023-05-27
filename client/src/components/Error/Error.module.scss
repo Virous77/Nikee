@@ -1,0 +1,32 @@
+@import "../../common/variables.scss";
+
+.error {
+  background-color: var(--main-font-color);
+  @include displayAllCenter;
+  height: 90vh;
+
+  section {
+    max-width: 600px;
+
+    @include displayAllCenter;
+    flex-direction: column;
+    color: var(--background-color);
+    padding-bottom: 2rem;
+
+    img {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      text-align: center;
+      width: 80%;
+      font-size: var(--small-font-size);
+      margin-top: 4px;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      @include buttonMain;
+    }
+  }
+}

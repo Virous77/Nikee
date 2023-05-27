@@ -13,11 +13,12 @@ const PreventWrongUrlAccess = ({ children }: { children: React.ReactNode }) => {
     pathname === `/profile/${makeUserName}` ||
     pathname === `/profile/address/${makeUserName}` ||
     pathname === `/profile/orders/${makeUserName}` ||
-    pathname === `/profile/fav/${makeUserName}`
+    pathname === `/profile/fav/${makeUserName}` ||
+    pathname === `/profile/settings/${makeUserName}`
   ) {
     return <>{children}</>;
   } else {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/error"} />;
   }
 };
 

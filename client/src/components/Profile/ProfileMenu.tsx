@@ -2,7 +2,7 @@ import { VscAccount } from "react-icons/vsc";
 import { FaRegAddressCard } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../store/authContext";
-import { FiShoppingBag } from "react-icons/fi";
+import { FiShoppingBag, FiSettings } from "react-icons/fi";
 import styles from "./Profile.module.scss";
 import { useLocation } from "react-router-dom";
 import { MdOutlineFavorite } from "react-icons/md";
@@ -15,7 +15,8 @@ const ProfileMenu = () => {
   const homeTab =
     !pathname.includes("address") &&
     !pathname.includes("orders") &&
-    !pathname.includes("fav")
+    !pathname.includes("fav") &&
+    !pathname.includes("settings")
       ? styles["active-menu"]
       : "";
 
@@ -49,6 +50,13 @@ const ProfileMenu = () => {
           className={pathname.includes("fav") ? styles["active-menu"] : ""}
         >
           <MdOutlineFavorite /> Favorite
+        </li>
+
+        <li
+          onClick={() => navigate(`/profile/settings/${makeUserName}`)}
+          className={pathname.includes("settings") ? styles["active-menu"] : ""}
+        >
+          <FiSettings /> Settings
         </li>
       </ul>
     </aside>

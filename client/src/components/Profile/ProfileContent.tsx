@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import PreventWrongUrlAccess from "../PrivateRoutes/PreventWrongUrlAccess";
 import OrderPage from "../MyOrder/Order";
 import Fav from "../FavProducts/Fav";
+import Settings from "./Settings/Settings";
 
 const ProfileContent = () => {
   return (
@@ -41,6 +42,15 @@ const ProfileContent = () => {
           element={
             <PreventWrongUrlAccess>
               <Fav />
+            </PreventWrongUrlAccess>
+          }
+        />
+
+        <Route
+          path="/settings/:name"
+          element={
+            <PreventWrongUrlAccess>
+              <Settings />
             </PreventWrongUrlAccess>
           }
         />
