@@ -11,6 +11,7 @@ type SettingsFormType = {
   isLoading: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleUpdate: () => void;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const SettingsForm: React.FC<SettingsFormType> = ({
@@ -19,6 +20,7 @@ const SettingsForm: React.FC<SettingsFormType> = ({
   isLoading,
   handleChange,
   handleUpdate,
+  setShow,
 }) => {
   const { UserData } = useAuthContext();
   const { email, state, city, country, pinCode } = userData;
@@ -43,7 +45,7 @@ const SettingsForm: React.FC<SettingsFormType> = ({
             <input type="text" value={"*************"} disabled={true} />
           </fieldset>
 
-          <p>Edit</p>
+          <p onClick={() => setShow(true)}>Edit</p>
         </div>
 
         <fieldset>

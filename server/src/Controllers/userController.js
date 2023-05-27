@@ -105,9 +105,7 @@ export const changePassword = async (req, res, next) => {
 
   const pass = await bcrypt.compare(password, user.password);
   if (!pass) {
-    return next(
-      createError({ status: 400, message: "Old password not match" })
-    );
+    return next(createError({ status: 400, message: "Old password is wrong" }));
   }
 
   const salt = await bcrypt.genSalt(10);

@@ -63,3 +63,29 @@
     margin-bottom: 1rem;
   }
 }
+
+.changes-pass {
+  form {
+    @include displayCol;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--card-color);
+    border-radius: 10px;
+
+    &:focus {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+
+  button {
+    @include buttonMain;
+    font-weight: 600;
+  }
+}

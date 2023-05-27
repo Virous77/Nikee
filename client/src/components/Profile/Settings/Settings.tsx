@@ -3,6 +3,9 @@ import SettingsForm from "./SettingsForm";
 import { useAuthContext } from "../../../store/authContext";
 import Loader from "../../UI/Loader";
 import { useState } from "react";
+import { Modal } from "../../Modal/Modal";
+import ChangePassword from "./ChangePassword";
+import ModalHeader from "../../Modal/ModalHeader";
 
 export type userDataType = {
   email?: string;
@@ -22,7 +25,7 @@ const Settings = () => {
     city: UserData?.city || "",
     pinCode: UserData?.pinCode || "",
   });
-  const [password, setPassword] = useState("");
+  const [showChangePass, setShowChangePass] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -47,7 +50,18 @@ const Settings = () => {
         setUserData={setUserData}
         isLoading={updateLoading}
         handleUpdate={handleUpdate}
+        setShow={setShowChangePass}
       />
+
+      {showChangePass && (
+        <Modal isOpen="isOpen" onClose={() => setShowChangePass(false)}>
+          <ModalHeader
+            name="Change Password"
+            onClose={() => setShowChangePass(false)}
+          />
+          <ChangePassword />
+        </Modal>
+      )}
     </main>
   );
 };
