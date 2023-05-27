@@ -1,0 +1,18 @@
+@import "../../common/variables.scss";
+
+.not-found {
+  @include displayAllCenter;
+  gap: 5px;
+  flex-direction: column;
+
+  img {
+    width: 300px;
+    height: 220px;
+    opacity: 0.8;
+  }
+
+  p {
+    font-size: var(--fourth-font-size);
+    opacity: 0.8;
+  }
+}

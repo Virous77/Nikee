@@ -9,6 +9,7 @@ import { Modal } from "../Modal/Modal";
 import { useState } from "react";
 import OrderModal from "./OrderModal";
 import Loader from "../UI/Loader";
+import NotFound from "../UI/NotFound";
 
 const OrderPage = () => {
   const userId = getLocalData("nike");
@@ -36,15 +37,19 @@ const OrderPage = () => {
 
   return (
     <main className={styles.orders}>
-      <div className={styles["orders-list"]}>
-        {orders?.map((order) => (
-          <OrderList
-            key={order._id}
-            order={order}
-            setOrderDetails={setOrderDetails}
-          />
-        ))}
-      </div>
+      {orders && orders?.length > 0 ? (
+        <div className={styles["orders-list"]}>
+          {orders?.map((order) => (
+            <OrderList
+              key={order._id}
+              order={order}
+              setOrderDetails={setOrderDetails}
+            />
+          ))}
+        </div>
+      ) : (
+        <NotFound message="You haven't shop with NIKE yet! 😀" />
+      )}
 
       {orderDetails && (
         <Modal isOpen="isOpen" onClose={() => setOrderDetails(null)}>

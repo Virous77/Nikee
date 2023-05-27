@@ -6,6 +6,7 @@ import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError, Fav } from "../../interfaces/interface";
 import FavList from "./FavList";
 import Loader from "../UI/Loader";
+import NotFound from "../UI/NotFound";
 
 const FavComp = () => {
   const userId = getLocalData("nike");
@@ -47,16 +48,20 @@ const FavComp = () => {
 
   return (
     <main className={styles["fave"]}>
-      <div className={styles["fav-wrap"]}>
-        {favData &&
-          favData.map((item) => (
-            <FavList
-              favItem={item}
-              key={item._id}
-              deleteMutate={deleteMutate}
-            />
-          ))}
-      </div>
+      {favData && favData.length > 0 ? (
+        <div className={styles["fav-wrap"]}>
+          {favData &&
+            favData.map((item) => (
+              <FavList
+                favItem={item}
+                key={item._id}
+                deleteMutate={deleteMutate}
+              />
+            ))}
+        </div>
+      ) : (
+        <NotFound message="No favourites product yet for you!" />
+      )}
     </main>
   );
 };
