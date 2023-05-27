@@ -46,6 +46,8 @@ const initialValue: AuthContextType = {
   handleImageUpload: () => {},
   updateLoading: false,
   handleUserProfileUpdate: () => {},
+  userLoading: false,
+  updateMutate: () => {},
 };
 
 const AuthContext = createContext(initialValue);
@@ -61,7 +63,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const id = getLocalData("nike");
 
   //query
-  const { data: UserData, refetch } = useQuery(
+  const {
+    data: UserData,
+    refetch,
+    isLoading: userLoading,
+  } = useQuery(
     ["user"],
     async () => {
       if (id) {
@@ -116,7 +122,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const { mutate: updateMutate, isLoading: updateLoading } = useMutation({
-    mutationFn: (data: User) => {
+    mutationFn: (data: any) => {
       return updateData({ userData: data, endpoints: `/user/${id}` });
     },
     onSuccess: ({ message }: { message: string }) => {
@@ -201,6 +207,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         handleImageUpload,
         handleUserProfileUpdate,
         updateLoading,
+        userLoading,
+        updateMutate,
       }}
     >
       {children}

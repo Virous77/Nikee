@@ -5,7 +5,7 @@ import { useAuthContext } from "../../store/authContext";
 import { FiShoppingBag, FiSettings } from "react-icons/fi";
 import styles from "./Profile.module.scss";
 import { useLocation } from "react-router-dom";
-import { MdOutlineFavorite } from "react-icons/md";
+import { BiHeart } from "react-icons/bi";
 
 const ProfileMenu = () => {
   const { UserData } = useAuthContext();
@@ -49,7 +49,7 @@ const ProfileMenu = () => {
           onClick={() => navigate(`/profile/fav/${makeUserName}`)}
           className={pathname.includes("fav") ? styles["active-menu"] : ""}
         >
-          <MdOutlineFavorite /> Favorite
+          <BiHeart /> Favorites
         </li>
 
         <li

@@ -20,6 +20,10 @@ export interface User {
   image: string;
   isAdmin: boolean;
   createdAt: string;
+  updatedAt: string;
+  state: string;
+  pinCode: string;
+  city: string;
 }
 
 export interface UserAddress {

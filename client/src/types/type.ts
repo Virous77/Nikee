@@ -27,6 +27,8 @@ export type AuthContextType = {
   handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   updateLoading: boolean;
   handleUserProfileUpdate: () => void;
+  userLoading: boolean;
+  updateMutate: (e: any) => void;
 };
 
 export type loginType = {

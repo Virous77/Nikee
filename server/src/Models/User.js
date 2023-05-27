@@ -39,6 +39,15 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    state: {
+      type: String,
+    },
+    pinCode: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
   },
   {
     timestamps: true,

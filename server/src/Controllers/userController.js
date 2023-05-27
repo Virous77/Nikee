@@ -66,7 +66,7 @@ export const loginUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   const id = req.params.id;
-  const { name, image, about, email } = req.body;
+  const { name, email } = req.body;
 
   if (!name || !email) {
     return next(
