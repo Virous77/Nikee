@@ -89,3 +89,15 @@
     font-weight: 600;
   }
 }
+
+@media (max-width: 820px) {
+  .settings-form {
+    form {
+      width: 100%;
+    }
+  }
+
+  .settings {
+    padding: 1rem 0;
+  }
+}

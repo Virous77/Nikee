@@ -21,7 +21,7 @@ const CartAction: React.FC<CartActionType> = ({ cartItem, handleDelete }) => {
   const navigate = useNavigate();
 
   const { data: favData, refetch } = useQuery(
-    ["product-fav", userId, cartItem],
+    ["product-fav", userId, cartItem._id],
     async () => {
       if (userId && cartItem) {
         const data: Fav[] = await getData(`/fav/${userId}`);

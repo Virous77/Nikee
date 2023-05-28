@@ -2,6 +2,7 @@ import styles from "./search.module.scss";
 import logo from "../../assets/logo.svg";
 import Search from "./Search";
 import { useSearchContext } from "../../store/searchContext";
+import SearchContent from "./SearchContent";
 
 const SearchModal = () => {
   const { setActive, setSearch } = useSearchContext();
@@ -22,6 +23,7 @@ const SearchModal = () => {
           Cancel
         </button>
       </div>
+      <SearchContent />
     </main>
   );
 };

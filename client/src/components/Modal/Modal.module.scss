@@ -45,6 +45,21 @@
   background-color: var(--background-color);
 }
 
+.modal-header {
+  button {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border-radius: 100px;
+    @include displayCenter;
+    justify-content: center;
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+}
+
 @media (max-width: 992px) {
   .search-model {
     height: 100vh;

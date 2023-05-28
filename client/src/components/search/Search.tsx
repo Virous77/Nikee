@@ -10,7 +10,7 @@ type SearchType = {
 };
 
 const Search: React.FC<SearchType> = ({ showClose, classStyle }) => {
-  const { setSearch, search, setActive } = useSearchContext();
+  const { setSearch, search, handleSearch } = useSearchContext();
 
   return (
     <div className={classStyle ? styles[classStyle] : styles["search"]}>
@@ -20,10 +20,7 @@ const Search: React.FC<SearchType> = ({ showClose, classStyle }) => {
           type="text"
           placeholder="Search"
           value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setActive(true);
-          }}
+          onChange={handleSearch}
         />
         {showClose === "true" && (
           <>

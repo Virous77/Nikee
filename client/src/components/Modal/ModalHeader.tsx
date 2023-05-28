@@ -11,7 +11,10 @@ const ModalHeader: React.FC<ModalHeaderType> = ({ name, onClose }) => {
   return (
     <header className={styles["modal-header"]}>
       <h2>{name}</h2>
-      <AiOutlineClose cursor="pointer" size={20} onClick={onClose} />
+
+      <button>
+        <AiOutlineClose cursor="pointer" size={20} onClick={onClose} />
+      </button>
     </header>
   );
 };
