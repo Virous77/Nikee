@@ -1,0 +1,38 @@
+@import "../../common/variables.scss";
+
+.query {
+  padding: 2rem 2.8rem;
+
+  h2 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+}
+
+.query-wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+
+  img {
+    height: 250px;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: var(--primary-font-color);
+  }
+
+  p {
+    padding-right: 5px;
+  }
+}
+
+.query-d {
+  @include displayFlex;
+}
+
+.query-sub {
+  cursor: pointer;
+}

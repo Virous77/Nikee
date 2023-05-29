@@ -51,3 +51,26 @@ export const retrieveQueryParams = (search: string) => {
     sort: sort || "",
   };
 };
+
+export const popularSearch = [
+  {
+    id: 1,
+    name: "Nike",
+    link: "/query",
+  },
+  {
+    id: 2,
+    name: "Shoes",
+    link: "/query",
+  },
+  {
+    id: 3,
+    name: "T-shirt",
+    link: "/query",
+  },
+  {
+    id: 4,
+    name: "Sneakers",
+    link: "/sneaker",
+  },
+];

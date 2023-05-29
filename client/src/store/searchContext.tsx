@@ -36,8 +36,8 @@ export const SearchContextProvider = ({
   const { handleSetNotification } = useGlobalContext();
 
   const { data, mutate, isLoading } = useMutation({
-    mutationFn: ({ query }: { query: string }): Promise<Product[]> => {
-      return createData({ userData: query, endpoints: `/search` });
+    mutationFn: (data: any): Promise<Product[]> => {
+      return createData({ userData: data, endpoints: `/search` });
     },
     onError: ({ data }: AppError) => {
       if (!data) return;

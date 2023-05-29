@@ -25,6 +25,7 @@ const PreventOnLogin = lazy(
 );
 const ProductCategory = lazy(() => import("../pages/ProductCategory"));
 const SingleSneakerPage = lazy(() => import("../pages/SingleSneakerPage"));
+const QueryPage = lazy(() => import("../pages/QueryPage"));
 
 const AppRouter = () => {
   return (
@@ -41,6 +42,8 @@ const AppRouter = () => {
         <Route path="/product/:name" element={<ProductDetailsPage />} />
         <Route path="/product/:type/:category" element={<ProductCategory />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/query" element={<QueryPage />} />
+
         <Route
           path="/checkout"
           element={
