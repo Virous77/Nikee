@@ -16,7 +16,7 @@ const QueryList: React.FC<QueryListType> = ({ product }) => {
     >
       <img src={product.heroImage} alt={product.name} />
       <div className={styles["query-d"]}>
-        <h2>{product.name}</h2>
+        <h3>{product.name}</h3>
         <p>${product.amount}</p>
       </div>
     </div>

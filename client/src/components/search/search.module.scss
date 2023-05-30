@@ -80,6 +80,8 @@
 }
 
 .result-sub {
+  cursor: pointer;
+
   img {
     width: 130px;
     height: 90px;
@@ -107,7 +109,7 @@
 
 .result-list {
   padding: 1rem 2.8rem;
-  max-width: 1000px;
+  max-width: 700px;
   margin: auto;
 }
 
@@ -130,6 +132,32 @@
 
     button {
       font-size: var(--fourth-font-size);
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .result-list {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .most-search {
+    max-width: 100%;
+    padding: 1rem;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .result-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .result-sub {
+    img {
+      width: 100%;
     }
   }
 }

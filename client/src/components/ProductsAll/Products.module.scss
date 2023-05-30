@@ -240,6 +240,12 @@
     @include displayFlex;
   }
 
+  .flat-header {
+    button {
+      display: none;
+    }
+  }
+
   .p-menu {
     display: flex;
   }
