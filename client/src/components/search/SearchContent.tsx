@@ -4,6 +4,7 @@ import { popularSearch } from "../../utils/query";
 import { useNavigate } from "react-router-dom";
 import SearchItemList from "./SearchItemList";
 import NotFound from "../UI/NotFound";
+import QueryData from "./QueryData";
 
 const SearchContent = () => {
   const { data, isLoading, search, setActive, setSearch } = useSearchContext();
@@ -40,15 +41,18 @@ const SearchContent = () => {
           {search.length >= 4 && data?.length === 0 ? (
             <NotFound message="Search product can't able to find." />
           ) : (
-            <div className={styles["result-list"]}>
-              {data?.map((product) => (
-                <SearchItemList
-                  key={product._id}
-                  product={product}
-                  isLoading={isLoading}
-                />
-              ))}
-            </div>
+            <section className={styles["search-main"]}>
+              <QueryData />
+              <div className={styles["result-list"]}>
+                {data?.map((product) => (
+                  <SearchItemList
+                    key={product._id}
+                    product={product}
+                    isLoading={isLoading}
+                  />
+                ))}
+              </div>
+            </section>
           )}
         </>
       )}
