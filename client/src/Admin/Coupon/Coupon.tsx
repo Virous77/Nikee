@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import styles from "./Admin.module.scss";
-import useCoupons from "../hooks/useCoupons";
-import { useGlobalContext } from "../store/GlobalContext";
-import { getLocalData } from "../utils/data";
+import styles from "./Coupon.module.scss";
+import useCoupons from "../../hooks/useCoupons";
+import { useGlobalContext } from "../../store/GlobalContext";
+import { getLocalData } from "../../utils/data";
 
 const Coupon = () => {
   const validTillRef = useRef<HTMLInputElement | null>(null);
@@ -47,17 +47,19 @@ const Coupon = () => {
           <input type="text" placeholder="Discount percent" ref={discountRef} />
         </fieldset>
 
-        <div>
+        <div className={styles["flat-date"]}>
           <fieldset>
+            <label>Active Coupon</label>
             <input type="date" placeholder="Active Date" ref={validFromRef} />
           </fieldset>
 
           <fieldset>
+            <label>Expiry Coupon </label>
             <input type="date" placeholder="Expired Date" ref={validTillRef} />
           </fieldset>
         </div>
 
-        <div>
+        <div className={styles["date-button"]}>
           <button onClick={handleCreateCoupon} disabled={isLoading}>
             {isLoading ? "Adding.." : "Create Coupon"}
           </button>

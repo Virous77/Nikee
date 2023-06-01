@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard/Dashboard";
 import Products from "./Products";
 import AddProduct from "./AddProduct";
-import Coupon from "./Coupon";
+import Coupon from "./Coupon/Coupon";
 import Sneaker from "./Sneaker";
 import { useQuery } from "react-query";
 import { getData } from "../api/api";

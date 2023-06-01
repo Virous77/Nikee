@@ -1,0 +1,57 @@
+@import "../../common/variables.scss";
+
+.coupon-wrap {
+  @include displayCol;
+  gap: 1rem;
+  border: 2px solid var(--card-color);
+  padding: 1rem;
+  border-radius: 10px;
+
+  fieldset {
+    border: none;
+    width: 100%;
+    @include displayCol;
+    gap: 10px;
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--card-color);
+    border-radius: 5px;
+  }
+}
+
+.flat-date {
+  @include displayFlex;
+  gap: 2rem;
+}
+
+.date-button {
+  text-align: end;
+  margin-top: 1rem;
+
+  button {
+    @include buttonMain;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+@media (max-width: 620px) {
+  .flat-date {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}

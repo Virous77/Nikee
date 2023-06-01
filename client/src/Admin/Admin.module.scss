@@ -248,6 +248,17 @@
   }
 }
 
+@media (max-width: 768px) {
+  .admin-aside {
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      display: none;
+    }
+  }
+}
+
 @media (max-width: 620px) {
   .info {
     margin-top: 4rem;
@@ -288,13 +299,6 @@
   }
 
   .admin-aside {
-    overflow: scroll;
-
-    &::-webkit-scrollbar {
-      width: 0;
-      display: none;
-    }
-
     ul {
       position: unset;
       width: 450px;
