@@ -23,7 +23,7 @@ const App = () => {
         <AppRouter />
       </Suspense>
 
-      <Footer />
+      {/* <Footer /> */}
       <Notification />
     </main>
   );

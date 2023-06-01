@@ -1,6 +1,7 @@
 import express from "express";
 import {
   checkout,
+  getAllOrders,
   getOrderData,
   getOrders,
   verifyAndCompletePayment,
@@ -13,5 +14,6 @@ router.post("/checkout", checkout);
 router.post("/paymentverification", verifyAndCompletePayment);
 router.get("/order/:id", validateId, getOrderData);
 router.get("/order/user/:id", validateId, getOrders);
+router.get("/orders", getAllOrders);
 
 export default router;

@@ -139,3 +139,12 @@ export const getOrders = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAllOrders = async (req, res, next) => {
+  try {
+    const allOrders = await Order.find();
+    res.status(200).json(allOrders);
+  } catch (error) {
+    next(error);
+  }
+};

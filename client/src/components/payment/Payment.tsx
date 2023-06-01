@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../../store/authContext";
 import useCart from "../../hooks/useCart";
 import { getLocalData } from "../../utils/data";
+import Loader from "../UI/Loader";
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const Payment = () => {
     refetch();
   }, [orderId, refetch]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
 
   return (
     <main className={styles["payment"]}>
