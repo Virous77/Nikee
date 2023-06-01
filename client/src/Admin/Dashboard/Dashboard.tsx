@@ -16,6 +16,25 @@ type DashboardType = {
   sneaker: Sneaker[] | undefined;
 };
 
+type CardType = {
+  logo: React.ReactElement;
+  total: number;
+  name: string;
+  color?: string;
+};
+
+export function Card({ logo, total, name, color }: CardType) {
+  return (
+    <div className={styles["card"]} style={{ background: color }}>
+      <div className={styles["card-details"]}>
+        <h2>{name}</h2>
+        <p>Total : {total}</p>
+      </div>
+      <div className={styles["card-logo"]}>{logo}</div>
+    </div>
+  );
+}
+
 const Dashboard: React.FC<DashboardType> = ({
   isLoading,
   product,
@@ -57,23 +76,35 @@ const Dashboard: React.FC<DashboardType> = ({
         <h2>
           <TbSquareRotated /> Nike Products
         </h2>
+
         <div className={styles.overView}>
-          <div className={styles["product-count"]}>
-            <MdAccountBalance /> Total Product : {productCount + sneakerCount}
-          </div>
+          <Card
+            logo={<MdAccountBalance />}
+            name="Product"
+            total={productCount + sneakerCount}
+            color="#a71313"
+          />
 
-          <div className={styles["product-count"]}>
-            <GiConverseShoe /> Total Sneakers : {sneakerCount}
-          </div>
+          <Card
+            logo={<GiConverseShoe />}
+            name="Sneakers"
+            total={sneakerCount}
+            color="#286090"
+          />
 
-          <div className={styles["product-count"]}>
-            <TbShoe /> Total Shoes : {shoes?.length}
-          </div>
+          <Card
+            logo={<TbShoe />}
+            name="Shoes"
+            total={shoes ? shoes?.length : 0}
+            color="#5dc6a3"
+          />
 
-          <div className={styles["product-count"]}>
-            <AiOutlineProfile /> Total Clothes :{" "}
-            {product && shoes && product?.length - shoes?.length}
-          </div>
+          <Card
+            logo={<AiOutlineProfile />}
+            name="Others"
+            total={product && shoes ? product.length - shoes.length : 0}
+            color="#a5a4a4"
+          />
         </div>
       </div>
 
@@ -81,22 +112,35 @@ const Dashboard: React.FC<DashboardType> = ({
         <h2>
           <TbSquareRotated /> Nike Products Category
         </h2>
+
         <div className={styles.overView}>
-          <div>
-            <IoIosMan size={23} /> Men Products : {mensProduct?.length}
-          </div>
+          <Card
+            logo={<IoIosMan />}
+            name="Men"
+            total={mensProduct ? mensProduct?.length : 0}
+            color="#f26f59"
+          />
 
-          <div>
-            <IoIosWoman size={23} /> Women Products : {womenProduct?.length}
-          </div>
+          <Card
+            logo={<IoIosWoman />}
+            name="Women"
+            total={womenProduct ? womenProduct?.length : 0}
+            color="#07aae6"
+          />
 
-          <div>
-            <FaChild size={23} /> Kids Products : {kidsProduct?.length}
-          </div>
+          <Card
+            logo={<FaChild />}
+            name="Kids"
+            total={kidsProduct ? kidsProduct?.length : 0}
+            color="#75c202"
+          />
 
-          <div>
-            <MdAccountBalance /> Total Categories : {totalCategories?.length}
-          </div>
+          <Card
+            logo={<MdAccountBalance />}
+            name="Categories"
+            total={totalCategories ? totalCategories?.length : 0}
+            color="#a5a4a4"
+          />
         </div>
       </div>
       <SellGraph />
