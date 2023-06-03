@@ -6,6 +6,9 @@ import { Product } from "../../interfaces/interface";
 import Loader from "../../components/UI/Loader";
 import ProductList from "./ProductList";
 import styles from "./Style.module.scss";
+import ProductModal from "./ProductModal";
+import { Modal } from "../../components/Modal/Modal";
+import ModalHeader from "../../components/Modal/ModalHeader";
 
 type QueryData = {
   total: number;
@@ -16,6 +19,9 @@ const Products = () => {
   const [state, setState] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+  const [productDetails, setProductDetails] = useState<Product | undefined>(
+    undefined
+  );
   const pageSize = 10;
 
   const { isFetching } = useQuery(
@@ -67,10 +73,24 @@ const Products = () => {
       >
         <ul className={styles["product-wrap"]}>
           {state.map((product) => (
-            <ProductList key={product._id} product={product} />
+            <ProductList
+              key={product._id}
+              product={product}
+              setProductDetails={setProductDetails}
+            />
           ))}
         </ul>
       </InfiniteScroll>
+
+      {productDetails && (
+        <Modal isOpen="isOpen" onClose={() => setProductDetails(undefined)}>
+          <ModalHeader
+            name="Details"
+            onClose={() => setProductDetails(undefined)}
+          />
+          <ProductModal productDetails={productDetails} />
+        </Modal>
+      )}
     </main>
   );
 };

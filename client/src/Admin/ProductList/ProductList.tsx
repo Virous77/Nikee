@@ -6,9 +6,13 @@ import { CgDetailsMore } from "react-icons/cg";
 
 type ProductListType = {
   product: Product | undefined;
+  setProductDetails: React.Dispatch<React.SetStateAction<Product | undefined>>;
 };
 
-const ProductList: React.FC<ProductListType> = ({ product }) => {
+const ProductList: React.FC<ProductListType> = ({
+  product,
+  setProductDetails,
+}) => {
   return (
     <li>
       <img src={product?.heroImage} alt={product?.name} />
@@ -26,7 +30,7 @@ const ProductList: React.FC<ProductListType> = ({ product }) => {
         </span>
 
         <span>
-          <CgDetailsMore size={21} />
+          <CgDetailsMore size={21} onClick={() => setProductDetails(product)} />
         </span>
       </div>
     </li>
