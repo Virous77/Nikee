@@ -25,3 +25,20 @@ export const uploadImage = async (image) => {
     throw error;
   }
 };
+
+export const deleteImages = async (imageUrls) => {
+  try {
+    await Promise.all(
+      imageUrls.map((imageUrl) => {
+        const publicId = cloudinary
+          .url(imageUrl)
+          .split("/")
+          .pop()
+          .split(".")[0];
+        return cloudinary.uploader.destroy(publicId);
+      })
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};

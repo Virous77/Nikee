@@ -1,7 +1,6 @@
 import Products from "../Models/Products.js";
 import { createError } from "../utils/utility.js";
-import { uploadImage } from "../utils/imageUpload.js";
-import Sneaker from "../Models/Sneakers.js";
+import { uploadImage, deleteImages } from "../utils/imageUpload.js";
 
 export const createProduct = async (req, res, next) => {
   const {
@@ -176,6 +175,24 @@ export const getPaginationProduct = async (req, res, next) => {
     res.status(200).json({ total: totalProduct, data: query });
   } catch (error) {
     console.log(error);
+    next(error);
+  }
+};
+
+export const deleteProduct = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const product = await Products.findById(id);
+    const images = [product.heroImage, ...product.images];
+    await deleteImages(images);
+    const deleteProduct = await Products.findByIdAndDelete(id);
+
+    if (deleteProduct) {
+      return res.status(200).json({ message: "Product successfully deleted" });
+    } else {
+      return res.status(400).json({ message: "Product don't exists." });
+    }
+  } catch (error) {
     next(error);
   }
 };

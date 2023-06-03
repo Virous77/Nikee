@@ -2,12 +2,43 @@ import { Product } from "../../interfaces/interface";
 import HtmlParser from "../../common/HtmlParser";
 import styles from "./Style.module.scss";
 import ProductImage from "../../components/Product/ProductImage";
+import { useMutation } from "react-query";
+import { deleteData } from "../../api/api";
+import { useGlobalContext } from "../../store/GlobalContext";
+import { AppError } from "../../interfaces/interface";
+import { getLocalData } from "../../utils/data";
 
 type ProductModalType = {
   productDetails: Product | undefined;
+  setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
+  refetch: () => void;
 };
 
-const ProductModal: React.FC<ProductModalType> = ({ productDetails }) => {
+const ProductModal: React.FC<ProductModalType> = ({
+  productDetails,
+  setProduct,
+  refetch,
+}) => {
+  const userId = getLocalData("nike");
+  const { handleSetNotification } = useGlobalContext();
+
+  const { mutate, isLoading } = useMutation(
+    (id: string | undefined) => {
+      return deleteData(`/product/${userId}/${id}`);
+    },
+    {
+      onSuccess: ({ message }: { message: string }) => {
+        handleSetNotification({ message, status: "success" });
+        setProduct(undefined);
+        refetch();
+      },
+
+      onError: ({ data }: AppError) => {
+        handleSetNotification({ message: data.message, status: "error" });
+      },
+    }
+  );
+
   return (
     <section className={styles["product-d-main"]}>
       <h2 className={styles["title"]}>{productDetails?.name}</h2>
@@ -74,7 +105,9 @@ const ProductModal: React.FC<ProductModalType> = ({ productDetails }) => {
         </div>
       </div>
 
-      <button>Delete</button>
+      <button onClick={() => mutate(productDetails?._id)}>
+        {isLoading ? "Processing" : "Delete"}
+      </button>
     </section>
   );
 };

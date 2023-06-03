@@ -24,7 +24,7 @@ const Products = () => {
   );
   const pageSize = 10;
 
-  const { isFetching } = useQuery(
+  const { isFetching, refetch } = useQuery(
     ["admin-product"],
     async () => {
       const data: QueryData = await getData(
@@ -88,7 +88,11 @@ const Products = () => {
             name="Details"
             onClose={() => setProductDetails(undefined)}
           />
-          <ProductModal productDetails={productDetails} />
+          <ProductModal
+            productDetails={productDetails}
+            setProduct={setProductDetails}
+            refetch={refetch}
+          />
         </Modal>
       )}
     </main>
