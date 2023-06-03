@@ -163,3 +163,19 @@ export const getAllProducts = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPaginationProduct = async (req, res, next) => {
+  const { pageNumber, pageSize } = req.params;
+
+  try {
+    const skipDocuments = (+pageNumber - 1) * +pageSize;
+
+    const totalProduct = +pageNumber === 1 && (await Products.countDocuments());
+    const query = await Products.find().skip(skipDocuments).limit(pageSize);
+
+    res.status(200).json({ total: totalProduct, data: query });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};

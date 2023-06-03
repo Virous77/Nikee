@@ -6,6 +6,7 @@ import {
   getProducts,
   getPopularProducts,
   getAllProducts,
+  getPaginationProduct,
 } from "../Controllers/productsController.js";
 import { adminOnly } from "../middlewares/adminOnly.js";
 
@@ -17,5 +18,6 @@ router.get("/product/type/:type", getProducts);
 router.get("/product/featured/all", getFeaturedProduct);
 router.get("/product/popular/all", getPopularProducts);
 router.get("/product/all/available", getAllProducts);
+router.get("/product/pagination/:pageNumber/:pageSize", getPaginationProduct);
 
 export default router;

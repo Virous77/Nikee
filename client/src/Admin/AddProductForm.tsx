@@ -49,7 +49,7 @@ const AddProductForm: React.FC<AddProductFormType> = ({
   } = productDetails;
 
   const category =
-    productsType === "Mens" || productsType === "Kids"
+    productsType === "men" || productsType === "kids"
       ? productMensCategory
       : productWomenCategory;
 
@@ -117,9 +117,9 @@ const AddProductForm: React.FC<AddProductFormType> = ({
         <p>Select {title === "Product" ? productCategory : "Sneaker"} Size</p>
         <SizeSelect
           data={size({
-            name: productsType,
+            name: productsType.toLowerCase(),
             Category: productCategory,
-            products: productsType,
+            products: productsType.toLocaleLowerCase(),
           })}
           setProductDetails={setProductDetails}
           productDetails={productDetails}

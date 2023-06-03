@@ -1,7 +1,7 @@
 export const productInitialState = {
   aboutProduct: "",
   productInformation: "",
-  productsType: "Mens",
+  productsType: "men",
   productCategory: "Shoes",
   productSize: [],
   images: [],
@@ -20,7 +20,7 @@ export const productInitialState = {
 export const sneakerInitialState = {
   aboutSneaker: "",
   sneakerInformation: "",
-  sneakerType: "Mens",
+  sneakerType: "men",
   size: [],
   heroImage: [],
   imagesR: [],

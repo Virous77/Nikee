@@ -44,6 +44,7 @@ const Products: React.FC<ProductsType> = ({ title, endPoints, type }) => {
     data: productData,
     refetch,
     isLoading,
+    isFetching,
   } = useQuery(
     [title],
     async () => {
@@ -86,7 +87,7 @@ const Products: React.FC<ProductsType> = ({ title, endPoints, type }) => {
     });
   }, []);
 
-  if (isLoading) return <Loader />;
+  if (isLoading || isFetching) return <Loader />;
 
   return (
     <main

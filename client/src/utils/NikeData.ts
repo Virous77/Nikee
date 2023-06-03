@@ -72,9 +72,8 @@ type sizeType = {
 };
 
 export const size = ({ Category, products, name }: sizeType) => {
-  const returnValueShoes = products === "Mens" ? shoesSizeMens : shoesSizeWomen;
-  const returnValueClothes =
-    products === "Mens" ? clothSizeMen : clothSizeWomen;
+  const returnValueShoes = products === "men" ? shoesSizeMens : shoesSizeWomen;
+  const returnValueClothes = products === "men" ? clothSizeMen : clothSizeWomen;
 
   if (products === name && Category === "Shoes") return returnValueShoes;
   if (products === name && Category === "Socks") return shocksSize;
@@ -82,5 +81,5 @@ export const size = ({ Category, products, name }: sizeType) => {
     if (Category !== "Shoes" && Category !== "Socks") return returnValueClothes;
   }
 
-  return products === "Mens" ? clothSizeMen : clothSizeWomen;
+  return products === "men" ? clothSizeMen : clothSizeWomen;
 };
