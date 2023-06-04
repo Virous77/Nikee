@@ -4,11 +4,12 @@ import {
   getCoupons,
   deleteCoupon,
 } from "../Controllers/couponController.js";
+import { adminOnly } from "../middlewares/adminOnly.js";
 
 const router = express.Router();
 
-router.post("/coupon", createCoupon);
+router.post("/coupon", adminOnly, createCoupon);
 router.get("/coupon", getCoupons);
-router.delete("/coupon/:id/:userId", deleteCoupon);
+router.delete("/coupon/:id/:adminId", adminOnly, deleteCoupon);
 
 export default router;

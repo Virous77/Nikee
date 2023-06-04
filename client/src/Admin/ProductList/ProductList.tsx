@@ -8,20 +8,24 @@ import { ShowType } from "./Product";
 type ProductListType = {
   product: Product | undefined;
   setProductDetails: React.Dispatch<React.SetStateAction<ShowType | undefined>>;
+  active?: string;
 };
 
 const ProductList: React.FC<ProductListType> = ({
   product,
   setProductDetails,
+  active,
 }) => {
   return (
     <li>
       <img src={product?.heroImage} alt={product?.name} />
       <div>
         <h2>{product?.name}</h2>
-        <p>
-          {product?.productType} {product?.category}
-        </p>
+        {active === "yes" && (
+          <p>
+            {product?.productType} {product?.category}
+          </p>
+        )}
         <p>{product?.brands}</p>
       </div>
 

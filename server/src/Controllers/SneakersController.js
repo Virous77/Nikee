@@ -94,3 +94,17 @@ export const getSneakerIconic = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPaginateSneaker = async (req, res, next) => {
+  const { pageNumber, pageSize } = req.params;
+  try {
+    const skipDocuments = (+pageNumber - 1) * +pageSize;
+
+    const totalSneaker = +pageNumber === 1 && (await Sneakers.countDocuments());
+    const query = await Sneakers.find().skip(skipDocuments).limit(pageSize);
+
+    res.status(200).json({ total: totalSneaker, data: query });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -14,12 +14,6 @@ export const createCoupon = async (req, res, next) => {
         })
       );
 
-    const user = await User.findById(userId);
-    if (!user.isAdmin)
-      return next(
-        createError({ status: 400, message: "You are not authorized" })
-      );
-
     const newCoupon = new Coupon(req.body);
     await newCoupon.save();
 
@@ -39,16 +33,9 @@ export const getCoupons = async (req, res, next) => {
 };
 
 export const deleteCoupon = async (req, res, next) => {
-  const { id, userId } = req.params;
+  const { id } = req.params;
 
   try {
-    const user = await User.findById(userId);
-
-    if (!user.isAdmin)
-      return next(
-        createError({ status: 400, message: "You are not authorized" })
-      );
-
     await Coupon.findByIdAndDelete(id);
     res.status(200).json({ message: "Coupon removed successfully" });
   } catch (error) {

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createSneaker,
+  getPaginateSneaker,
   getSneaker,
   getSneakerIconic,
   getSneakers,
@@ -13,5 +14,6 @@ router.post("/sneaker", adminOnly, createSneaker);
 router.get("/sneaker", getSneakers);
 router.get("/sneaker/:name", getSneaker);
 router.get("/sneaker/iconic/all", getSneakerIconic);
+router.get("/sneaker/pagination/:pageNumber/:pageSize", getPaginateSneaker);
 
 export default router;

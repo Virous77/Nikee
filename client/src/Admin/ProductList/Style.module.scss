@@ -45,6 +45,10 @@
     &:hover {
       scale: 1.03;
     }
+
+    h2 {
+      width: 90%;
+    }
   }
 
   img {
@@ -68,7 +72,7 @@
 .action {
   position: absolute;
   right: 4.2%;
-  bottom: 3.5%;
+  bottom: 3%;
   @include displayCol;
   gap: 5px;
 
@@ -182,4 +186,48 @@
   max-height: 550px;
   overflow: scroll;
   margin-top: 1rem;
+}
+
+.coupon-main {
+  padding: 1rem;
+
+  h2 {
+    font-weight: 600;
+    font-size: var(--secondary-font-size);
+    margin-bottom: 1rem;
+  }
+}
+
+.coupon-list {
+  table {
+    width: 100%;
+  }
+
+  thead {
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+  }
+
+  tr {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    place-items: center;
+    padding: 8px;
+  }
+
+  td {
+    padding: 4px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .product-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .product-wrap {
+    grid-template-columns: 1fr;
+  }
 }

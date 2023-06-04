@@ -11,7 +11,7 @@ import { Modal } from "../../components/Modal/Modal";
 import ModalHeader from "../../components/Modal/ModalHeader";
 import EditModal from "./EditModal";
 
-type QueryData = {
+export type QueryData = {
   total: number;
   data: Product[];
 };
@@ -83,6 +83,7 @@ const Products = () => {
               key={product._id}
               product={product}
               setProductDetails={setProductDetails}
+              active="yes"
             />
           ))}
         </ul>
