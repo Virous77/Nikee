@@ -22,6 +22,7 @@ type AddProductFormType = {
   handleCreatingData: () => void;
   setProductDetails: React.Dispatch<React.SetStateAction<ProductDetailsType>>;
   title: string;
+  isDelete?: string;
 };
 
 const AddProductForm: React.FC<AddProductFormType> = ({
@@ -32,6 +33,7 @@ const AddProductForm: React.FC<AddProductFormType> = ({
   handleCreatingData,
   setProductDetails,
   title,
+  isDelete,
 }) => {
   const {
     productCategory,
@@ -155,6 +157,7 @@ const AddProductForm: React.FC<AddProductFormType> = ({
         <MultipleImage
           setProductDetails={setProductDetails}
           productDetails={productDetails}
+          isDelete={isDelete}
         />
       </div>
 
@@ -226,7 +229,11 @@ const AddProductForm: React.FC<AddProductFormType> = ({
 
       <div className={styles["product-button"]}>
         <button disabled={isLoading} onClick={handleCreatingData}>
-          {isLoading ? "Creating..." : `Add ${title}`}
+          {isLoading
+            ? "Creating..."
+            : isDelete
+            ? "Update Product"
+            : `Add ${title}`}
         </button>
       </div>
     </form>

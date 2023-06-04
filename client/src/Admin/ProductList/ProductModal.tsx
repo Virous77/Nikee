@@ -7,10 +7,11 @@ import { deleteData } from "../../api/api";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError } from "../../interfaces/interface";
 import { getLocalData } from "../../utils/data";
+import { ShowType } from "./Product";
 
-type ProductModalType = {
+export type ProductModalType = {
   productDetails: Product | undefined;
-  setProduct: React.Dispatch<React.SetStateAction<Product | undefined>>;
+  setProduct: React.Dispatch<React.SetStateAction<ShowType | undefined>>;
   refetch: () => void;
 };
 

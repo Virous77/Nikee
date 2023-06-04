@@ -174,7 +174,6 @@ export const getPaginationProduct = async (req, res, next) => {
 
     res.status(200).json({ total: totalProduct, data: query });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -192,6 +191,57 @@ export const deleteProduct = async (req, res, next) => {
     } else {
       return res.status(400).json({ message: "Product don't exists." });
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateProduct = async (req, res, next) => {
+  const { id } = req.params;
+  const {
+    productCategory: category,
+    productsType: productType,
+    productSize: size,
+    imagesR,
+    images,
+    ...rest
+  } = req.body;
+
+  try {
+    const newImage = imagesR.filter((image) => !image.includes("https"));
+    const keepImages = imagesR.filter((image) => image.includes("https"));
+    const saveImageInDb = images
+      .filter((img) => !img.includes("blob"))
+      .filter((img) => {
+        return keepImages.filter((i) => i === img);
+      });
+
+    const heroImgs = await uploadImage(newImage);
+    const getImage = heroImgs.map((li) => li.secure_url);
+
+    const data = {
+      category,
+      productType,
+      size,
+      images: [...saveImageInDb, ...getImage],
+      ...rest,
+    };
+
+    await Products.findByIdAndUpdate(id, { $set: data });
+    res.status(200).json({ message: "Product updated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteImage = async (req, res, next) => {
+  const { image } = req.body;
+  try {
+    if (!image)
+      return next(createError({ status: 400, message: "image url missing" }));
+
+    await deleteImages([image]);
+    res.status(200).json({ message: "Image Successfully deleted" });
   } catch (error) {
     next(error);
   }

@@ -49,7 +49,6 @@ export const checkout = async (req, res, next) => {
 
     res.status(200).json(order);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

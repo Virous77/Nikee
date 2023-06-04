@@ -21,7 +21,6 @@ export const uploadImage = async (image) => {
 
     return res;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -39,6 +38,6 @@ export const deleteImages = async (imageUrls) => {
       })
     );
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };

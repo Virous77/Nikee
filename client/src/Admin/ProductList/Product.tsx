@@ -9,17 +9,23 @@ import styles from "./Style.module.scss";
 import ProductModal from "./ProductModal";
 import { Modal } from "../../components/Modal/Modal";
 import ModalHeader from "../../components/Modal/ModalHeader";
+import EditModal from "./EditModal";
 
 type QueryData = {
   total: number;
   data: Product[];
 };
 
+export type ShowType = {
+  product: Product | undefined;
+  name: string;
+};
+
 const Products = () => {
   const [state, setState] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [productDetails, setProductDetails] = useState<Product | undefined>(
+  const [productDetails, setProductDetails] = useState<ShowType | undefined>(
     undefined
   );
   const pageSize = 10;
@@ -82,14 +88,28 @@ const Products = () => {
         </ul>
       </InfiniteScroll>
 
-      {productDetails && (
+      {productDetails?.name === "delete" && (
         <Modal isOpen="isOpen" onClose={() => setProductDetails(undefined)}>
           <ModalHeader
             name="Details"
             onClose={() => setProductDetails(undefined)}
           />
           <ProductModal
-            productDetails={productDetails}
+            productDetails={productDetails.product}
+            setProduct={setProductDetails}
+            refetch={refetch}
+          />
+        </Modal>
+      )}
+
+      {productDetails?.name === "edit" && (
+        <Modal isOpen="isOpen" onClose={() => setProductDetails(undefined)}>
+          <ModalHeader
+            name="Edit"
+            onClose={() => setProductDetails(undefined)}
+          />
+          <EditModal
+            productDetails={productDetails.product}
             setProduct={setProductDetails}
             refetch={refetch}
           />
