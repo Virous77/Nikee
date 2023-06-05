@@ -1,6 +1,7 @@
 import Sneakers from "../Models/Sneakers.js";
 import { createError } from "../utils/utility.js";
 import { uploadImage } from "../utils/imageUpload.js";
+import { deleteImages } from "../utils/imageUpload.js";
 
 export const createSneaker = async (req, res, next) => {
   const {
@@ -104,6 +105,67 @@ export const getPaginateSneaker = async (req, res, next) => {
     const query = await Sneakers.find().skip(skipDocuments).limit(pageSize);
 
     res.status(200).json({ total: totalSneaker, data: query });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateSneaker = async (req, res, next) => {
+  const { id } = req.params;
+  const {
+    productCategory: category,
+    productsType: sneakerType,
+    productSize: size,
+    imageR: heroImage,
+    imagesR,
+    images,
+    productInformation: sneakerInformation,
+    aboutProduct: aboutSneaker,
+    ...rest
+  } = req.body;
+
+  try {
+    const newImage = imagesR.filter((image) => !image.includes("https"));
+    const keepImages = imagesR.filter((image) => image.includes("https"));
+    const saveImageInDb = images
+      .filter((img) => !img.includes("blob"))
+      .filter((img) => {
+        return keepImages.filter((i) => i === img);
+      });
+
+    const heroImgs = await uploadImage(newImage);
+    const getImage = heroImgs.map((li) => li.secure_url);
+
+    const data = {
+      sneakerType,
+      aboutSneaker,
+      sneakerInformation,
+      size,
+      category,
+      images: [...saveImageInDb, ...getImage],
+      ...rest,
+    };
+
+    await Sneakers.findByIdAndUpdate(id, { $set: data });
+    res.status(200).json({ message: "Sneaker updated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteProduct = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const product = await Sneakers.findById(id);
+    const images = [product.heroImage, ...product.images];
+    await deleteImages(images);
+    const deleteSneaker = await Sneakers.findByIdAndDelete(id);
+
+    if (deleteSneaker) {
+      return res.status(200).json({ message: "Sneaker successfully deleted" });
+    } else {
+      return res.status(400).json({ message: "Sneaker don't exists." });
+    }
   } catch (error) {
     next(error);
   }

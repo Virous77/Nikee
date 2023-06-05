@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Sneaker } from "../../interfaces/interface";
+import { Product, Sneaker } from "../../interfaces/interface";
 import { ShowType } from "./Product";
 import { useQuery } from "react-query";
 import { getData } from "../../api/api";
@@ -18,7 +18,7 @@ export type QueryData = {
 };
 
 const Sneakers = () => {
-  const [state, setState] = useState<Sneaker[]>([]);
+  const [state, setState] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [productDetails, setProductDetails] = useState<ShowType | undefined>(
@@ -27,7 +27,7 @@ const Sneakers = () => {
   const pageSize = 10;
 
   const { isFetching, refetch } = useQuery(
-    ["admin-sneakert"],
+    ["admin-sneaker"],
     async () => {
       const data: QueryData = await getData(
         `/sneaker/pagination/${pageNumber}/${pageSize}`
@@ -36,7 +36,24 @@ const Sneakers = () => {
     },
     {
       onSuccess: (data) => {
-        setState(data.data);
+        const remakeData = data.data.map((sneaker) => {
+          const {
+            sneakerInformation: productInformation,
+            sneakerType: productType,
+            aboutSneaker: aboutProduct,
+            ...rest
+          } = sneaker;
+
+          const data = {
+            ...rest,
+            productInformation,
+            productType,
+            aboutProduct,
+            category: "Shoes",
+          };
+          return data;
+        });
+        setState(remakeData);
         setTotal(data.total);
       },
 
@@ -45,9 +62,7 @@ const Sneakers = () => {
   );
 
   const fetchMoreData = async () => {
-    const data: QueryData = await getData(
-      `/product/pagination/${pageNumber}/${pageSize}`
-    );
+    const data = await getData(`/product/pagination/${pageNumber}/${pageSize}`);
     setState(state.concat(data.data));
     setTotal(total);
   };
@@ -93,6 +108,8 @@ const Sneakers = () => {
             productDetails={productDetails.product}
             setProduct={setProductDetails}
             refetch={refetch}
+            title="Sneaker"
+            endPoints="sneaker"
           />
         </Modal>
       )}
@@ -107,6 +124,8 @@ const Sneakers = () => {
             productDetails={productDetails.product}
             setProduct={setProductDetails}
             refetch={refetch}
+            title="Sneaker"
+            endPoints="sneaker"
           />
         </Modal>
       )}

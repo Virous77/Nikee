@@ -14,6 +14,8 @@ const EditModal: React.FC<ProductModalType> = ({
   productDetails,
   setProduct,
   refetch,
+  title,
+  endPoints,
 }) => {
   const [editProductData, setEditProductData] = useState<ProductDetailsType>({
     name: productDetails?.name || "",
@@ -40,7 +42,7 @@ const EditModal: React.FC<ProductModalType> = ({
   const { mutate: updateMutate, isLoading } = useMutation({
     mutationFn: (data: any) => {
       return updateData({
-        endpoints: `/product/${data.id}`,
+        endpoints: `/${endPoints}/${data.id}`,
         userData: data.updateData,
       });
     },
@@ -95,7 +97,7 @@ const EditModal: React.FC<ProductModalType> = ({
         isLoading={isLoading}
         handleChange={handleChange}
         handleCreatingData={handleCreatingData}
-        title="Product"
+        title={title}
         isDelete="yes"
       />
     </section>

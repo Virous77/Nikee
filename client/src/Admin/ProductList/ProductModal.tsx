@@ -13,19 +13,23 @@ export type ProductModalType = {
   productDetails: Product | undefined;
   setProduct: React.Dispatch<React.SetStateAction<ShowType | undefined>>;
   refetch: () => void;
+  endPoints: string;
+  title: string;
 };
 
 const ProductModal: React.FC<ProductModalType> = ({
   productDetails,
   setProduct,
   refetch,
+  endPoints,
+  title,
 }) => {
   const userId = getLocalData("nike");
   const { handleSetNotification } = useGlobalContext();
 
   const { mutate, isLoading } = useMutation(
     (id: string | undefined) => {
-      return deleteData(`/product/${userId}/${id}`);
+      return deleteData(`/${endPoints}/${userId}/${id}`);
     },
     {
       onSuccess: ({ message }: { message: string }) => {
@@ -70,17 +74,17 @@ const ProductModal: React.FC<ProductModalType> = ({
       </div>
 
       <div style={{ marginBottom: "1rem" }}>
-        <h2>About Product</h2>
+        <h2>About {title}</h2>
         <HtmlParser data={productDetails?.aboutProduct} />
       </div>
       <hr />
       <div style={{ marginTop: "1rem" }}>
-        <h2>Product Information</h2>
+        <h2>{title} Information</h2>
         <HtmlParser data={productDetails?.productInformation} />
       </div>
 
       <div className={styles["other-info"]}>
-        <h2>OtherInfo</h2>
+        <h2>Other-Info</h2>
         <div>
           <p>Brand :</p>
           <span>{productDetails?.brands}</span>
@@ -100,10 +104,12 @@ const ProductModal: React.FC<ProductModalType> = ({
           <span>{productDetails?.color}</span>
         </div>
 
-        <div>
-          <p>Discount :</p>
-          <span>{productDetails?.discount}%</span>
-        </div>
+        {productDetails?.discount && (
+          <div>
+            <p>Discount :</p>
+            <span>{productDetails?.discount}%</span>
+          </div>
+        )}
       </div>
 
       <button onClick={() => mutate(productDetails?._id)}>

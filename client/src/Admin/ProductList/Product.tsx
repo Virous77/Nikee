@@ -99,6 +99,8 @@ const Products = () => {
             productDetails={productDetails.product}
             setProduct={setProductDetails}
             refetch={refetch}
+            endPoints="product"
+            title="Product"
           />
         </Modal>
       )}
@@ -113,6 +115,8 @@ const Products = () => {
             productDetails={productDetails.product}
             setProduct={setProductDetails}
             refetch={refetch}
+            endPoints="product"
+            title="Product"
           />
         </Modal>
       )}
