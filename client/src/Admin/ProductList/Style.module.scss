@@ -210,14 +210,37 @@
 
   tr {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 30px repeat(5, 1fr);
     place-items: center;
     padding: 8px;
   }
 
   td {
     padding: 4px;
+    font-size: 15px;
   }
+}
+
+.edit-action {
+  @include displayCenter;
+  gap: 1rem;
+
+  button {
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    @include displayAllCenter;
+    font-size: 20px !important;
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+}
+
+.edit-coupon {
+  margin-top: 1rem;
 }
 
 @media (max-width: 1200px) {

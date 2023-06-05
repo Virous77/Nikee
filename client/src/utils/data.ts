@@ -199,6 +199,12 @@ export const dateFormate = (date: Date | string) => {
   }  ${dateData.getDate()}  ${dateData.getFullYear()}`;
 };
 
+export const dateFormate2 = (date: string) => {
+  const splitDate = date.split("-");
+
+  return `${month[+splitDate[1]]}  ${splitDate[2]}  ${splitDate[0]}`;
+};
+
 export const nikeLogo =
   "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2F67979fc2-9bc6-4ef1-a91a-9f8129c57645_1500x1500.jpeg";
 
