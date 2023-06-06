@@ -5,6 +5,8 @@ import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError } from "../../interfaces/interface";
 import SingleImage from "./SingleImage";
 import CommonInput from "./CommonInput";
+import styles from "./Home.module.scss";
+import { getLocalData } from "../../utils/data";
 
 type CreateHomeDataType = {
   refetch: () => void;
@@ -39,6 +41,7 @@ const CreateHomeData: React.FC<CreateHomeDataType> = ({
   };
   const [homeData, setHomeData] = useState(initialState);
   const { handleSetNotification } = useGlobalContext();
+  const userId = getLocalData("nike");
   const [images, setImages] = useState({
     heroImage: "",
     nikeMen: "",
@@ -60,12 +63,12 @@ const CreateHomeData: React.FC<CreateHomeDataType> = ({
     },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
-
-  const handleCreateData = () => {};
+  const handleCreateData = () => {
+    mutate({ userId, ...homeData });
+  };
 
   return (
-    <section>
+    <section className={styles.create}>
       <form onSubmit={(e) => e.preventDefault()}>
         <CommonInput
           uploadImage={(e: string) =>
@@ -77,9 +80,111 @@ const CreateHomeData: React.FC<CreateHomeDataType> = ({
           setImage={(e: string) => setImages({ ...images, heroImage: e })}
           title="Home Hero"
           images={images.heroImage}
+          titleValue={homeData.homeHero.title}
+          descValue={homeData.homeHero.description}
+          onDesc={(e: string) =>
+            setHomeData({
+              ...homeData,
+              homeHero: { ...homeData.homeHero, description: e },
+            })
+          }
+          onTitle={(e: string) =>
+            setHomeData({
+              ...homeData,
+              homeHero: { ...homeData.homeHero, title: e },
+            })
+          }
         />
 
-        <div>Cool</div>
+        <hr />
+
+        <div className={styles.ahead}>
+          <h2>Nike Ahead</h2>
+
+          <div className={styles["ahead-main"]}>
+            <h3>Men</h3>
+
+            <div>
+              <fieldset>
+                <input
+                  type="text"
+                  placeholder="Title"
+                  value={homeData.nikeAhead.men.title}
+                  onChange={(e) =>
+                    setHomeData({
+                      ...homeData,
+                      nikeAhead: {
+                        ...homeData.nikeAhead,
+                        men: {
+                          ...homeData.nikeAhead.men,
+                          title: e.target.value,
+                        },
+                      },
+                    })
+                  }
+                />
+              </fieldset>
+
+              <SingleImage
+                uploadedImage={(e: string) =>
+                  setHomeData({
+                    ...homeData,
+                    nikeAhead: {
+                      ...homeData.nikeAhead,
+                      men: { ...homeData.nikeAhead.men, image: e },
+                    },
+                  })
+                }
+                title="Men"
+                setImage={(e: string) => setImages({ ...images, nikeMen: e })}
+                image={images.nikeMen}
+              />
+            </div>
+          </div>
+
+          <div>
+            <h3>Women</h3>
+
+            <div>
+              <fieldset>
+                <input
+                  type="text"
+                  placeholder="Title"
+                  value={homeData.nikeAhead.women.title}
+                  onChange={(e) =>
+                    setHomeData({
+                      ...homeData,
+                      nikeAhead: {
+                        ...homeData.nikeAhead,
+                        women: {
+                          ...homeData.nikeAhead.women,
+                          title: e.target.value,
+                        },
+                      },
+                    })
+                  }
+                />
+              </fieldset>
+
+              <SingleImage
+                uploadedImage={(e: string) =>
+                  setHomeData({
+                    ...homeData,
+                    nikeAhead: {
+                      ...homeData.nikeAhead,
+                      women: { ...homeData.nikeAhead.women, image: e },
+                    },
+                  })
+                }
+                title="Men"
+                setImage={(e: string) => setImages({ ...images, nikeWomen: e })}
+                image={images.nikeWomen}
+              />
+            </div>
+          </div>
+        </div>
+
+        <hr />
 
         <CommonInput
           uploadImage={(e: string) =>
@@ -91,7 +196,25 @@ const CreateHomeData: React.FC<CreateHomeDataType> = ({
           setImage={(e: string) => setImages({ ...images, nikeAir: e })}
           title="Nike Air"
           images={images.nikeAir}
+          titleValue={homeData.nikeAir.title}
+          descValue={homeData.nikeAir.description}
+          onDesc={(e: string) =>
+            setHomeData({
+              ...homeData,
+              nikeAir: { ...homeData.nikeAir, description: e },
+            })
+          }
+          onTitle={(e: string) =>
+            setHomeData({
+              ...homeData,
+              nikeAir: { ...homeData.nikeAir, title: e },
+            })
+          }
         />
+
+        <button disabled={isLoading} onClick={handleCreateData}>
+          {isLoading ? "Creating..." : "Save"}
+        </button>
       </form>
     </section>
   );

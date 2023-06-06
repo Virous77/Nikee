@@ -5,7 +5,7 @@ export const createHomeData = async (req, res, next) => {
     const homeData = new Home(req.body);
     await homeData.save();
 
-    res.status(201).json(homeData);
+    res.status(201).json({ message: "Home data created successfully" });
   } catch (error) {
     next(error);
   }
