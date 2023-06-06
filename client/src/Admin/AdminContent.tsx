@@ -8,6 +8,7 @@ import { getData } from "../api/api";
 import { useGlobalContext } from "../store/GlobalContext";
 import { AppError, Product, Sneaker } from "../interfaces/interface";
 import ProductContent from "./ProductList/ProductContent";
+import HomeData from "./Home/HomeData";
 
 const AdminContent = () => {
   const { handleSetNotification } = useGlobalContext();
@@ -58,6 +59,7 @@ const AdminContent = () => {
       <Route path="/add-product" element={<AddProduct />} />
       <Route path="/coupon" element={<Coupon />} />
       <Route path="/sneaker" element={<SneakerComp />} />
+      <Route path="/home" element={<HomeData />} />
     </Routes>
   );
 };

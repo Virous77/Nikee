@@ -1,11 +1,11 @@
 import express from "express";
-import { adminOnly } from "../middlewares/adminOnly";
+import { adminOnly } from "../middlewares/adminOnly.js";
 import {
   createHomeData,
   deleteHomeData,
   getHomeData,
   updateHomeData,
-} from "../Controllers/HomeController";
+} from "../Controllers/HomeController.js";
 
 const router = express.Router();
 

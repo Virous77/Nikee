@@ -1,5 +1,4 @@
 import Home from "../Models/Home.js";
-import { createError } from "../utils/utility";
 
 export const createHomeData = async (req, res, next) => {
   try {
@@ -24,8 +23,8 @@ export const getHomeData = async (req, res, next) => {
 export const updateHomeData = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const updatedData = await Home.findByIdAndUpdate(id, { $set: req.body });
-    res.status(200).json(updatedData);
+    await Home.findByIdAndUpdate(id, { $set: req.body });
+    res.status(200).json({ message: "Home data updated successfully" });
   } catch (error) {
     next(error);
   }
@@ -34,7 +33,7 @@ export const updateHomeData = async (req, res, next) => {
 export const deleteHomeData = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const updatedData = await Home.findByIdAndDelete(id);
+    await Home.findByIdAndDelete(id);
     res.status(200).json({ message: "Home Data successfully deleted" });
   } catch (error) {
     next(error);

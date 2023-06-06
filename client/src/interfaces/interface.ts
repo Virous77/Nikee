@@ -159,3 +159,29 @@ export interface Sneaker {
   sale: boolean;
   featured: boolean;
 }
+
+export interface Home {
+  _id: string;
+  homeHero: {
+    image: string;
+    title: string;
+    description: string;
+  };
+  nikeAhead: {
+    men: {
+      image: string;
+      title: string;
+    };
+    women: {
+      image: string;
+      title: string;
+    };
+  };
+  nikeAir: {
+    image: string;
+    title: string;
+    description: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}

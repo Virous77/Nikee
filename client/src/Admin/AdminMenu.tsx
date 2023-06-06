@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Admin.module.scss";
 import { RiCoupon2Line } from "react-icons/ri";
 import { GiConverseShoe } from "react-icons/gi";
+import { BiHomeSmile } from "react-icons/bi";
 
 const AdminMenu = () => {
   const navigate = useNavigate();
@@ -47,6 +48,13 @@ const AdminMenu = () => {
           className={pathname.includes("sneaker") ? styles["active-menu"] : ""}
         >
           <GiConverseShoe /> Sneaker
+        </li>
+
+        <li
+          onClick={() => navigate("/admin/home")}
+          className={pathname.includes("home") ? styles["active-menu"] : ""}
+        >
+          <BiHomeSmile /> Nike Home
         </li>
       </ul>
     </aside>

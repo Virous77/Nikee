@@ -1,0 +1,52 @@
+@import "../../common/variables.scss";
+
+.home {
+  header {
+    @include displayFlex;
+    padding: 10px;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: var(--secondary-font-size);
+  }
+
+  button {
+    @include buttonMain;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.hero {
+  img {
+    width: 110px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  fieldset {
+    width: 110px;
+    height: 90px;
+    background-color: var(--card-color);
+    border-radius: 10px;
+    @include displayCenter;
+    justify-content: center;
+
+    label {
+      @include displayCol;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@ import CartRouter from "./src/Routes/CartRoutes.js";
 import CouponRouter from "./src/Routes/CouponRoutes.js";
 import SneakerRouter from "./src/Routes/SneakersRoutes.js";
 import SearchRouter from "./src/Routes/SearchRoutes.js";
+import HomeRouter from "./src/Routes/HomeRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -42,7 +43,8 @@ app.use(
   CartRouter,
   CouponRouter,
   SneakerRouter,
-  SearchRouter
+  SearchRouter,
+  HomeRouter
 );
 
 //Handle app Error
