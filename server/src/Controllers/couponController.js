@@ -1,19 +1,7 @@
 import Coupon from "../Models/Coupon.js";
-import { createError } from "../utils/utility.js";
-import User from "../Models/User.js";
 
 export const createCoupon = async (req, res, next) => {
-  const { coupon, validFrom, validTill, discountPercent, userId } = req.body;
-
   try {
-    if (!coupon || !validFrom || !validTill || !discountPercent || !userId)
-      return next(
-        createError({
-          message: "All fields need to fill to create Coupon",
-          status: 400,
-        })
-      );
-
     const newCoupon = new Coupon(req.body);
     await newCoupon.save();
 

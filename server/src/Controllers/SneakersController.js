@@ -16,29 +16,7 @@ export const createSneaker = async (req, res, next) => {
     ...rest
   } = req.body;
 
-  const { name, color, brands, amount } = rest;
-
   try {
-    if (
-      !sneakerType ||
-      !amount ||
-      !name ||
-      !imagesR.length > 0 ||
-      !color ||
-      !brands ||
-      !sneakerInformation ||
-      !aboutSneaker ||
-      !heroImage ||
-      !size.length > 3
-    ) {
-      return next(
-        createError({
-          status: 400,
-          message: "Required fields cannot be empty ",
-        })
-      );
-    }
-
     const heroImg = await uploadImage([heroImage]);
     const heroImgs = await uploadImage(imagesR);
     const getImage = heroImgs.map((li) => li.secure_url);

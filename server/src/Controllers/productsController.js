@@ -13,34 +13,9 @@ export const createProduct = async (req, res, next) => {
     ...rest
   } = req.body;
 
-  const { name, color, brands, amount, productInformation, aboutProduct } =
-    rest;
-
   try {
-    if (
-      !category ||
-      !productType ||
-      !amount ||
-      !name ||
-      !imagesR.length > 0 ||
-      !color ||
-      !brands ||
-      !productInformation ||
-      !aboutProduct ||
-      !heroImage ||
-      !size.length > 3
-    ) {
-      return next(
-        createError({
-          status: 400,
-          message: "Required fields cannot be empty ",
-        })
-      );
-    }
-
     const heroImg = await uploadImage([heroImage]);
     const heroImgs = await uploadImage(imagesR);
-
     const getImage = heroImgs.map((li) => li.secure_url);
 
     const data = {

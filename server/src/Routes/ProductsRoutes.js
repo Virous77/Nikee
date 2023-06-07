@@ -13,10 +13,11 @@ import {
   relatedProducts,
 } from "../Controllers/productsController.js";
 import { adminOnly } from "../middlewares/adminOnly.js";
+import { ProductValidate } from "../Validation/Validate.js";
 
 const router = express.Router();
 
-router.post("/product", adminOnly, createProduct);
+router.post("/product", adminOnly, ProductValidate, createProduct);
 router.get("/product/:slug", getProduct);
 router.get("/product/type/:type", getProducts);
 router.get("/product/featured/all", getFeaturedProduct);
