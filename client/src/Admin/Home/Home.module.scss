@@ -184,6 +184,82 @@
   }
 }
 
+.details {
+  margin-top: 1rem;
+}
+
+.edit-button {
+  text-align: end;
+  margin-bottom: 1rem;
+
+  button {
+    padding: 8px 20px;
+    background-color: var(--main-font-color);
+    color: var(--background-color);
+    border-radius: 5px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.details-content {
+  img {
+    height: 250px;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin-top: 5px;
+    font-size: var(--fourth-font-size);
+  }
+}
+
+.edit-action {
+  @include displayCenter;
+  gap: 2rem;
+
+  button {
+    padding: 10px;
+    margin-top: 1.5rem;
+    width: 100%;
+    border-radius: 10px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.edit-input {
+  @include displayCol;
+  gap: 10px;
+  margin-top: 2rem;
+
+  fieldset {
+    width: 100%;
+    border: none;
+  }
+
+  input {
+    width: 100%;
+    font-size: 1rem;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid var(--card-color);
+
+    &:focus {
+      border: 1px solid var(--main-font-color);
+    }
+  }
+}
+
+.submit-button {
+  background-color: var(--main-font-color);
+  color: var(--background-color);
+}
+
 @media (max-width: 620px) {
   .common-flat {
     flex-direction: column;

@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/home", adminOnly, createHomeData);
 router.get("/home", getHomeData);
-router.put("/home", adminOnly, updateHomeData);
-router.delete("/home", adminOnly, deleteHomeData);
+router.put("/home/:id", adminOnly, updateHomeData);
+router.delete("/home/:id", adminOnly, deleteHomeData);
 
 export default router;

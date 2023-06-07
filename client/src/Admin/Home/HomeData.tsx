@@ -110,8 +110,8 @@ const HomeData = () => {
               <div className={styles["home-flat"]}>
                 <h2>Hero</h2>
                 <img
-                  src={home.homeHero.image}
-                  alt={home.homeHero.title}
+                  src={home?.homeHero?.image}
+                  alt={home?.homeHero?.title}
                   onClick={() =>
                     handleDetails({ name: "homeHero", homeData: home })
                   }
@@ -125,8 +125,8 @@ const HomeData = () => {
                   <div className={styles["home-flat-s"]}>
                     <p>Men</p>
                     <img
-                      src={home.nikeAhead.men.image}
-                      alt={home.nikeAhead.men.title}
+                      src={home?.nikeAhead?.men?.image}
+                      alt={home?.nikeAhead?.men?.title}
                       onClick={() =>
                         handleDetails({ name: "menAhead", homeData: home })
                       }
@@ -136,8 +136,8 @@ const HomeData = () => {
                   <div className={styles["home-flat-s"]}>
                     <p>Women</p>
                     <img
-                      src={home.nikeAhead.women.image}
-                      alt={home.nikeAhead.women.title}
+                      src={home?.nikeAhead?.women?.image}
+                      alt={home?.nikeAhead?.women?.title}
                       onClick={() =>
                         handleDetails({ name: "womenAhead", homeData: home })
                       }
@@ -149,8 +149,8 @@ const HomeData = () => {
               <div className={styles["home-flat"]}>
                 <h2>Nike Air</h2>
                 <img
-                  src={home.nikeAir.image}
-                  alt={home.nikeAir.title}
+                  src={home?.nikeAir?.image}
+                  alt={home?.nikeAir?.title}
                   onClick={() =>
                     handleDetails({ name: "nikeAir", homeData: home })
                   }
@@ -174,7 +174,11 @@ const HomeData = () => {
             name={details.name}
             onClose={() => setDetails(undefined)}
           />
-          <DetailsModal data={details} setDetails={setDetails} />
+          <DetailsModal
+            data={details}
+            setDetails={setDetails}
+            refetch={refetch}
+          />
         </Modal>
       )}
     </main>
