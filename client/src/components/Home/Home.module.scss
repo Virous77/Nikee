@@ -51,8 +51,8 @@
 }
 
 .home-type-wrap {
-  @include displayCenter;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 
   img {
@@ -62,6 +62,10 @@
 
 .first-img {
   position: relative;
+
+  img {
+    height: 500px;
+  }
 }
 
 .type-details {
@@ -274,7 +278,7 @@
 
 @media (max-width: 768px) {
   .home-type-wrap {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .hero-about {
