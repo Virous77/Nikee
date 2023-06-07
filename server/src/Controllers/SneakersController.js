@@ -170,3 +170,22 @@ export const deleteProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+export const relatedSneakers = async (req, res, next) => {
+  const { type } = req.params;
+
+  console.log(type);
+
+  try {
+    const relatedSneaker = await Sneakers.find({ brands: type })
+      .select("name heroImage amount slug -_id")
+      .sort({ popular: -1 })
+      .limit(10);
+
+    console.log(relatedSneaker);
+
+    res.status(200).json(relatedSneaker);
+  } catch (error) {
+    next(error);
+  }
+};

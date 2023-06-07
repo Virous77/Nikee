@@ -1,19 +1,32 @@
-import { useRef } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { getData } from "../../api/api";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError, RelatedData } from "../../interfaces/interface";
-import RelatedScroll from "../RelatedProduct/RelatedScroll";
+import RelatedScroll from "./RelatedScroll";
+import { useRef } from "react";
 
-const HomePopular = () => {
-  const nameRef = useRef<HTMLDivElement>(null);
+type RelatedProductType = {
+  endPoints: string;
+  title: string;
+  link: string;
+};
+
+const RelatedProduct: React.FC<RelatedProductType> = ({
+  endPoints,
+  title,
+  link,
+}) => {
   const { handleSetNotification } = useGlobalContext();
+  const nameRef = useRef<HTMLDivElement>(null);
 
-  const { data: products, isLoading } = useQuery(
-    ["popular"],
+  const { data, isLoading, refetch } = useQuery(
+    ["related"],
     async () => {
-      const data: RelatedData[] = await getData(`/product/popular/all`);
-      return data;
+      if (endPoints) {
+        const data: RelatedData[] = await getData(endPoints);
+        return data;
+      }
     },
     {
       onError: (response: AppError) => {
@@ -44,16 +57,20 @@ const HomePopular = () => {
     }
   };
 
+  useEffect(() => {
+    refetch();
+  }, [endPoints]);
+
   return (
     <RelatedScroll
-      scrollHandler={(e: string) => scrollHandler(e)}
-      title="Popular Products"
-      products={products}
-      nameRef={nameRef}
       isLoading={isLoading}
-      link="product"
+      title={title}
+      products={data}
+      nameRef={nameRef}
+      scrollHandler={(e: string) => scrollHandler(e)}
+      link={link}
     />
   );
 };
 
-export default HomePopular;
+export default RelatedProduct;

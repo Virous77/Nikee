@@ -185,3 +185,12 @@ export interface Home {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface RelatedData {
+  _id: string;
+  slug: string;
+  name: string;
+  brands: string;
+  heroImage: string;
+  amount: string;
+}

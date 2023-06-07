@@ -7,6 +7,7 @@ import { Sneaker, AppError } from "../../interfaces/interface";
 import SneakerDetails from "./SneakerDetails";
 import MobileSneaker from "./MobileSneaker";
 import Loader from "../UI/Loader";
+import RelatedProduct from "../RelatedProduct/RelatedProduct";
 
 const SingleSneaker = () => {
   const { name } = useParams();
@@ -45,6 +46,11 @@ const SingleSneaker = () => {
         />
         <SneakerDetails sneaker={sneaker} />
       </div>
+      <RelatedProduct
+        endPoints={`/sneaker/related/${sneaker?.brands || "nike"}`}
+        title="Related Sneakers"
+        link="sneaker"
+      />
     </main>
   );
 };

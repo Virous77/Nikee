@@ -5,6 +5,7 @@ import {
   getSneaker,
   getSneakerIconic,
   getSneakers,
+  relatedSneakers,
   updateSneaker,
 } from "../Controllers/SneakersController.js";
 import { adminOnly } from "../middlewares/adminOnly.js";
@@ -18,5 +19,6 @@ router.get("/sneaker/iconic/all", getSneakerIconic);
 router.get("/sneaker/pagination/:pageNumber/:pageSize", getPaginateSneaker);
 router.put("/sneaker/:id", adminOnly, updateSneaker);
 router.delete("/sneaker/:adminId/:id", adminOnly);
+router.get("/sneaker/related/:type", relatedSneakers);
 
 export default router;

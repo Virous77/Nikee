@@ -144,6 +144,7 @@ export const getPopularProducts = async (req, res, next) => {
       category: "Shoes",
       updatedAt: { $gte: tenDaysAgo },
     })
+      .select("name heroImage amount  slug -_id")
       .sort({ popular: -1 })
       .limit(10);
 
@@ -242,6 +243,21 @@ export const deleteImage = async (req, res, next) => {
 
     await deleteImages([image]);
     res.status(200).json({ message: "Image Successfully deleted" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const relatedProducts = async (req, res, next) => {
+  const { type } = req.params;
+
+  try {
+    const relatedProducts = await Products.find({ category: type })
+      .select("name heroImage amount slug -_id")
+      .sort({ popular: -1 })
+      .limit(10);
+
+    res.status(200).json(relatedProducts);
   } catch (error) {
     next(error);
   }

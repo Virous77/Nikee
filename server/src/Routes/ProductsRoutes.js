@@ -10,6 +10,7 @@ import {
   deleteProduct,
   updateProduct,
   deleteImage,
+  relatedProducts,
 } from "../Controllers/productsController.js";
 import { adminOnly } from "../middlewares/adminOnly.js";
 
@@ -25,5 +26,6 @@ router.get("/product/pagination/:pageNumber/:pageSize", getPaginationProduct);
 router.delete("/product/:adminId/:id", adminOnly, deleteProduct);
 router.put("/product/:id", adminOnly, updateProduct);
 router.post("/product/image/:adminId", adminOnly, deleteImage);
+router.get("/product/related/:type", relatedProducts);
 
 export default router;

@@ -8,6 +8,7 @@ import { Product } from "../../interfaces/interface";
 import ProductImage from "./ProductImage";
 import ProductInfo from "./ProductInfo";
 import ProductDetailsShimmer from "../../common/shimmers/ProductDetailsShimmer";
+import RelatedProduct from "../RelatedProduct/RelatedProduct";
 
 const ProductDetails = () => {
   const { name } = useParams();
@@ -42,6 +43,11 @@ const ProductDetails = () => {
       ) : (
         <ProductDetailsShimmer />
       )}
+      <RelatedProduct
+        endPoints={`/product/related/${data?.category || "Shoes"}`}
+        title="Related Products"
+        link="product"
+      />
     </main>
   );
 };
