@@ -44,6 +44,18 @@ const MobileMenu = () => {
 
       {user ? (
         <div className={styles["mobile-auth"]}>
+          {UserData?.isAdmin && (
+            <button
+              onClick={() => {
+                navigate(`/admin/dashboard`);
+                setState({ ...state, show: false });
+              }}
+              style={{ background: "black", color: "white" }}
+            >
+              Admin
+            </button>
+          )}
+
           <button
             onClick={() => {
               navigate(`/profile/${makeUserName}`);
@@ -53,6 +65,7 @@ const MobileMenu = () => {
           >
             Your Account
           </button>
+
           <button
             onClick={() => {
               localStorage.removeItem("nike");

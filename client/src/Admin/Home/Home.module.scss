@@ -266,3 +266,18 @@
     gap: 1rem;
   }
 }
+
+@media (max-width: 768px) {
+  .home-wrap {
+    grid-template-columns: 1fr;
+  }
+  .home {
+    button {
+      width: fit-content;
+    }
+  }
+
+  .edit-button button {
+    width: fit-content;
+  }
+}

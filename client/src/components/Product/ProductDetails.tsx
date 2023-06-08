@@ -47,6 +47,7 @@ const ProductDetails = () => {
         endPoints={`/product/related/${data?.category || "Shoes"}`}
         title="Related Products"
         link="product"
+        type={data?.category || "Shoes"}
       />
     </main>
   );

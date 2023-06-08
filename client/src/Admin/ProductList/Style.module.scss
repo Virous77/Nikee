@@ -250,6 +250,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .coupon-main {
+    padding: 1rem 0;
+  }
+}
+
 @media (max-width: 620px) {
   .product-wrap {
     grid-template-columns: 1fr;

@@ -50,6 +50,7 @@ const SingleSneaker = () => {
         endPoints={`/sneaker/related/${sneaker?.brands || "nike"}`}
         title="Related Sneakers"
         link="sneaker"
+        type={sneaker?.brands || "nike"}
       />
     </main>
   );

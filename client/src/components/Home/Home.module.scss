@@ -278,6 +278,12 @@
 }
 
 @media (max-width: 768px) {
+  .home-wrap {
+    button {
+      width: 50%;
+    }
+  }
+
   .home-type-wrap {
     grid-template-columns: 1fr;
   }
@@ -297,6 +303,16 @@
     h1 {
       font-size: 35px;
     }
+  }
+
+  .first-img {
+    img {
+      height: 400px;
+    }
+  }
+
+  .popular-head {
+    padding: 0;
   }
 }
 

@@ -10,18 +10,20 @@ type RelatedProductType = {
   endPoints: string;
   title: string;
   link: string;
+  type: string;
 };
 
 const RelatedProduct: React.FC<RelatedProductType> = ({
   endPoints,
   title,
   link,
+  type,
 }) => {
   const { handleSetNotification } = useGlobalContext();
   const nameRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading, refetch } = useQuery(
-    ["related"],
+    ["related", type],
     async () => {
       if (endPoints) {
         const data: RelatedData[] = await getData(endPoints);
