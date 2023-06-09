@@ -5,12 +5,7 @@ const ProductCategory = () => {
   const { pathname } = useLocation();
   const queryKey = pathname.substring(1, pathname.length).split("/");
 
-  return (
-    <Products
-      title={queryKey[1]}
-      endPoints={`/product/type/${queryKey[1]}?category=${queryKey[2]}&`}
-    />
-  );
+  return <Products categoryTitle="Category" title={queryKey[1]} />;
 };
 
 export default ProductCategory;

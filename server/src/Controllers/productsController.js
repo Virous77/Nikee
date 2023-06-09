@@ -61,15 +61,18 @@ export const getProductByType = async (req, res, next) => {
 };
 
 export const getProducts = async (req, res, next) => {
-  const type = req.params.type;
+  const { type, pageNumber, pageSize } = req.params;
+
   const { sort, price, color, brands, sale, category } = req.query;
   const breakPrice = price && price.split("-");
 
   try {
+    const skipDocuments = (+pageNumber - 1) * +pageSize;
+
     const pureProducts = await Products.find({
       productType: type,
     });
-    let products = await Products.find({
+    let query = {
       productType: type,
       sale: sale || { $exists: true },
       color: color || { $exists: true },
@@ -77,9 +80,15 @@ export const getProducts = async (req, res, next) => {
       category: category || { $exists: true },
       featured: sort === "featured" ? true : { $exists: true },
       amount: { $gt: +breakPrice?.[0] || 0, $lt: +breakPrice?.[1] || 100000 },
-    }).sort({
-      amount: sort === "high-low" ? -1 : 1,
-    });
+    };
+
+    let products = await Products.find(query)
+      .sort({
+        amount: sort === "high-low" ? -1 : 1,
+      })
+      .skip(skipDocuments)
+      .limit(+pageSize);
+    const totalLength = await Products.countDocuments(query);
 
     if (sort === "newest") {
       products = products.sort((a, b) => b.createdAt - a.createdAt);
@@ -89,22 +98,30 @@ export const getProducts = async (req, res, next) => {
     const uniqueBrands = [...new Set(brandsGet)];
     const colorGet = pureProducts.map((product) => product.color);
     const uniqueColor = [...new Set(colorGet)];
-    res
-      .status(200)
-      .json({ data: products, brands: uniqueBrands, color: uniqueColor });
+    res.status(200).json({
+      data: products,
+      brands: uniqueBrands,
+      color: uniqueColor,
+      total: totalLength,
+    });
   } catch (error) {
     next(error);
   }
 };
 
 export const getFeaturedProduct = async (req, res, next) => {
-  try {
-    const products = await Products.aggregate([
-      { $match: { featured: true } },
-      { $sample: { size: 10 } },
-    ]);
+  const { pageNumber, pageSize } = req.params;
 
-    res.status(200).json(products);
+  try {
+    const skipDocuments = (+pageNumber - 1) * +pageSize;
+
+    const totalProduct =
+      +pageNumber === 1 && (await Products.find({ featured: true })).length;
+    const products = await Products.aggregate([{ $match: { featured: true } }])
+      .skip(skipDocuments)
+      .limit(+pageSize);
+
+    res.status(200).json({ total: totalProduct, data: products });
   } catch (error) {
     next(error);
   }

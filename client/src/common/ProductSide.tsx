@@ -17,10 +17,21 @@ type ProductSideType = {
   color: string[] | undefined;
   productCount: number | undefined;
   title: string;
+  setPageNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const ProductSide: React.FC<ProductSideType> = React.memo(
-  ({ show, setShow, query, setQuery, brands, color, productCount, title }) => {
+  ({
+    show,
+    setShow,
+    query,
+    setQuery,
+    brands,
+    color,
+    productCount,
+    title,
+    setPageNumber,
+  }) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -96,15 +107,16 @@ const ProductSide: React.FC<ProductSideType> = React.memo(
                 {shopByPrice.map((price, idx) => (
                   <div key={idx} className={styles["shop-sub"]}>
                     <p
-                      onClick={() =>
+                      onClick={() => {
                         setQuery({
                           ...query,
                           price:
                             query.price && query.price === price.value
                               ? ""
                               : price.value,
-                        })
-                      }
+                        });
+                        setPageNumber(1);
+                      }}
                     >
                       {query.price === price.value && <BsCheck />}
                     </p>
@@ -130,13 +142,14 @@ const ProductSide: React.FC<ProductSideType> = React.memo(
                   <div key={idx} className={styles["color-sub"]}>
                     <p
                       style={{ background: color }}
-                      onClick={() =>
+                      onClick={() => {
                         setQuery({
                           ...query,
                           color:
                             query.color && query.color === color ? "" : color,
-                        })
-                      }
+                        });
+                        setPageNumber(1);
+                      }}
                     >
                       {query.color === color && <BsCheck />}
                     </p>
@@ -165,12 +178,13 @@ const ProductSide: React.FC<ProductSideType> = React.memo(
                 {brands?.map((brand, idx) => (
                   <div key={idx} className={styles["shop-sub"]}>
                     <p
-                      onClick={() =>
+                      onClick={() => {
                         setQuery({
                           ...query,
                           brand: query.brand === brand ? "" : brand,
-                        })
-                      }
+                        });
+                        setPageNumber(1);
+                      }}
                     >
                       {query.brand === brand && <BsCheck />}
                     </p>

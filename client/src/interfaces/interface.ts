@@ -138,6 +138,7 @@ export interface ProductAll {
   data: Product[];
   brands: string[];
   color: string[];
+  total: number;
 }
 
 export interface Sneaker {

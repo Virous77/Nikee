@@ -10,6 +10,7 @@ type ProductHeaderType = {
   show: string;
   setQuery: React.Dispatch<React.SetStateAction<queryType>>;
   query: queryType;
+  setPageNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const ProductHeader: React.FC<ProductHeaderType> = ({
@@ -17,6 +18,7 @@ const ProductHeader: React.FC<ProductHeaderType> = ({
   show,
   query,
   setQuery,
+  setPageNumber,
 }) => {
   return (
     <header className={styles["product-header"]}>
@@ -45,7 +47,10 @@ const ProductHeader: React.FC<ProductHeaderType> = ({
         <div>
           <select
             value={query.sort}
-            onChange={(e) => setQuery({ ...query, sort: e.target.value })}
+            onChange={(e) => {
+              setQuery({ ...query, sort: e.target.value });
+              setPageNumber(1);
+            }}
           >
             {sortProduct.map((type) => (
               <option value={type.value} key={type.id}>
