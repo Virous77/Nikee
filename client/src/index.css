@@ -44,3 +44,11 @@ li {
   --small-font-size: 13px;
   --background-shadow: hsl(0, 0%, 97%);
 }
+
+.globalCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}

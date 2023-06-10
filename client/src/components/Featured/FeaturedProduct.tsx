@@ -6,7 +6,7 @@ import { AppError, Product } from "../../interfaces/interface";
 import FeaturedList from "./FeaturedList";
 import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "../UI/Loader";
+import Spinner from "../UI/Spinner";
 
 export type QueryData = {
   total: number;
@@ -64,12 +64,14 @@ const FeaturedProduct = () => {
         dataLength={state.length + 1}
         next={() => setPageNumber(pageNumber + 1)}
         hasMore={state.length === total ? false : true}
-        loader={state.length > 1 ? <h4>Loading...</h4> : <Loader />}
-        endMessage={
-          <p style={{ textAlign: "center" }}>
-            {state.length > 0 && <b>Yay! You have seen it all</b>}
-          </p>
+        loader={
+          state.length > 1 && (
+            <div className="globalCenter">
+              <Spinner />
+            </div>
+          )
         }
+        endMessage={<p></p>}
         height={800}
       >
         <div className={styles["feature-list"]}>

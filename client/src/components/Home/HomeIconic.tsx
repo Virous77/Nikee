@@ -16,7 +16,7 @@ const HomeIconic = () => {
   const { data: sneakers, isLoading } = useQuery(
     ["sneaker-hone"],
     async () => {
-      const data: Sneaker[] = await getData(`/sneaker/iconic/all`);
+      const data: Sneaker[] = await getData(`/sneaker/iconic/star/all`);
       return data;
     },
     {

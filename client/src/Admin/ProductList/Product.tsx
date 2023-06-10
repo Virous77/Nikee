@@ -10,6 +10,7 @@ import ProductModal from "./ProductModal";
 import { Modal } from "../../components/Modal/Modal";
 import ModalHeader from "../../components/Modal/ModalHeader";
 import EditModal from "./EditModal";
+import Spinner from "../../components/UI/Spinner";
 
 export type QueryData = {
   total: number;
@@ -70,11 +71,15 @@ const Products = () => {
         dataLength={state.length + 1}
         next={() => setPageNumber(pageNumber + 1)}
         hasMore={state.length === total ? false : true}
-        loader={state.length > 1 ? <h4>Loading...</h4> : <Loader />}
+        loader={
+          state.length > 1 && (
+            <div className="globalCenter">
+              <Spinner />
+            </div>
+          )
+        }
         endMessage={
-          <p style={{ textAlign: "center" }}>
-            {state.length > 0 && <b>Yay! You have seen it all</b>}
-          </p>
+          <p style={{ textAlign: "center" }}>{state.length > 0 && <b></b>}</p>
         }
       >
         <ul className={styles["product-wrap"]}>

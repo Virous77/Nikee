@@ -40,9 +40,21 @@ export const createSneaker = async (req, res, next) => {
   }
 };
 
-export const getSneakers = async (req, res, next) => {
+export const getOnlySneakers = async (req, res, next) => {
   try {
     const sneakers = await Sneakers.find();
+    res.status(200).json(sneakers);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getSneakers = async (req, res, next) => {
+  const { pageNumber, pageSize } = req.params;
+
+  try {
+    const skipDocuments = (+pageNumber - 1) * +pageSize;
+    const sneakers = await Sneakers.find().skip(skipDocuments).limit(pageSize);
     res.status(200).json(sneakers);
   } catch (error) {
     next(error);
@@ -152,15 +164,10 @@ export const deleteProduct = async (req, res, next) => {
 export const relatedSneakers = async (req, res, next) => {
   const { type } = req.params;
 
-  console.log(type);
-
   try {
     const relatedSneaker = await Sneakers.find({ brands: type })
       .select("name heroImage amount slug -_id")
-      .sort({ popular: -1 })
       .limit(10);
-
-    console.log(relatedSneaker);
 
     res.status(200).json(relatedSneaker);
   } catch (error) {

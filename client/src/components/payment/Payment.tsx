@@ -14,7 +14,7 @@ import Loader from "../UI/Loader";
 
 const Payment = () => {
   const navigate = useNavigate();
-  const { UserData } = useAuthContext();
+  const { UserData, refetch: userRefetch } = useAuthContext();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get("orderId");
@@ -39,6 +39,9 @@ const Payment = () => {
     },
 
     {
+      onSuccess: () => {
+        userRefetch();
+      },
       onError: (response: AppError) => {
         handleSetNotification({
           message: response.data.message,

@@ -47,7 +47,7 @@ const SingleSneaker = () => {
         <SneakerDetails sneaker={sneaker} />
       </div>
       <RelatedProduct
-        endPoints={`/sneaker/related/${sneaker?.brands || "nike"}`}
+        endPoints={`/sneaker/related/brand/${sneaker?.brands || "nike"}`}
         title="Related Sneakers"
         link="sneaker"
         type={sneaker?.brands || "nike"}

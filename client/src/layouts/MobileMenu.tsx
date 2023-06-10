@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../store/GlobalContext";
 import { getLocalData } from "../utils/data";
 import { useAuthContext } from "../store/authContext";
+import { useLocation } from "react-router-dom";
 
 type MobileNavlinksType = {
   id: number;
@@ -18,9 +19,21 @@ const MobileMenu = () => {
   const user = getLocalData("nike");
   const { UserData } = useAuthContext();
   const makeUserName = UserData?.name.split(" ").join("-");
+  const { pathname } = useLocation();
+
+  const pathExact =
+    pathname === "/men" || pathname === "/women" || pathname === "/kids";
 
   const handleNavigation = (nav: MobileNavlinksType) => {
-    navigate(nav.link);
+    if (nav.name === "Sale") {
+      if (pathExact) {
+        navigate(`/sale${pathname}`);
+      } else {
+        navigate(`/sale/men`);
+      }
+    } else {
+      navigate(nav.link);
+    }
     setState({ ...state, show: false });
   };
 

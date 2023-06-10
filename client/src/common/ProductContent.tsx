@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NotFound from "../components/UI/NotFound";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "../components/UI/Loader";
+import Spinner from "../components/UI/Spinner";
 
 type ProductContentType = {
   productData: Product[];
@@ -27,10 +28,16 @@ const ProductContent: React.FC<ProductContentType> = ({
         dataLength={productData.length + 1}
         next={() => setPageNumber(pageNumber + 1)}
         hasMore={productData.length === total ? false : true}
-        loader={productData.length > 1 ? <h4>Loading...</h4> : <Loader />}
+        loader={
+          productData.length > 1 && (
+            <div className="globalCenter">
+              <Spinner />
+            </div>
+          )
+        }
         endMessage={
           <p style={{ textAlign: "center" }}>
-            {productData.length > 0 && <b>Yay! You have seen it all</b>}
+            {productData.length > 0 && <b></b>}
           </p>
         }
         height={500}

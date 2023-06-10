@@ -38,10 +38,9 @@
   .mobile-auth {
     position: absolute;
     bottom: 5% !important;
-    width: 100%;
+    width: 90%;
     left: 50%;
-    @include displayCenter;
-    justify-content: center;
+    @include displayCol;
     transform: translate(-50%, -50%);
     gap: 2rem;
 

@@ -48,6 +48,7 @@ const initialValue: AuthContextType = {
   handleUserProfileUpdate: () => {},
   userLoading: false,
   updateMutate: () => {},
+  refetch: () => {},
 };
 
 const AuthContext = createContext(initialValue);
@@ -209,6 +210,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         updateLoading,
         userLoading,
         updateMutate,
+        refetch,
       }}
     >
       {children}

@@ -43,7 +43,7 @@
   padding: 1rem;
   position: sticky;
   top: 0%;
-  overflow: scroll;
+  overflow-y: scroll;
   height: 90vh;
 
   h1 {
@@ -64,6 +64,7 @@
   opacity: 0.8;
   max-height: 244px;
   min-height: fit-content;
+  overflow-y: scroll;
 
   &:hover {
     opacity: 1;

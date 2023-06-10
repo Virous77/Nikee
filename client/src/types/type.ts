@@ -29,6 +29,7 @@ export type AuthContextType = {
   handleUserProfileUpdate: () => void;
   userLoading: boolean;
   updateMutate: (e: any) => void;
+  refetch: () => void;
 };
 
 export type loginType = {

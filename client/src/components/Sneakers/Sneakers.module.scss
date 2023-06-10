@@ -13,6 +13,18 @@
   }
 }
 
+.load {
+  @include displayAllCenter;
+  margin-top: 2rem;
+  font-size: 17px;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .error {
   color: red;
   opacity: 0.9;
