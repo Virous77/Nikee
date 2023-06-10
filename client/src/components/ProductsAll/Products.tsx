@@ -31,7 +31,6 @@ const Products: React.FC<ProductsType> = ({
   title,
   type,
   saleQuery,
-  categoryQuery,
   categoryTitle,
 }) => {
   const { pathname } = useLocation();

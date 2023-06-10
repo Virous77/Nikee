@@ -4,7 +4,6 @@ import styles from "../components/ProductsAll/Products.module.scss";
 import { useNavigate } from "react-router-dom";
 import NotFound from "../components/UI/NotFound";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Loader from "../components/UI/Loader";
 import Spinner from "../components/UI/Spinner";
 
 type ProductContentType = {

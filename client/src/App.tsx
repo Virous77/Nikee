@@ -21,9 +21,9 @@ const App = () => {
 
       <Suspense fallback={<Loader />}>
         <AppRouter />
+        <Footer />
       </Suspense>
 
-      {/* <Footer /> */}
       <Notification />
     </main>
   );
