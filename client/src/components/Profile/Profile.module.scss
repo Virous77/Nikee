@@ -111,6 +111,7 @@
 
   button {
     @include buttonMain;
+    color: var(--main-font-color);
 
     &:hover {
       color: rgb(51, 184, 51);

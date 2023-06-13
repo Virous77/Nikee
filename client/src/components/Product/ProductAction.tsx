@@ -19,7 +19,13 @@ const ProductAction: React.FC<ProductActionType> = ({
     <button onClick={handleProductAction} className={addtoBag}>
       {name}{" "}
       {title && (
-        <span>{active === "cool" ? <MdFavorite /> : <MdFavoriteBorder />}</span>
+        <span>
+          {active === "cool" ? (
+            <MdFavorite color="black" />
+          ) : (
+            <MdFavoriteBorder color="black" />
+          )}
+        </span>
       )}
     </button>
   );

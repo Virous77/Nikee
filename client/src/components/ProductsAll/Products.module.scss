@@ -210,6 +210,7 @@
     height: 100vh;
     background-color: var(--background-color);
     transition: all 300ms ease-in-out;
+    padding-bottom: 2rem;
   }
 
   .p-overlay {
@@ -229,7 +230,7 @@
 
   .products {
     grid-template-columns: 1fr;
-    padding: 2rem 1rem;
+    padding: 0 1rem;
   }
 
   .prod-list {
@@ -248,6 +249,7 @@
 
   .p-menu {
     display: flex;
+    color: var(--main-font-color);
   }
 
   .p-name {
@@ -266,5 +268,9 @@
 @media (max-width: 620px) {
   .prod-list {
     grid-template-columns: 1fr;
+  }
+
+  .prod-sub {
+    padding: 1rem 0;
   }
 }

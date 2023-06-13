@@ -81,6 +81,7 @@
     height: 30px;
     border-radius: 100px;
     @include displayAllCenter;
+    color: var(--main-font-color);
 
     &:hover {
       background-color: var(--card-color);
@@ -233,6 +234,7 @@
     border-radius: 100px;
     @include displayAllCenter;
     font-size: 20px !important;
+    color: var(--main-font-color);
 
     &:hover {
       background-color: var(--card-color);

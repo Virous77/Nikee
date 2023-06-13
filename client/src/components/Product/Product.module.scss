@@ -30,7 +30,6 @@
 
   img {
     border-radius: 10px;
-    object-fit: cover;
     height: 60px;
     box-shadow: var(--shadow-one);
   }
@@ -154,6 +153,7 @@
     text-decoration: underline;
     font-weight: 600;
     font-size: var(--third-font-size);
+    color: var(--main-font-color);
 
     &:hover {
       opacity: 0.8;
@@ -384,6 +384,7 @@
       img {
         width: 60px;
         height: 50px;
+        object-fit: auto;
       }
     }
   }

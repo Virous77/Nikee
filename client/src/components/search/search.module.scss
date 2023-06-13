@@ -163,11 +163,22 @@
   .most-search {
     max-width: 100%;
     margin-top: 0;
+    padding: 0 1rem;
   }
 
   .search-main {
     grid-template-columns: 1fr;
     padding: 1rem;
+  }
+
+  .result-list {
+    height: 400px;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+    }
   }
 }
 

@@ -154,6 +154,7 @@
     width: 30px;
     height: 30px;
     border-radius: 100%;
+    color: var(--main-font-color);
 
     &:hover {
       background-color: var(--background-color);
@@ -208,6 +209,7 @@
       height: 35px;
       border-radius: 100%;
       @include displayAllCenter;
+      color: var(--main-font-color);
 
       &:hover {
         background-color: var(--card-color);
@@ -307,12 +309,12 @@
 
   .first-img {
     img {
-      height: 400px;
+      height: 320px;
     }
   }
 
   .popular-head {
-    padding: 0;
+    padding: 0 1rem;
   }
 }
 
@@ -351,6 +353,19 @@
       font-size: var(--small-font-size);
       width: 80%;
       margin: auto;
+    }
+  }
+
+  .hero-image {
+    img {
+      height: 250px;
+      object-fit: auto;
+    }
+  }
+
+  .hero-shoes {
+    img {
+      height: 250px;
     }
   }
 }

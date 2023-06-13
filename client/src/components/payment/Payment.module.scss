@@ -57,3 +57,22 @@
     }
   }
 }
+
+@media (max-width: 992px) {
+  .payment {
+    width: 95%;
+    height: fit-content;
+  }
+
+  .payment-details {
+    grid-template-columns: 1fr;
+    place-items: start;
+
+    p {
+      align-items: flex-start;
+      span {
+        font-size: 13px;
+      }
+    }
+  }
+}
