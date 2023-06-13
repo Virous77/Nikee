@@ -18,7 +18,12 @@ const NavAction = () => {
       <Search classStyle="hide" />
 
       <button className={styles["m-search"]}>
-        <BiSearch size={22} cursor="pointer" onClick={() => setActive(true)} />
+        <BiSearch
+          size={22}
+          cursor="pointer"
+          onClick={() => setActive(true)}
+          color="black"
+        />
       </button>
 
       <button className={styles["fav"]}>
@@ -26,6 +31,7 @@ const NavAction = () => {
           size={22}
           cursor="pointer"
           onClick={() => navigate(`/profile/fav/${makeUserName}`)}
+          color="black"
         />
       </button>
 

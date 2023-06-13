@@ -7,6 +7,12 @@
   position: fixed;
   top: 0;
   left: 0;
+  flex-direction: column;
+  gap: 5px;
+
+  p {
+    font-size: 12px;
+  }
 }
 
 .spinner {

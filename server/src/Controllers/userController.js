@@ -3,17 +3,18 @@ import { createError } from "../utils/utility.js";
 import bcrypt from "bcrypt";
 
 export const createUser = async (req, res, next) => {
-  const { password, ...rest } = req.body;
+  const { email, password, ...rest } = req.body;
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
   const userData = {
     password: hash,
+    email: email.toLowerCase(),
     ...rest,
   };
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: email.toLowerCase() });
 
   if (user) {
     return next(createError({ status: 400, message: "User already exists" }));
@@ -35,7 +36,7 @@ export const loginUser = async (req, res, next) => {
     return next(createError({ status: 400, message: "Fields can't be empty" }));
   }
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email: email.toLowerCase() });
   if (!user) {
     return next(createError({ status: 400, message: "User not exists" }));
   }

@@ -85,6 +85,7 @@ const MobileMenu = () => {
               navigate("/");
               setState({ ...state, show: false });
             }}
+            style={{ color: "black" }}
           >
             Logout
           </button>
@@ -105,6 +106,7 @@ const MobileMenu = () => {
               navigate("/login");
               setState({ ...state, show: false });
             }}
+            style={{ color: "black" }}
           >
             Sign IN
           </button>
