@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
-const url = "http://localhost:4000/api/v1";
+const url = import.meta.env.VITE_URL;
 
 type createDataType = {
   userData: any;
