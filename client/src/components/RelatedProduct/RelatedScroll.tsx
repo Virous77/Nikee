@@ -50,10 +50,10 @@ const RelatedScroll: React.FC<RelatedScrollType> = ({
       {!isLoading && (
         <div ref={nameRef} className={styles["popular-wrap"]}>
           {products &&
-            products.map((product) => (
+            products.map((product, idx) => (
               <div
                 className={styles["popular-sub"]}
-                key={product._id}
+                key={idx}
                 onClick={() => {
                   handleScroll();
                   navigate(`/${link || "product"}/${product.slug}`);

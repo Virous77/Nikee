@@ -21,7 +21,7 @@ const Header = () => {
           {UserData?.isAdmin && (
             <span onClick={() => navigate("/admin/dashboard")}>Admin</span>
           )}
-          <span>|</span>
+          {UserData?.isAdmin && <span>|</span>}
 
           <span onClick={() => navigate(`/profile/${makeUserName}`)}>
             Your Account

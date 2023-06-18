@@ -39,7 +39,6 @@ const ProductContent: React.FC<ProductContentType> = ({
             {productData.length > 0 && <b></b>}
           </p>
         }
-        height={500}
       >
         {productData && productData.length > 0 ? (
           <div className={styles["prod-list"]}>

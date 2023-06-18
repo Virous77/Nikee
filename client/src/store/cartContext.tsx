@@ -79,8 +79,8 @@ export const CartContextProvider = ({
       setAddressData(addressInitialState);
       if (editAddress) {
         setEditAddress("");
-        refetch();
       }
+      refetch();
     },
   });
 

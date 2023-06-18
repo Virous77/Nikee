@@ -93,15 +93,22 @@ export const CouponValidate = async (req, res, next) => {
 
 export const AddressValidate = async (req, res, next) => {
   try {
-    const schema = joi.object({
-      address: joi.string().trim().required(),
-      landmark: joi.string().trim().required(),
-      addressType: joi.string().trim().required(),
-      state: joi.string().trim().required(),
-      city: joi.string().trim().required(),
-      postalCode: joi.number().required(),
-      userId: joi.string().trim().required(),
-    });
+    const schema = joi
+      .object({
+        address: joi.string().trim().required(),
+        landmark: joi.string().trim().required(),
+        addressType: joi.string().trim().required(),
+        state: joi.string().trim().required(),
+        city: joi.string().trim().required(),
+        postalCode: joi.number().required(),
+        userId: joi.string().trim().required(),
+      })
+      .options({ stripUnknown: true });
+
+    const result = await schema.validateAsync(req.body);
+    if (result) {
+      next();
+    }
   } catch (error) {
     next(error);
   }
