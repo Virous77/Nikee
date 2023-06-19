@@ -4,7 +4,7 @@ import { useGlobalContext } from "../../store/GlobalContext";
 import React from "react";
 
 type ShareType = {
-  name: string;
+  name: string | undefined;
 };
 
 const Share: React.FC<ShareType> = ({ name }) => {
