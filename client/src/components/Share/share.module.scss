@@ -1,0 +1,19 @@
+@import "../../common/variables.scss";
+
+.share {
+  margin-top: 1rem;
+  @include displayCenter;
+  gap: 0.4rem;
+
+  li {
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 100px;
+    @include displayAllCenter;
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
+}

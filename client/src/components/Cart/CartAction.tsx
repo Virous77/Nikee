@@ -60,24 +60,30 @@ const CartAction: React.FC<CartActionType> = ({ cartItem, handleDelete }) => {
     <div className={styles["cart-action"]}>
       {favData &&
       favData.find((fav) => fav.productId === cartItem.productId) ? (
-        <MdFavorite
-          onClick={() => deleteMutate({ id: cartItem.productId, userId })}
-          size={22}
-          cursor="pointer"
-        />
+        <button>
+          <MdFavorite
+            onClick={() => deleteMutate({ id: cartItem.productId, userId })}
+            size={22}
+            cursor="pointer"
+          />
+        </button>
       ) : (
-        <MdFavoriteBorder
-          size={22}
-          cursor="pointer"
-          onClick={() => handleFav(cartItem)}
-        />
+        <button>
+          <MdFavoriteBorder
+            size={22}
+            cursor="pointer"
+            onClick={() => handleFav(cartItem)}
+          />
+        </button>
       )}
 
-      <RiDeleteBin6Line
-        size={20}
-        cursor="pointer"
-        onClick={() => handleDelete(cartItem._id)}
-      />
+      <button>
+        <RiDeleteBin6Line
+          size={20}
+          cursor="pointer"
+          onClick={() => handleDelete(cartItem._id)}
+        />
+      </button>
     </div>
   );
 };

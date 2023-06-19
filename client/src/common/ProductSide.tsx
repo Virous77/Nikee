@@ -60,6 +60,7 @@ const ProductSide: React.FC<ProductSideType> = React.memo(
                 size={22}
                 cursor="pointer"
                 onClick={() => setShow("")}
+                color="black"
               />
             </button>
           </div>

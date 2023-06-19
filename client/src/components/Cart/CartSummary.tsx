@@ -57,7 +57,9 @@ const CartSummary = () => {
 
           <div className={show ? styles["show-promo"] : styles["hide-promo"]}>
             <input type="text" placeholder="Enter Promo Code" ref={couponRef} />
-            <button onClick={handleDiscount}>Apply</button>
+            <button onClick={handleDiscount} style={{ color: "black" }}>
+              Apply
+            </button>
           </div>
         </div>
         <PriceSummaryCard show="active" />

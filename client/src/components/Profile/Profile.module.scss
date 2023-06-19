@@ -249,6 +249,7 @@
 .profile-button {
   @include displayCenter;
   justify-content: flex-end;
+  color: var(--main-font-color);
 
   button {
     @include buttonMain;

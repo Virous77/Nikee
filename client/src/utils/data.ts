@@ -24,6 +24,43 @@ import featuredBanner from "../assets/f20.jpeg";
 import featuredBanner2 from "../assets/f21.jpeg";
 import featuredBanner3 from "../assets/f22.jpeg";
 
+import { BsTwitter, BsWhatsapp, BsFacebook } from "react-icons/bs";
+import { BiLinkAlt } from "react-icons/bi";
+import { SiGmail } from "react-icons/si";
+
+export const socialShare = [
+  {
+    id: 1,
+    name: BiLinkAlt,
+    color: "black",
+    title: "link",
+  },
+  {
+    id: 2,
+    name: BsWhatsapp,
+    color: "green",
+    title: "whatsapp",
+  },
+  {
+    id: 3,
+    name: BsTwitter,
+    color: "blue",
+    title: "twitter",
+  },
+  {
+    id: 4,
+    name: BsFacebook,
+    color: "blue",
+    title: "facebook",
+  },
+  {
+    id: 5,
+    name: SiGmail,
+    color: "red",
+    title: "mail",
+  },
+];
+
 export const getLocalData = (name: string) => {
   const localData = localStorage.getItem(name);
   return localData ? JSON.parse(localData) : null;

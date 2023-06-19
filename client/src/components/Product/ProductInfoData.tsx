@@ -7,6 +7,7 @@ import { Product } from "../../interfaces/interface";
 import { FavType } from "./ProductInfo";
 import ProductReview from "./ProductReview";
 import ProductInformation from "./ProductInformation";
+import Share from "../Share/Share";
 
 type ProductInfoDataType = {
   productDetails: Product | undefined;
@@ -43,6 +44,8 @@ const ProductInfoData: React.FC<ProductInfoDataType> = ({
         <span style={{ marginTop: "10px" }}>incl of taxes</span>
         <span>(Also includes all applicable duties)</span>
       </div>
+
+      <Share name={productDetails?.name} />
 
       <div className={styles["product-i-img"]}>
         <img src={productDetails?.heroImage} alt="photo" />

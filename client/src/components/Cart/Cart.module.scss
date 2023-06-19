@@ -73,6 +73,18 @@
   @include displayCenter;
   gap: 10px;
   margin-top: 12px;
+
+  button {
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    @include displayAllCenter;
+
+    &:hover {
+      background-color: var(--card-color);
+    }
+  }
 }
 
 .order-summary {

@@ -87,6 +87,7 @@
   button {
     @include buttonMain;
     font-weight: 600;
+    color: var(--main-font-color);
   }
 }
 
