@@ -20,7 +20,7 @@ export const createProduct = async (req, res, next) => {
 
     const data = {
       category,
-      productType,
+      productType: productType.toLowerCase(),
       size,
       heroImage: heroImg[0].secure_url,
       images: getImage,
@@ -133,8 +133,7 @@ export const getPopularProducts = async (req, res, next) => {
     tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
 
     const products = await Products.find({
-      category: "Shoes",
-      updatedAt: { $gte: tenDaysAgo },
+      $or: [{ updatedAt: { $gte: tenDaysAgo } }, { category: "Shoes" }],
     })
       .select("name heroImage amount  slug -_id")
       .sort({ popular: -1 })

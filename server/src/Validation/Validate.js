@@ -28,7 +28,7 @@ export const ProductValidate = async (req, res, next) => {
       .object({
         name: joi.string().trim().required(),
         amount: joi.number().required().min(10),
-        size: joi.array().required().min(3),
+        productSize: joi.array().required().min(3),
         imageR: joi.string().trim().required(),
         imagesR: joi.array().required().min(3),
         productInformation: joi.string().trim().required(),
