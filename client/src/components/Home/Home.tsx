@@ -35,9 +35,9 @@ const Homes = () => {
   return (
     <main className={styles.home}>
       <div className={styles["home-wrap"]}>
-        <HeroImage heroData={data?.[0].homeHero} />
-        <HomeType homeData={data?.[0].nikeAhead} />
-        <ShopAir heroData={data?.[0].nikeAir} />
+        <HeroImage heroData={data?.[0]?.homeHero} />
+        <HomeType homeData={data?.[0]?.nikeAhead} />
+        <ShopAir heroData={data?.[0]?.nikeAir} />
       </div>
       <HomeIconic />
       <HomePopular />
