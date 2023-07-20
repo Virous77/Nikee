@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  mongodb:
+    image: mongo
+    restart: always
+    volumes:
+      - data:/data/db
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
+    restart: always
+    ports:
+      - "4000:4000"
+    container_name: server
+    volumes:
+      - ./server:/app
+      - ./server/node_modules:/app/node_modules
+    env_file:
+      - ./server/.env
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    env_file:
+      - ./client/.env
+    volumes:
+      - ./client:/app
+      - ./client/node_modules:/app/node_modules
+    ports:
+      - "5173:8000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+volumes:
+  data:
