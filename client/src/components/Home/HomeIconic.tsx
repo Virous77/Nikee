@@ -1,5 +1,5 @@
 import styles from "./Home.module.scss";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { HiArrowSmRight, HiArrowSmLeft } from "react-icons/hi";
 import { getData } from "../../api/api";
 import { useQuery } from "react-query";
@@ -49,54 +49,58 @@ const HomeIconic = () => {
   };
 
   return (
-    <section className={styles["home-iconic"]}>
-      {!isLoading && (
-        <>
-          <h2>Always Iconic</h2>
+    <React.Fragment>
+      {sneakers && sneakers?.length > 0 && (
+        <section className={styles["home-iconic"]}>
+          {!isLoading && (
+            <>
+              <h2>Always Iconic</h2>
 
-          <div className={styles["iconic-wrap"]} ref={nameRef}>
-            {sneakers &&
-              sneakers.map((shoes) => (
-                <div
-                  className={styles["sub-iconic"]}
-                  key={shoes._id}
-                  onClick={() => navigate(`/sneaker/${shoes.slug}`)}
-                >
-                  <img src={shoes.heroImage} alt={shoes.name} />
-                  <p>
-                    {shoes.name.length > 15
-                      ? `${shoes.name.substring(0, 15)}..`
-                      : shoes.name}
-                  </p>
-                </div>
-              ))}
-          </div>
-        </>
-      )}
-
-      {!isLoading && (
-        <>
-          {sneakers && sneakers.length >= 4 && (
-            <div className={styles["scroll"]}>
-              <button
-                onClick={() => scrollHandler("left")}
-                style={{ left: "3.4%" }}
-              >
-                <HiArrowSmLeft cursor="pointer" size={18} />
-              </button>
-              <button
-                onClick={() => scrollHandler("right")}
-                style={{ right: "3.4%" }}
-              >
-                <HiArrowSmRight cursor="pointer" size={18} />
-              </button>
-            </div>
+              <div className={styles["iconic-wrap"]} ref={nameRef}>
+                {sneakers &&
+                  sneakers.map((shoes) => (
+                    <div
+                      className={styles["sub-iconic"]}
+                      key={shoes._id}
+                      onClick={() => navigate(`/sneaker/${shoes.slug}`)}
+                    >
+                      <img src={shoes.heroImage} alt={shoes.name} />
+                      <p>
+                        {shoes.name.length > 15
+                          ? `${shoes.name.substring(0, 15)}..`
+                          : shoes.name}
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            </>
           )}
-        </>
-      )}
 
-      {isLoading && <FlexShimmer stylesClass="home-box" />}
-    </section>
+          {!isLoading && (
+            <>
+              {sneakers && sneakers.length >= 4 && (
+                <div className={styles["scroll"]}>
+                  <button
+                    onClick={() => scrollHandler("left")}
+                    style={{ left: "3.4%" }}
+                  >
+                    <HiArrowSmLeft cursor="pointer" size={18} />
+                  </button>
+                  <button
+                    onClick={() => scrollHandler("right")}
+                    style={{ right: "3.4%" }}
+                  >
+                    <HiArrowSmRight cursor="pointer" size={18} />
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+
+          {isLoading && <FlexShimmer stylesClass="home-box" />}
+        </section>
+      )}
+    </React.Fragment>
   );
 };
 

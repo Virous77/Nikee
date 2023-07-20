@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useQuery } from "react-query";
 import { getData } from "../../api/api";
 import { useGlobalContext } from "../../store/GlobalContext";
@@ -45,14 +45,18 @@ const HomePopular = () => {
   };
 
   return (
-    <RelatedScroll
-      scrollHandler={(e: string) => scrollHandler(e)}
-      title="Popular Products"
-      products={products}
-      nameRef={nameRef}
-      isLoading={isLoading}
-      link="product"
-    />
+    <React.Fragment>
+      {products && products.length > 0 && (
+        <RelatedScroll
+          scrollHandler={(e: string) => scrollHandler(e)}
+          title="Popular Products"
+          products={products}
+          nameRef={nameRef}
+          isLoading={isLoading}
+          link="product"
+        />
+      )}
+    </React.Fragment>
   );
 };
 

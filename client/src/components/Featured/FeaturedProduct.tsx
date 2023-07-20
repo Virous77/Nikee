@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { useGlobalContext } from "../../store/GlobalContext";
 import { AppError, Product } from "../../interfaces/interface";
 import FeaturedList from "./FeaturedList";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "../UI/Spinner";
 
@@ -57,30 +57,34 @@ const FeaturedProduct = () => {
   }, [pageNumber]);
 
   return (
-    <section className={styles["featured-product"]}>
-      <h2>Shop Nike Featured</h2>
+    <React.Fragment>
+      {state.length > 0 && (
+        <section className={styles["featured-product"]}>
+          <h2>Shop Nike Featured</h2>
 
-      <InfiniteScroll
-        dataLength={state.length + 1}
-        next={() => setPageNumber(pageNumber + 1)}
-        hasMore={state.length === total ? false : true}
-        loader={
-          state.length > 1 && (
-            <div className="globalCenter">
-              <Spinner />
+          <InfiniteScroll
+            dataLength={state.length + 1}
+            next={() => setPageNumber(pageNumber + 1)}
+            hasMore={state.length === total ? false : true}
+            loader={
+              state.length > 1 && (
+                <div className="globalCenter">
+                  <Spinner />
+                </div>
+              )
+            }
+            endMessage={<p></p>}
+            height={800}
+          >
+            <div className={styles["feature-list"]}>
+              {state.map((product) => (
+                <FeaturedList key={product._id} product={product} />
+              ))}
             </div>
-          )
-        }
-        endMessage={<p></p>}
-        height={800}
-      >
-        <div className={styles["feature-list"]}>
-          {state.map((product) => (
-            <FeaturedList key={product._id} product={product} />
-          ))}
-        </div>
-      </InfiniteScroll>
-    </section>
+          </InfiniteScroll>
+        </section>
+      )}
+    </React.Fragment>
   );
 };
 
