@@ -5,6 +5,7 @@ services:
     restart: always
     volumes:
       - data:/data/db
+    container_name: mongodb
   server:
     build:
       context: ./server
@@ -35,5 +36,7 @@ services:
     tty: true
     depends_on:
       - server
+    restart: always
+    container_name: client
 volumes:
   data:
