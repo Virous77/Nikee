@@ -30,7 +30,7 @@ const Homes = () => {
     }
   );
 
-  if (isLoading) return <Loader message="yes" />;
+  if (isLoading) return <Loader />;
 
   return (
     <main className={styles.home}>
