@@ -6,17 +6,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import UserRouter from "./src/Routes/userRoutes.js";
-import PaymentRouter from "./src/Routes/PaymentRoutes.js";
-import AddressRouter from "./src/Routes/AddressRoutes.js";
-import ProductsRouter from "./src/Routes/ProductsRoutes.js";
-import FavRouter from "./src/Routes/FavRoutes.js";
-import ReviewRouter from "./src/Routes/ReviewRoutes.js";
-import CartRouter from "./src/Routes/CartRoutes.js";
-import CouponRouter from "./src/Routes/CouponRoutes.js";
-import SneakerRouter from "./src/Routes/SneakersRoutes.js";
-import SearchRouter from "./src/Routes/SearchRoutes.js";
-import HomeRouter from "./src/Routes/HomeRoutes.js";
+import { routes } from "./src/routes.js";
 
 dotenv.config();
 const app = express();
@@ -32,20 +22,7 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // App api middleware
-app.use(
-  "/api/v1",
-  UserRouter,
-  AddressRouter,
-  PaymentRouter,
-  ProductsRouter,
-  FavRouter,
-  ReviewRouter,
-  CartRouter,
-  CouponRouter,
-  SneakerRouter,
-  SearchRouter,
-  HomeRouter
-);
+app.use("/api/v1", routes);
 
 //Handle app Error
 app.use((err, req, res, next) => {
