@@ -31,7 +31,7 @@ services:
       - ./client:/app
       - ./client/node_modules:/app/node_modules
     ports:
-      - "5173:8000"
+      - "5173:80"
     stdin_open: true
     tty: true
     depends_on:

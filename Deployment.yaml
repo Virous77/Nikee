@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nikee-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nikee
+  template:
+    metadata:
+      labels:
+        app: nikee
+    spec:
+      containers:
+        - name: nikee-frontend
+          image: virous77/nike:5
+          env:
+            - name: VITE_URL
+              value: "/api/"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nikee-backend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nikee-server
+  template:
+    metadata:
+      labels:
+        app: nikee-server
+    spec:
+      containers:
+        - name: nikee-server
+          image: virous77/nike-backend
+          env:
+            - name: PORT
+              value: "4000"
+            - name: MONGO_URI
+              value: "mongodb://mongo-service.default"
+            - name: KEY_SECRET
+              value: "RazorPAY SECRET Key"
+            - name: KEY_ID
+              value: "RazorPAY KEY Id"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-server
+  template:
+    metadata:
+      labels:
+        app: mongo-server
+    spec:
+      containers:
+        - name: mongo-server
+          image: mongo
