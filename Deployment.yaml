@@ -65,3 +65,10 @@ spec:
       containers:
         - name: mongo-server
           image: mongo
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-volume
+      volumes:
+        - name: mongo-volume
+          persistentVolumeClaim:
+            claimName: host-pvc
